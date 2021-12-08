@@ -1,6 +1,6 @@
-# Jamal Tadrous  
+# Introductie  
   
-## Introductie
+## Jamal Tadrous - Apprentice Cloud Engineer
   
 ### Nieuwsgierigheid, problemen oplossen en op zoek zijn naar uitdagingen zijn mijn drijfveer. 
 ### Ik ben in process om Cloud Engineer te worden!

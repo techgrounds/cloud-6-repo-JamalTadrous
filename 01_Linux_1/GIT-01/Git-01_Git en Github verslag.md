@@ -25,7 +25,20 @@ Introductie en definitie van termen.
   
   
 ## Opdracht
-### Gebruikte bronnen
+## 1:
+### -   Maak een GitHub account als je er nog geen hebt
+### -   Maak een repository op je GitHub account voor je portfolio
+### -   Geef permissies aan je teamgenoten om de repository te gebruiken
+### -   Push je code naar je [repository](https://github.com/JamalTadrous/cloud-6-repo-JamalTadrous)
+### -   Pull / Clone een repository van je peer.
+## 2:
+### -   Maak een nieuwe [repository](https://github.com/JamalTadrous/cloud-6-repo-JamalTadrous) aan voor je portfolio
+### -   Push je notities naar de repository
+### -   Deel deze repository met je Learning Coach
+ 
+
+
+## Gebruikte bronnen
 [Repository_Jamal_tadrous](https://github.com/JamalTadrous/cloud-6-repo-JamalTadrous)
 
 [Verslag_Template](https://github.com/JamalTadrous/cloud-6-repo-JamalTadrous/blob/main/00_templates/opdracht.md)
@@ -34,7 +47,7 @@ Introductie en definitie van termen.
 
 
 
-### Ervaren problemen
+## Ervaren problemen
 -   Het ging aan het begin wat stroef met het begrijpen wat er precies gevraagd werd in de opdracht om uit te voeren. Maar wat de overhand had in het zijn van een obstakel, was het wegwijs worden in Github, het gebruiken van alle handelingen en onthouden wat het allemaal doet.
 
 

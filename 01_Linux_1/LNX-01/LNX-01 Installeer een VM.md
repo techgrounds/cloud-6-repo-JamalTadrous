@@ -27,4 +27,4 @@ Met deze opdracht was het wat intensiever om wederom informatie in te winnen, ma
 ### Resultaat
 Ik heb door middel van deze opdracht Ubuntu OS geinstalleerd en word nu wegwijs in een alternatief LinuxOS. 
 
-![checkpointinstall](..//00_includes/LNX-01 - Ubuntu Install Checkpoint.jpg)
+![checkpointinstall](../00_includes/LNX-01 - Ubuntu Install Checkpoint.jpg)

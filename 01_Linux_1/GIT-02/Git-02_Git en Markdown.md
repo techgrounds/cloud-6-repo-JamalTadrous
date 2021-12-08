@@ -1,6 +1,6 @@
 # Introductie Git en Markdown
 
-Markdown is een WYSIWYM(WhatYouSeeIsWhatYouMean) type open-source Markup Language. Markdown bestanden zijn leesbaar in 'plain text', maar kunnen ook makkelijk omgezet worden naar andere een andere taal, bijvoorbeeld html. Git is een VCS die in staat is om de taal aan te leveren zoals het gepresenteerd word in het bestand.
+Markdown is een WYSIWYM (WhatYouSeeIsWhatYouMean) type open-source Markup Language. Markdown bestanden zijn leesbaar in 'plain text', maar kunnen ook makkelijk omgezet worden naar andere een andere taal, bijvoorbeeld html. Git is een VCS die in staat is om de taal aan te leveren zoals het gepresenteerd word in het bestand.
 
 ## Key-terms
 -   **VCS**  

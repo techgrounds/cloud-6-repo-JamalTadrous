@@ -49,7 +49,7 @@ Git is een DevOps tool voor het beheren van broncode (source code management) sp
 
 
 
-## Ervaren problemen
+### Ervaren problemen
 -   Het ging aan het begin wat stroef met het begrijpen wat er precies gevraagd werd in de opdracht om uit te voeren. Maar wat de overhand had in het zijn van een obstakel, was het wegwijs worden in Github, het gebruiken van alle handelingen en onthouden wat het allemaal doet.
 
 

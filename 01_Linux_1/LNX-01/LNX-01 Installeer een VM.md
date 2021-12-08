@@ -27,4 +27,6 @@ Met deze opdracht was het wat intensiever om wederom informatie in te winnen, ma
 ### Resultaat
 Ik heb door middel van deze opdracht Ubuntu OS geinstalleerd en word nu wegwijs in een alternatief LinuxOS. 
 
-![checkpointinstall](../00_includes/LNX-01 - Ubuntu Install Checkpoint.jpg)
+[checkpoint](https://github.com/JamalTadrous/cloud-6-repo-JamalTadrous/blob/main/00_includes/LNX-01%20-%20Ubuntu%20Install%20Checkpoint.jpg)  
+
+[Terminal_syntax_whoami](https://github.com/JamalTadrous/cloud-6-repo-JamalTadrous/blob/main/00_includes/LNX-01%20Installing%20a%20VM%20-%20Ubuntu%20VM%20-%20Terminal%20username%20Jamal.jpg)

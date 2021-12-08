@@ -1,5 +1,7 @@
 # Git en Github
-Introductie en definitie van termen.
+Git is een DevOps tool voor het beheren van broncode (source code management) specifiek voor versiebeheer (version control). 
+ Het staat teams toe om samen te werken aan dezelfde code zonder elkaar in de weg te zitten, en om terug te keren naar een werkende versie van de code wanneer er iets mis gaat.
+
  
 
  

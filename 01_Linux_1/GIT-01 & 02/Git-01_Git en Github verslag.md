@@ -24,8 +24,6 @@ Introductie en definitie van termen.
 -   Deze Git commando wordt vaak gebruikt om te switchen tussen branches. Je checkt als het ware uit bij een branch en gaat aan de slag in een andere branch.
   
   
-
-  
 ## Opdracht
 ### Gebruikte bronnen
 [Repository_Jamal_tadrous](https://github.com/JamalTadrous/cloud-6-repo-JamalTadrous)
@@ -43,5 +41,3 @@ Introductie en definitie van termen.
 
 ### Resultaat
 -   Uiteindelijk is het gelukt om aparte folders aan te maken in VSCode, de benodigde screenshots en files toe te voegen aan de folders en ze te synchroniseren met de Github repository.
-
-

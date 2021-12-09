@@ -2,11 +2,13 @@
 Linux-systemen bestaan uit een 'File system control' (bestands controle mechanisme) dat bepaalt wie het recht heeft op toegang tot een bestand en welke stappen of acties hij / zij erop kan uitvoeren. Het file control mechanism bestaat uit twee componenten. Classes of Ownership: Het verwijst naar degenen die toegang hebben tot het specifieke bestand.  
 
 ## Key-terms
--   file permissions
--   ownership
+-   File permissions = 
+Bestandsmachtigingen geven aan wie en wat ze kan lezen, schrijven, wijzigen en openen.  
 -   su  = switch user
--
-weioer
+-   chown   = verander eigendom (ownership) 
+-   chgrp   = verander groups 
+-   rwx     = read(r), write(w) en execute(x).
+-   ls -alh = toont alle files in een directory, met de aangewezen permissions(bevoegdheden), per bestand.  
 
 ## Opdracht
 -   Create a text file.  
@@ -25,7 +27,7 @@ weioer
 
 
 ### Ervaren problemen
-Het was wederom een uitdaging om de juiste syntax te vinden en rustig uit te voeren in de Terminal, zodat ik geen typfouten maakte en opnieuw kon beginnen :). Na veel te lezen en wat videos te bekijken werd ik pas meer wegwijs in het dirigeren van de permissions in het bestandbeheer.
+Het was wederom een uitdaging om de juiste syntax te vinden en rustig uit te voeren in de Terminal, zodat ik geen typfouten maakte en opnieuw kon beginnen . Na veel te lezen en wat videos te bekijken werd ik pas meer wegwijs in het dirigeren van de permissions in het bestandbeheer.
 
 ### Resultaat
 In de screenshot staan stap voor stap de uitwerken van de opdracht. Als je natuurlijk weet waar je moet kijken zie je het. (Alleen een ding stond niet in de opdracht. Ik probeerde een user te verwijderen om te bevestigen voor mijzelf dat het niet kon met de permissies die al waren aangewezen.)

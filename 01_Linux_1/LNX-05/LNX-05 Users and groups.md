@@ -3,7 +3,7 @@ In Linux is een 'group' een verzameling gebruikers. Het belangrijkste doel van '
 
 ## Key-terms
 -   **Root user**  
-De rootgebruiker, ook bekend als de superuser of beheerder, is een speciale gebruikersaccount in Linux die wordt gebruikt voor systeembeheer. Het is de meest bevoorrechte gebruiker op het Linux-systeem en het heeft toegang tot alle opdrachten en bestanden.
+De rootgebruiker, ook bekend als de superuser of beheerder(administrator), is een speciale gebruikersaccount in Linux die wordt gebruikt voor systeembeheer. Het is de meest bevoorrechte gebruiker op het Linux-systeem en het heeft toegang tot alle opdrachten en bestanden.
 
 -   **root permissions**  
 De root permissions staan voor het hebben van volledige toestemming om elk bestand te lezen(r), te schrijven (w) en uit te voeren(x).
@@ -32,4 +32,6 @@ sudo commando in Linux wordt over het algemeen gebruikt als een voorvoegsel van 
 Het was een tijd geleden dat ik had geprobeerd om een fictieve user in mijn terminal aan te maken. Daarom heb ik bronnen moeten inwinnen om de handelingen opnieuw aan te leren.
 ### Resultaat
 Door het maken van deze opdracht begrijp ik het belang van het hebben van de juiste bevoegdheden (permissions), naar de aangewezen users of groups in het LinuxOS. Ik kan nu Users toevoegen en verwijderen, bevoegdheden aanpassen en het allemaal ongedaan maken wanneer dat nodig is.
+
+[LNX-05 Add user and change permissions](https://github.com/JamalTadrous/cloud-6-repo-JamalTadrous/blob/main/00_includes/LNX-05%20Users%20and%20groups.jpg)
 

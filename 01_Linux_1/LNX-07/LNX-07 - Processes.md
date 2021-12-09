@@ -16,6 +16,8 @@ Een proces verwijst naar een programma in uitvoering(execution); het is een lope
 ### Gebruikte bronnen
 -   https://www.tecmint.com/linux-process-management/#:~:text=It%20is%20made%20up%20of%20the%20program%20instruction%2C,are%20initialized%20and%20controlled%20through%20a%20terminal%20session.  
 -   https://www.ibm.com/docs/en/z-system-automation/4.1.0?topic=automation-example-sshd  
+-   https://www.youtube.com/watch?v=JZ7h5FxlTVg  
+-   https://www.youtube.com/watch?v=Wlmne44M6fQ
 
 
 ### Ervaren problemen

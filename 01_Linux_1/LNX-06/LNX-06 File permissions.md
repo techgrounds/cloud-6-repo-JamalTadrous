@@ -1,5 +1,5 @@
 # File permissions
-Linux-systemen bestaan uit een bestandscontrolemechanisme dat bepaalt wie het recht heeft op toegang tot een bestand en welke stappen of acties hij / zij erop kan uitvoeren. Het file control machansm bestaat uit twee componenten. Classes of Ownership: Het verwijst naar degenen die toegang hebben tot het specifieke bestand.  
+Linux-systemen bestaan uit een 'File system control' (bestands controle mechanisme) dat bepaalt wie het recht heeft op toegang tot een bestand en welke stappen of acties hij / zij erop kan uitvoeren. Het file control mechanism bestaat uit twee componenten. Classes of Ownership: Het verwijst naar degenen die toegang hebben tot het specifieke bestand.  
 
 ## Key-terms
 -   file permissions
@@ -25,9 +25,12 @@ weioer
 
 
 ### Ervaren problemen
-[Geef een korte beschrijving van de problemen waar je tegenaan bent gelopen met je gevonden oplossing.]
+Het was wederom een uitdaging om de juiste syntax te vinden en rustig uit te voeren in de Terminal, zodat ik geen typfouten maakte en opnieuw kon beginnen :). Na veel te lezen en wat videos te bekijken werd ik pas meer wegwijs in het dirigeren van de permissions in het bestandbeheer.
 
 ### Resultaat
-[Omschrijf hoe je weet dat je opdracht gelukt is (gebruik screenshots waar nodig).]
+In de screenshot staan stap voor stap de uitwerken van de opdracht. Als je natuurlijk weet waar je moet kijken zie je het. (Alleen een ding stond niet in de opdracht. Ik probeerde een user te verwijderen om te bevestigen voor mijzelf dat het niet kon met de permissies die al waren aangewezen.)
 
-[file_permissions](https://docs.google.com/document/d/1NYK73c-t4NvK4_64Yat2f5gfs86I5hFh/edit#)
+
+[LNX-06_file_permissions_screenshot1](https://github.com/JamalTadrous/cloud-6-repo-JamalTadrous/blob/main/00_includes/LNX-06%20file%20permissons%201.jpg)  
+[LNX-06_file_permissions_screenshot2](https://github.com/JamalTadrous/cloud-6-repo-JamalTadrous/blob/main/00_includes/LNX-06%20file%20permissons%202.jpg)  
+[LNX-06_file_permissions_screenshot3](https://github.com/JamalTadrous/cloud-6-repo-JamalTadrous/blob/main/00_includes/LNX-06%20file%20permissons%203.jpg)

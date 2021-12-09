@@ -27,7 +27,9 @@ grep is een command-line utility voor het zoeken naar gegevenssets met platte te
 ### Gebruikte bronnen
 -   https://www.youtube.com/watch?v=U9SI-wYRD1M  
 -   https://www.geeksforgeeks.org/linux-operating-system-cli-command-line-interface-and-gui-graphic-user-interface/  
--   https://www.digitalocean.com/community/tutorials/using-grep-regular-expressions-to-search-for-text-patterns-in-linux
+-   https://www.digitalocean.com/community/tutorials/using-grep-regular-expressions-to-search-for-text-patterns-in-linux  
+-   https://www.youtube.com/watch?v=N05sWPgj-44  
+
 
 ### Ervaren problemen
 [Geef een korte beschrijving van de problemen waar je tegenaan bent gelopen met je gevonden oplossing.]

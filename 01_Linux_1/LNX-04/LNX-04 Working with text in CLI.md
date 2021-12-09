@@ -32,7 +32,9 @@ grep is een command-line utility voor het zoeken naar gegevenssets met platte te
 
 
 ### Ervaren problemen
-[Geef een korte beschrijving van de problemen waar je tegenaan bent gelopen met je gevonden oplossing.]
+[Geef een korte beschrijving van de problemen waar je tegenaan bent gelopen met je gevonden oplossing.] ALLES
 
 ### Resultaat
-[Omschrijf hoe je weet dat je opdracht gelukt is (gebruik screenshots waar nodig).]
+[Omschrijf hoe je weet dat je opdracht gelukt is (gebruik screenshots waar nodig).]  
+
+![Workingwithtext](../00_includes/LNX-04 Working with text.jpg)

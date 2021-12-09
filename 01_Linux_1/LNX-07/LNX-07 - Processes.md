@@ -5,8 +5,8 @@ Een proces verwijst naar een programma in uitvoering(execution); het is een lope
 -   Daemon  =   een daemon is een computerprogramma dat wordt uitgevoerd als een achtergrondproces, in plaats van onder de directe controle van een interactieve gebruiker.
 -   ssh = Secure Shell Daemon (sshd)  
  Dit programma is biedt gecodeerde communicatie tussen twee niet-vertrouwde hosts via een onveilig netwerk.
- -  PID = Process ID
--   
+ -  PID = Process ID  
+ 
 ## Opdracht  
 -   Start de ssh daemon.  
 -   Ontdek het PID van de ssh daemon.  

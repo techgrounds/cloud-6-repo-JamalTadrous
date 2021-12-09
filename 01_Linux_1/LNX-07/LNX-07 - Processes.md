@@ -24,3 +24,5 @@ Geen problemen ervaren.
 ### Resultaat
 De opdracht heeft mij laten onderzoeken hoe ik ssh oproep, het process uitlees en het stopt.
 
+[LNX-07_screenshot1](https://github.com/JamalTadrous/cloud-6-repo-JamalTadrous/blob/main/00_includes/LNX-07%20Processes%20ssh%20daemon%201.jpg)
+[LNX-07_screenshot2](https://github.com/JamalTadrous/cloud-6-repo-JamalTadrous/blob/main/00_includes/LNX-07%20Processes%20ssh%20daemon%202%20-%20kill%20ssh%20pid_inactive.jpg)

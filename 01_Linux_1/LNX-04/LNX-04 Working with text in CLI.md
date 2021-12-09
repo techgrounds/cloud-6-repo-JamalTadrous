@@ -32,9 +32,10 @@ grep is een command-line utility voor het zoeken naar gegevenssets met platte te
 
 
 ### Ervaren problemen
-[Geef een korte beschrijving van de problemen waar je tegenaan bent gelopen met je gevonden oplossing.]
+Het was even uitzoeken waarom sommige commands niet uitvoerbaar zijn
+als normale user in de terminal, maar naar het omschakelen naar de root user werd de opdracht uitvoerbaar.
 
 ### Resultaat
-[Omschrijf hoe je weet dat je opdracht gelukt is (gebruik screenshots waar nodig).]  
+Na het maken van de opdracht ben ik in staat een bestand te maken, uit te lezen en tekst toe te voegen. Daarnaast met de grep command ben ik nu in staat een specifiek woord of delen van een context naar voren te halen in de command-line interface.
 
-![Workingwithtext](../00_includes/LNX-04 Working with text.jpg)
+[LNX-04_Working-with-text](https://github.com/JamalTadrous/cloud-6-repo-JamalTadrous/blob/main/00_includes/LNX-04%20Working%20with%20text.jpg)

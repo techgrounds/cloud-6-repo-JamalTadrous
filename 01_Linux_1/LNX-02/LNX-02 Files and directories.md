@@ -28,3 +28,7 @@ Het ging soms wat stroef om de juiste syntax uit te voeren voor de screenshot, z
 
 ### Resultaat
 Ik heb een nieuwe Directory en bestand kunnen aanmaken in de Terminal. Daarnaast heb ik het bestandje benoemd en opgeroepen met een syntax, waardoor het de inhoud presenteerd. Tot slot heb ik voor het eerst de tree syntax gebruikt, wat de absolute en relative paths toont.
+
+[Navigeren_en_creeren_in_de_terminal](https://github.com/JamalTadrous/cloud-6-repo-JamalTadrous/blob/main/00_includes/LNX-02%20Filed-and-directories.jpg)  
+
+[Nano_textfile_in_techgrounds_directory](https://github.com/JamalTadrous/cloud-6-repo-JamalTadrous/blob/main/00_includes/LNX-02%20Nano-textfile.jpg)

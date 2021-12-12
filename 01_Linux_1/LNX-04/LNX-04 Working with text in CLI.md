@@ -38,4 +38,4 @@ als normale user in de terminal, maar naar het omschakelen naar de root user wer
 ### Resultaat
 Na het maken van de opdracht ben ik in staat een bestand te maken, uit te lezen en tekst toe te voegen. Daarnaast met de grep command ben ik nu in staat een specifiek woord of delen van een context naar voren te halen in de command-line interface.
 
-[LNX-04_Working-with-text](https://github.com/JamalTadrous/cloud-6-repo-JamalTadrous/blob/main/00_includes/LNX-04%20Working%20with%20text.jpg)
+![LNX-04 Working with text](https://user-images.githubusercontent.com/95616021/145731239-aa9c1216-d788-499d-8ed1-711b9f30acc5.jpg)

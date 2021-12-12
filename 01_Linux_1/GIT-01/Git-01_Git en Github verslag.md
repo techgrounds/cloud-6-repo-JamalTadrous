@@ -55,4 +55,7 @@ Git is een DevOps tool voor het beheren van broncode (source code management) sp
 
 
 ### Resultaat
--   Uiteindelijk is het gelukt om aparte folders aan te maken in VSCode, de benodigde screenshots en files toe te voegen aan de folders en ze te synchroniseren met de Github repository.
+-   Uiteindelijk is het gelukt om aparte folders aan te maken in VSCode, de benodigde screenshots en files toe te voegen aan de folders en ze te synchroniseren met de Github repository.  
+  
+  
+![Github user permissions](https://user-images.githubusercontent.com/95616021/145731153-4aea4f96-d29d-44a1-9cd9-75b453aef424.jpg)

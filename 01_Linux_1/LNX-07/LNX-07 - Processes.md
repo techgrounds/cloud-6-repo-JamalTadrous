@@ -24,8 +24,9 @@ Een proces verwijst naar een programma in uitvoering(execution); het is een lope
 Geen problemen ervaren.
 
 ### Resultaat
-De opdracht heeft mij laten onderzoeken hoe ik ssh oproep, het process uitlees en het stopt.
+De opdracht heeft mij laten onderzoeken hoe ik ssh oproep, het process uitlees en het stop.  
 
-[LNX-07_screenshot1](https://github.com/JamalTadrous/cloud-6-repo-JamalTadrous/blob/main/00_includes/LNX-07%20Processes%20ssh%20daemon%201.jpg)  
 
-[LNX-07_screenshot2](https://github.com/JamalTadrous/cloud-6-repo-JamalTadrous/blob/main/00_includes/LNX-07%20Processes%20ssh%20daemon%202%20-%20kill%20ssh%20pid_inactive.jpg)
+![LNX-07 Processes ssh daemon 1](https://user-images.githubusercontent.com/95616021/145731294-e3e9b484-530e-47bd-a3ae-86b8f2753eef.jpg)  
+
+![LNX-07 Processes ssh daemon 2 - kill ssh pid_inactive](https://user-images.githubusercontent.com/95616021/145731295-56654ab4-69a6-46c1-afa8-d24ffcf1743f.jpg)

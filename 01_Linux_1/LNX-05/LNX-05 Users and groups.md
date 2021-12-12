@@ -33,5 +33,6 @@ Het was een tijd geleden dat ik had geprobeerd om een fictieve user in mijn term
 ### Resultaat
 Door het maken van deze opdracht begrijp ik het belang van het hebben van de juiste bevoegdheden (permissions), naar de aangewezen users of groups in het LinuxOS. Ik kan nu Users toevoegen en verwijderen, bevoegdheden aanpassen en het allemaal ongedaan maken wanneer dat nodig is.
 
-[LNX-05 Add user and change permissions](https://github.com/JamalTadrous/cloud-6-repo-JamalTadrous/blob/main/00_includes/LNX-05%20Users%20and%20groups.jpg)
+![LNX-05 Users and groups](https://user-images.githubusercontent.com/95616021/145731255-eeb9c4cc-0667-4b23-8cec-c72c60f3b0d7.jpg)
+
 

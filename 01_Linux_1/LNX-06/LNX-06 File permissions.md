@@ -30,9 +30,12 @@ Bestandsmachtigingen geven aan wie en wat ze kan lezen, schrijven, wijzigen en o
 Het was wederom een uitdaging om de juiste syntax te vinden en rustig uit te voeren in de Terminal, zodat ik geen typfouten maakte en opnieuw kon beginnen . Na veel te lezen en wat videos te bekijken werd ik pas meer wegwijs in het dirigeren van de permissions in het bestandbeheer.
 
 ### Resultaat
-In de screenshot staan stap voor stap de uitwerken van de opdracht. Als je natuurlijk weet waar je moet kijken zie je het. (Alleen een ding stond niet in de opdracht. Ik probeerde een user te verwijderen om te bevestigen voor mijzelf dat het niet kon met de permissies die al waren aangewezen.)
+In de screenshot staan stap voor stap de uitwerken van de opdracht. Als je natuurlijk weet waar je moet kijken zie je het. (Alleen een ding stond niet in de opdracht. Ik probeerde een user te verwijderen om te bevestigen voor mijzelf dat het niet kon met de permissies die al waren aangewezen.)  
+  
+  
+![LNX-06 file permissons 1](https://user-images.githubusercontent.com/95616021/145731273-ddcc674f-e458-4bca-ae6d-4c1ff265728a.jpg)  
 
+![LNX-06 file permissons 2](https://user-images.githubusercontent.com/95616021/145731275-3c2a44d4-563f-41c4-a9b3-f170af87a6cc.jpg)  
 
-[LNX-06_file_permissions_screenshot1](https://github.com/JamalTadrous/cloud-6-repo-JamalTadrous/blob/main/00_includes/LNX-06%20file%20permissons%201.jpg)  
-[LNX-06_file_permissions_screenshot2](https://github.com/JamalTadrous/cloud-6-repo-JamalTadrous/blob/main/00_includes/LNX-06%20file%20permissons%202.jpg)  
-[LNX-06_file_permissions_screenshot3](https://github.com/JamalTadrous/cloud-6-repo-JamalTadrous/blob/main/00_includes/LNX-06%20file%20permissons%203.jpg)
+![LNX-06 file permissons 3](https://user-images.githubusercontent.com/95616021/145731276-2fc4067a-23ad-410b-ae1e-edb66baad294.jpg)  
+

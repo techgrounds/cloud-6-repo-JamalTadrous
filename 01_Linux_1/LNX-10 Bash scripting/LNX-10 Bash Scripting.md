@@ -58,4 +58,36 @@ om de opdrachten te kunnen maken. Ik moest veel lezen en veel videos kijken om e
 te begrijpen wat er gebeurd en hoe ik het implementeer.  
 
 ### Resultaat
-Na letterlijk een hele dag werken, heb ik door middel van de syntax in mijn vingers te krijgen, geleerd hoe ik de juiste permissies opzoek als de script niet wil werken. Daarnaast heb ik geleerd dat je accuraat moet met het invoeren, condities te zetten met de juiste variables met if, else en then statements. De producten van de opdrachten zijn een nummergenerator, geautomatiseerde script voor apache2(httpd) 'installatie/update/aanzetten' en het activeren van de directory naar de PATH variable in Bash.
+Na letterlijk een hele dag werken, heb ik door middel van de syntax in mijn vingers te krijgen, geleerd hoe ik de juiste permissies opzoek als de script niet wil werken. Daarnaast heb ik geleerd dat je accuraat moet met het invoeren, condities te zetten met de juiste variables met if, else en then statements. De producten van de opdrachten zijn een nummergenerator, geautomatiseerde script voor apache2(httpd) 'installatie/update/aanzetten' en het activeren van de directory naar de PATH variable in Bash.  
+  
+  
+  
+# opdracht 1:
+# 1    
+
+![LNX-10 opdracht 1 - 1 maak een scripts directory](https://user-images.githubusercontent.com/95616021/145730890-f128ca59-c145-4189-8fcb-38c305a95d81.jpg)  
+  
+# 2    
+
+![LNX-10 opdracht 1 - 2 PATH variable adjustment](https://user-images.githubusercontent.com/95616021/145730939-7d011bde-7c4e-4263-a8d7-6f6d75d360a7.jpg)  
+  
+# 3    
+
+![LNX-10 opdracht 1 - 3 append line script](https://user-images.githubusercontent.com/95616021/145730960-50e3be4c-7592-42e3-a6d5-cb6f2aaf615b.jpg)  
+![LNX-10 opdracht 1 - 3 append line through scripting](https://user-images.githubusercontent.com/95616021/145730966-4381baab-210d-4294-a650-b074cc01eed7.jpg)  
+  
+# 4  
+![LNX-10 opdracht 1 - 4 Apache script1](https://user-images.githubusercontent.com/95616021/145730984-098c286f-7e3d-43f3-92d7-386f3f52ddf8.jpg)  
+
+![LNX-10 opdracht 1 - 4 Apache script2](https://user-images.githubusercontent.com/95616021/145730987-e60c3da5-03c6-4dc8-8c18-15e861ad6fae.jpg)
+  
+# Opdracht 2:  
+![LNX-10 opdracht 2 random number generator script](https://user-images.githubusercontent.com/95616021/145731017-6d07caac-b402-4c68-b1fb-3f3b17cff609.jpg)  
+  
+# Opdracht 3:  
+![LNX-10 opdracht 3 random number generator](https://user-images.githubusercontent.com/95616021/145731071-d1457dea-c3e3-4359-ae7b-48cd8d341a17.jpg)
+
+
+
+
+

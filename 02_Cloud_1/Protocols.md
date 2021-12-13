@@ -11,7 +11,7 @@ communiceren en bestanden kunnen verzenden. Het OSI model geeft aan, in welke la
 Mens-computer interactielaag, waar toepassingen toegang hebben tot de netwerkservice. De plek waar gebruikers daadwerkelijk communiceren met de computer.  
 
     -   **6   -   Presentatie laag (Presentation layer)**  
-Deze laag is primair verantwoordelijk voor het voorbereiden van gegevens zodat deze door de toepassingslaag kunnen worden gebruikt; met andere woorden, laag 6 maakt de gegevens toonbaar voor toepassingen om te consumeren. De presentatielaag is verantwoordelijk voor de vertaling, versleuteling en compressie van gegevens.
+Deze laag is verantwoordelijk voor het voorbereiden van gegevens zodat deze door de toepassingslaag kunnen worden gebruikt; met andere woorden, laag 6 maakt de gegevens toonbaar voor toepassingen om te consumeren. De presentatielaag is verantwoordelijk voor de vertaling, versleuteling en compressie van gegevens.
 
     -   **5   -   Sessie laag (Session layer)**  
 Dit is de laag die verantwoordelijk is voor het openen en sluiten van de communicatie tussen de twee apparaten. De tijd tussen het openen en sluiten van de communicatie staat bekend als de sessie. De sessielaag zorgt ervoor dat de sessie lang genoeg open blijft om alle gegevens die worden uitgewisseld over te dragen en sluit vervolgens de sessie onmiddellijk om te voorkomen dat bronnen worden verspild.
@@ -20,7 +20,7 @@ Dit is de laag die verantwoordelijk is voor het openen en sluiten van de communi
 Laag 4 is verantwoordelijk voor end-to-end communicatie tussen de twee apparaten. Dit omvat het nemen van gegevens uit de sessielaag en deze opsplitsen in brokken die segmenten worden genoemd voordat deze naar laag 3 worden verzonden. De transportlaag op het ontvangende apparaat is verantwoordelijk voor het opnieuw monteren van de segmenten tot gegevens die de sessielaag kan verbruiken.
 
     -   **3   -   Netwerk laag    (Network layer)**  
-De netwerklaag - laag 3 -is verantwoordelijk voor het vergemakkelijken van gegevensoverdracht tussen twee verschillende netwerken. Als de twee apparaten die communiceren zich op hetzelfde netwerk bevinden, is de netwerklaag overbodig. De netwerklaag breekt segmenten van de transportlaag op in kleinere eenheden, pakketten genaamd, op het apparaat van de afzender en stelt deze pakketten opnieuw in elkaar op het ontvangende apparaat. De netwerklaag vindt ook het beste fysieke pad voor de gegevens om hun bestemming te bereiken; dit staat bekend als routing.
+De netwerklaag - laag 3 -is verantwoordelijk voor het vergemakkelijken van gegevensoverdracht tussen twee verschillende netwerken. Als de twee apparaten die communiceren zich op hetzelfde netwerk bevinden, is de netwerklaag overbodig. De netwerklaag breekt segmenten van de transportlaag op in kleinere eenheden, pakketten(pakkets) genoemd, op het apparaat van de afzender en stelt deze pakketten opnieuw in elkaar op het ontvangende apparaat. De netwerklaag vindt ook het beste fysieke pad voor de gegevens om hun bestemming te bereiken; dit staat bekend als routing.
 
     -   **2   -   Datalink laag   (Data Link Layer)**  
 De datalinklaag - laag 2 - lijkt sterk op de netwerklaag, behalve dat de datalinklaag gegevensoverdracht tussen twee apparaten op hetzelfde netwerk mogelijk maakt. De datalinklaag neemt pakketten van de netwerklaag en breekt ze op in kleinere stukken die frames worden genoemd. Net als de netwerklaag is de datalinklaag ook verantwoordelijk voor flow control en error control in intra-network communicatie (de transportlaag doet alleen flow control en error control voor inter-network communicatie).
@@ -32,7 +32,8 @@ Deze laag - laag 1 - omvat de fysieke apparatuur die betrokken is bij de gegeven
 -   TCP/IP:  
 'Three way handshake'  
 Het Internet Protocol (IP) is het adressysteem van het internet en heeft de kernfunctie van het leveren van informatiepakketten van een bronapparaat aan een doelapparaat. IP is de primaire manier waarop netwerkverbindingen tot stand worden gebracht en het legt de basis van het internet. IP verwerkt geen pakketvolgorde of foutcontrole. Dergelijke functionaliteit vereist een ander protocol, meestal TCP.  
-De 'Three way handshake' is een proces dat in een TCP/IP-netwerk wordt gebruikt om een verbinding te maken tussen de server en de client. Het is een proces in drie stappen waarbij zowel de client als de server synchronisatie- en bevestigingspakketten moeten uitwisselen voordat het echte gegevenscommunicatieproces begint.
+De 'Three way handshake' is een proces dat in een TCP/IP-netwerk wordt gebruikt om een verbinding te maken tussen de server en de client. Het is een proces in drie stappen waarbij zowel de client als de server synchronisatie- en bevestigingspakketten moeten uitwisselen voordat het echte gegevenscommunicatieproces begint.  
+  (IP is het deel dat het adres verkrijgt waarnaar gegevens worden verzonden. TCP is verantwoordelijk voor de levering van gegevens zodra dat IP-adres is gevonden.)
 
 -   SYN:  
 SYN (Synchronize) wordt gebruikt om een verbinding tot stand te brengen en tot stand te brengen. Het helpt u ook om volgnummers tussen apparaten te synchroniseren.
@@ -62,10 +63,10 @@ Hypertext Transfer Protocol (HTTP) is het protocol voor de communicatie tussen e
 Een poort is een fysiek dockingpunt waarmee een extern apparaat op de computer kan worden aangesloten. Het kan ook een programmatisch koppelingspunt zijn waardoor informatie van een programma naar de computer of via internet stroomt. Een netwerkpoort die wordt geleverd door de Transport Layer-protocollen van de Internet Protocol-suite, zoals TCP (Transmission Control Protocol) en UDP (User Diagram Protocol), is een nummer dat eindpuntcommunicatie tussen twee computers bedient.
 
 ## Opdracht  
--   Begrijp hoe een HTTPS TCP/IP-pakket opgebouwd is  
--   Begrijp wie bepaalt welke protocols wij gebruiken en wat je zelf moet doen om een nieuw protocol te introduceren.  
--   Identificeer op zijn minst één protocol per OSI-laag.  
--   Facebook was recent een lange tijd niet beschikbaar. Ontdek waarom. Tip: BGP.  
+1   -   Begrijp hoe een HTTPS TCP/IP-pakket opgebouwd is  
+2   -   Begrijp wie bepaalt welke protocols wij gebruiken en wat je zelf moet doen om een nieuw protocol te introduceren.  
+3   -   Identificeer op zijn minst één protocol per OSI-laag.  
+4   -   Facebook was recent een lange tijd niet beschikbaar. Ontdek waarom. Tip: BGP.  
 
 ### Gebruikte bronnen
 -   https://www.youtube.com/watch?v=CRdL1PcherM  
@@ -84,10 +85,14 @@ Breakdown UDP.
 Breakdown Port definitie.
 
 
-### Ervaren problemen
+## Ervaren problemen
 Het was even zoeken naar de juiste bronnen voor de termen die opgezocht moesten worden en het correct defineerd. Verder geen problemen ervaren.
 
-### Resultaat
+## Resultaat  
+### opdracht
+1   -     
+2   -   De zender zend een aanvraag uit naar de ontvanger en aan de hand van de communicatie die word gemaakt in de applicatielaag, word het type protocol bepaald.
+
   
 -   Het OSI model:
 ![OSI Layers](https://user-images.githubusercontent.com/95616021/145806320-747231e7-3188-49de-92f5-5a058e8d395d.jpg)  

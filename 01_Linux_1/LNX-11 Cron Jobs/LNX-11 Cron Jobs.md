@@ -17,6 +17,8 @@ Met Cron Tabs kan je bash scripts inplannen zodat deze op bepaalde moment of zel
 ### **Gebruikte bronnen**
 -   https://linuxize.com/post/scheduling-cron-jobs-with-crontab/  
 Breakdown Cron Jobs
+-   https://cloud.google.com/scheduler/docs/configuring/cron-job-schedules  
+Breakdown Cron Jobs Schedules
 -   https://www.youtube.com/watch?v=v952m13p-b4  
 Cron Jobs - Linux task scheduling  
 -   https://www.youtube.com/watch?v=FpGLVY2wD8o  

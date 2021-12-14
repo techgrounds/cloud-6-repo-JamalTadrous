@@ -1,6 +1,6 @@
 # Protocols
 Een protocol is een set regels voor het opmaken en verwerken van gegevens.  
-Netwerkprotocollen zijn als een gemeenschappelijke taal voor computers. De computers binnen een netwerk kunnen enorm veel verschillende software en hardware gebruiken; het gebruik van protocollen stelt hen echter in staat om hoe dan ook met elkaar te communiceren.
+Netwerkprotocollen werken als een soort onderdeel van een gemeenschappelijke taal voor computers. De computers binnen een netwerk kunnen enorm veel verschillende software en hardware gebruiken; het gebruik van protocollen stelt hen echter in staat om hoe dan ook met elkaar te communiceren.
 
 ## Key-terms
 -   OSI model  

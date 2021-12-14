@@ -12,8 +12,8 @@ communiceren en bestanden kunnen verzenden. Het OSI model geeft aan, in welke la
         De plek waar gebruikers daadwerkelijk communiceren met de computer.  
 
         -   6   -   Presentatie laag (Presentation layer)  
-        Deze laag is verantwoordelijk voor het voorbereiden van gegevens zodat deze door de toepassingslaag kunnen worden gebruikt; met andere woorden, laag 6 maakt de gegevens toonbaar voor toepassingen om te consumeren. 
-        De presentatielaag is verantwoordelijk voor de vertaling, versleuteling en compressie van gegevens.
+        Deze laag is verantwoordelijk voor het voorbereiden van gegevens zodat deze door de toepassingslaag kunnen worden gebruikt; met andere woorden, laag 6 maakt de gegevens toonbaar voor applicaties om te consumeren. 
+        De presentatielaag is verantwoordelijk voor de vertaling, encryptie en compressie van gegevens.
 
         -   5   -   Sessie laag (Session layer)  
         Dit is de laag die verantwoordelijk is voor het openen en sluiten van de communicatie tussen de twee apparaten. De tijd tussen het openen en sluiten van de communicatie staat bekend als de sessie. 
@@ -93,7 +93,9 @@ Breakdown Port definitie.
 -   https://medium.com/jspoint/a-brief-overview-of-the-tcp-ip-model-ssl-tls-https-protocols-and-ssl-certificates-d5a6269fe29e  
 HTTPS 
 -   https://cybernews.com/news/why-facebook-went-down-and-what-s-bgp-routing/
-Facebook BGP causing outage.
+Facebook BGP causing outage.  
+-   https://youtu.be/A1KXPpqlNZ4  
+BGP Routing introduction.
 
 
 ## Ervaren problemen
@@ -143,11 +145,25 @@ Het was even zoeken naar de juiste bronnen voor de termen die opgezocht moesten 
   
 -   Het OSI model:
 ![OSI Layers](https://user-images.githubusercontent.com/95616021/145806320-747231e7-3188-49de-92f5-5a058e8d395d.jpg)  
+  
+
 -   Voorbeeld TCP/IP protocol.
 ![R](https://user-images.githubusercontent.com/95616021/145806452-d62fac29-4f4b-4d07-914c-f2cca3144e1e.jpg)  
--   Three-way-handshake-model.
+  
+
+-   Three-way-handshake-model. 1
 ![TCP3WayHandshake](https://user-images.githubusercontent.com/95616021/145806460-0571b01b-6b22-439b-9a52-d1a704be7840.png)  
-[Protocols](https://user-images.githubusercontent.com/95616021/145985378-b91efef6-0911-405f-a2d0-e029db5980ae.jpg)
+  
+
+-   Three-way-handshake-model in Wireshark. 2
+![syn-ack](https://user-images.githubusercontent.com/95616021/145987461-320c7539-4793-4da3-bde0-c88ce7dd0f93.png)  
+  
+
+-   Voorbeeld html routing
+![Protocols](https://user-images.githubusercontent.com/95616021/145986918-9b738e3a-800e-4dd3-84d4-ebfbccc6b580.jpg)  
+-   BGP Routing introduction  
+[BGP_routing_introduction](https://youtu.be/A1KXPpqlNZ4)
+
 
 
 

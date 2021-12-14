@@ -7,26 +7,26 @@ Netwerkprotocollen zijn als een gemeenschappelijke taal voor computers. De compu
 "Open System Interconnection" is gemaakt zodat computers met elkaar kunnen 
 communiceren en bestanden kunnen verzenden. Het OSI model geeft aan, in welke lagen, welke componenten, welk process behandeld word in het versturen van gegevens. Het OSI model is onder te verdelen in 7 lagen.  
 
-    -   **7   -   Applicatie laag (Application layer)**  
-Mens-computer interactielaag, waar toepassingen toegang hebben tot de netwerkservice. De plek waar gebruikers daadwerkelijk communiceren met de computer.  
+        -   7   -   Applicatie laag (Application layer)  
+        Mens-computer interactielaag, waar toepassingen toegang hebben tot de netwerkservice. De plek waar gebruikers daadwerkelijk communiceren met de computer.  
 
-    -   **6   -   Presentatie laag (Presentation layer)**  
-Deze laag is verantwoordelijk voor het voorbereiden van gegevens zodat deze door de toepassingslaag kunnen worden gebruikt; met andere woorden, laag 6 maakt de gegevens toonbaar voor toepassingen om te consumeren. De presentatielaag is verantwoordelijk voor de vertaling, versleuteling en compressie van gegevens.
+        -   6   -   Presentatie laag (Presentation layer)  
+        Deze laag is verantwoordelijk voor het voorbereiden van gegevens zodat deze door de toepassingslaag kunnen worden gebruikt; met andere woorden, laag 6 maakt de gegevens toonbaar voor toepassingen om te consumeren. De presentatielaag is verantwoordelijk voor de vertaling, versleuteling en compressie van gegevens.
 
-    -   **5   -   Sessie laag (Session layer)**  
-Dit is de laag die verantwoordelijk is voor het openen en sluiten van de communicatie tussen de twee apparaten. De tijd tussen het openen en sluiten van de communicatie staat bekend als de sessie. De sessielaag zorgt ervoor dat de sessie lang genoeg open blijft om alle gegevens die worden uitgewisseld over te dragen en sluit vervolgens de sessie onmiddellijk om te voorkomen dat bronnen worden verspild.
+        -   5   -   Sessie laag (Session layer)  
+        Dit is de laag die verantwoordelijk is voor het openen en sluiten van de communicatie tussen de twee apparaten. De tijd tussen het openen en sluiten van de communicatie staat bekend als de sessie. De sessielaag zorgt ervoor dat de sessie lang genoeg open blijft om alle gegevens die worden uitgewisseld over te dragen en sluit vervolgens de sessie onmiddellijk om te voorkomen dat bronnen worden verspild.
 
-    -   **4   -   Transport laag (Transport layer)**  
-Laag 4 is verantwoordelijk voor end-to-end communicatie tussen de twee apparaten. Dit omvat het nemen van gegevens uit de sessielaag en deze opsplitsen in brokken die segmenten worden genoemd voordat deze naar laag 3 worden verzonden. De transportlaag op het ontvangende apparaat is verantwoordelijk voor het opnieuw monteren van de segmenten tot gegevens die de sessielaag kan verbruiken.
+        -   4   -   Transport laag (Transport layer)  
+        Laag 4 is verantwoordelijk voor end-to-end communicatie tussen de twee apparaten. Dit omvat het nemen van gegevens uit de sessielaag en deze opsplitsen in brokken die segmenten worden genoemd voordat deze naar laag 3 worden verzonden. De transportlaag op het ontvangende apparaat is verantwoordelijk voor het opnieuw monteren van de segmenten tot gegevens die de sessielaag kan verbruiken.
 
-    -   **3   -   Netwerk laag    (Network layer)**  
-De netwerklaag - laag 3 -is verantwoordelijk voor het vergemakkelijken van gegevensoverdracht tussen twee verschillende netwerken. Als de twee apparaten die communiceren zich op hetzelfde netwerk bevinden, is de netwerklaag overbodig. De netwerklaag breekt segmenten van de transportlaag op in kleinere eenheden, pakketten(pakkets) genoemd, op het apparaat van de afzender en stelt deze pakketten opnieuw in elkaar op het ontvangende apparaat. De netwerklaag vindt ook het beste fysieke pad voor de gegevens om hun bestemming te bereiken; dit staat bekend als routing.
+        -   3   -   Netwerk laag    (Network layer)  
+        De netwerklaag - laag 3 -is verantwoordelijk voor het vergemakkelijken van gegevensoverdracht tussen twee verschillende netwerken. Als de twee apparaten die communiceren zich op hetzelfde netwerk bevinden, is de netwerklaag overbodig. De netwerklaag breekt segmenten van de transportlaag op in kleinere eenheden, pakketten(pakkets) genoemd, op het apparaat van de afzender en stelt deze pakketten opnieuw in elkaar op het ontvangende apparaat. De netwerklaag vindt ook het beste fysieke pad voor de gegevens om hun bestemming te bereiken; dit staat bekend als routing.
 
-    -   **2   -   Datalink laag   (Data Link Layer)**  
-De datalinklaag - laag 2 - lijkt sterk op de netwerklaag, behalve dat de datalinklaag gegevensoverdracht tussen twee apparaten op hetzelfde netwerk mogelijk maakt. De datalinklaag neemt pakketten van de netwerklaag en breekt ze op in kleinere stukken die frames worden genoemd. Net als de netwerklaag is de datalinklaag ook verantwoordelijk voor flow control en error control in intra-network communicatie (de transportlaag doet alleen flow control en error control voor inter-network communicatie).
+        -   2   -   Datalink laag   (Data Link Layer)  
+        De datalinklaag - laag 2 - lijkt sterk op de netwerklaag, behalve dat de datalinklaag gegevensoverdracht tussen twee apparaten op hetzelfde netwerk mogelijk maakt. De datalinklaag neemt pakketten van de netwerklaag en breekt ze op in kleinere stukken die frames worden genoemd. Net als de netwerklaag is de datalinklaag ook verantwoordelijk voor flow control en error control in intra-network communicatie (de transportlaag doet alleen flow control en error control voor inter-network communicatie).
 
-    -   **1   -   Fysieke laag    (Physical layer)**  
-Deze laag - laag 1 - omvat de fysieke apparatuur die betrokken is bij de gegevensoverdracht, zoals de kabels en schakelaars. Dit is ook de laag waar de gegevens worden omgezet in een bitstream, een reeks van 1s en 0s. De fysieke laag van beide apparaten moet het ook eens worden over een signaalconventie, zodat de 1s op beide apparaten van de 0s kunnen worden onderscheiden.
+        -   1   -   Fysieke laag    (Physical layer)  
+        Deze laag - laag 1 - omvat de fysieke apparatuur die betrokken is bij de gegevensoverdracht, zoals de kabels en schakelaars. Dit is ook de laag waar de gegevens worden omgezet in een bitstream, een reeks van 1s en 0s. De fysieke laag van beide apparaten moet het ook eens worden over een signaalconventie, zodat de 1s op beide apparaten van de 0s kunnen worden onderscheiden.
 
 
 -   TCP/IP:  
@@ -82,16 +82,49 @@ Breakdown Three-Way-Handshake.
 -   https://www.javatpoint.com/udp-protocol#:~:text=The%20UDP%20protocol%20allows%20the%20computer%20applications%20to,protocol%20to%20the%20TCP%20protocol%20%28transmission%20control%20protocol%29.  
 Breakdown UDP.  
 -   https://www.tutorialspoint.com/what-is-network-port  
-Breakdown Port definitie.
+Breakdown Port definitie.  
+-   https://www.cspsprotocol.com/protocols-in-osi-model/
+-   https://cybernews.com/news/why-facebook-went-down-and-what-s-bgp-routing/
+Facebook BGP causing outage.
 
 
 ## Ervaren problemen
 Het was even zoeken naar de juiste bronnen voor de termen die opgezocht moesten worden en het correct defineerd. Verder geen problemen ervaren.
 
 ## Resultaat  
-### opdracht
-1   -     
-2   -   De zender zend een aanvraag uit naar de ontvanger en aan de hand van de communicatie die word gemaakt in de applicatielaag, word het type protocol bepaald.
+
+### opdrachten uitwerking:
+1   -     De belangrijkste motivaties voor HTTPS zijn authenticatie van de geopende website en bescherming van de privacy en integriteit van de uitgewisselde gegevens tijdens het transport. Het beschermt tegen man-in-the-middle-aanvallen en de bidirectionele codering van communicatie tussen een client en server beschermt de communicatie tegen afluisteren en misbruiken van gegevens. Voor het verificatieaspect van HTTPS is een vertrouwde derde partij vereist om digitale certificaten aan de serverzijde te ondertekenen.  
+
+2   -   De zender zend een aanvraag uit naar de ontvanger en aan de hand van de communicatie die word gemaakt in de applicatielaag, word het type protocol bepaald. - het initieren van een protocol.
+    -   Als je letterlijk een nieuwe protocol wil toepassen die ergens in de OSI laag geplaatst moet worden, zou je
+    bij het 'Internet Engineering Task Force (IETF) een request kunnen doen. Het is een non-profit organisatie die vrijwillig het internet standaard onderhouden en beheren om het gebruik en in verwerkingsmogelijkheden.
+
+3   -   Protocol voorbeeld per laag.  
+
+        **- Layer 7 - Application:    HTTP (Hypertext Transfer Protocol)**  
+        Een client-server model waarbij een webbrowser het middel is waarmee de klant
+        kan communiceren met de webserver die de website host.
+
+        **- Layer 6 - Presentation:   SSL (Secure Sockets layer) Protocol**  
+        De SSL protocal zorgt ervoor dat de aanvraag met encryptie overhandigd word door de andere lagen en hierdoor het bestand beveiligd tegen verlies van data en beveiligde communicatie.
+
+        **- Layer 5 - Session:        NetBIOS Protocol**  
+        NetBIOS biedt drie verschillende services: Naamservice voor naamregistratie en omzetting (poorten: 137/udp en 137/tcp) Datagramdistributieservice voor verbindingsloze communicatie (poort: 138/udp) Sessieservice voor verbindingsgeoriënteerde communicatie (poort: 139/tcp)
+        
+        **- Layer 4 - Transport:      UDP Protocol**  
+        Voor real-time diensten zoals computer gaming, spraak- of videocommunicatie, live conferenties; we hebben UDP nodig. Omdat hoge prestaties nodig zijn, staat UDP toe dat sommige pakketten worden laten vallen in plaats van vertraagde pakketten te verwerken. Dit komt bedoel om latency en bandwith op een bruikbaar niveau te houden.
+
+        **- Layer 3 - Network:        IPv4/IPv6 Protocol**  
+         IPv4 is een verbindingsloos protocol dat wordt gebruikt in pakket-switchlaagnetwerken, zoals internet. Deze adressen zijn specifiek en universeel. Met andere woorden, elk adres definieert één en slechts één apparaat op internet.
+
+        **- Layer 2 - Data Link:      NCP (Network Control Protocol) **  
+        NCP stelt gebruikers in principe in staat om toegang te hebben tot computers en sommige apparaten op externe locaties en ook om bestanden over te dragen tussen twee of meer computers. Het is over het algemeen een reeks protocollen die deel uitmaakt van PPP(point-to-point protocol).
+
+        **- Layer 1 - Physical:       RS232**  
+        RS232 staat voor "Recommended Standard 232" en het is een soort 'serial' communicatie die wordt gebruikt voor het aansluiten van de computer en zijn randapparatuur om seriële gegevensuitwisseling tussen hen mogelijk te maken.  
+  
+4   -   Facebook was recent een tijd niet beschikbaar. Vele bronnen geven aan dat de Border Gateway Protocol(BGP), misconfigureerd was en hierdoor coordineerde de 'backbone routers' het netwerk verkeerd, ofwel, na de update was het originele DNS niet meer gelinked tot het netwerk en dit zorgde ervoor dat de aanvragen geen directie meer hadden om de DNS op te vragen en een URL uit te kunnen voeren voor de klant. Het DNS was er namelijk niet meer na de misconfiguratie. Dit heeft ervoor gezorgd dat Facebook niet meer beschikbaar was voor een paar uur, samenhangend met de bedrijven die in de overkoepeling vallen van facebook(o.a. Twitter en Instagram).
 
   
 -   Het OSI model:

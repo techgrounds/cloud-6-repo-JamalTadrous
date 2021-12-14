@@ -8,19 +8,25 @@ Netwerkprotocollen zijn als een gemeenschappelijke taal voor computers. De compu
 communiceren en bestanden kunnen verzenden. Het OSI model geeft aan, in welke lagen, welke componenten, welk process behandeld word in het versturen van gegevens. Het OSI model is onder te verdelen in 7 lagen.  
 
         -   7   -   Applicatie laag (Application layer)  
-        Mens-computer interactielaag, waar toepassingen toegang hebben tot de netwerkservice. De plek waar gebruikers daadwerkelijk communiceren met de computer.  
+        Mens-computer interactielaag, waar toepassingen toegang hebben tot de netwerkservice. 
+        De plek waar gebruikers daadwerkelijk communiceren met de computer.  
 
         -   6   -   Presentatie laag (Presentation layer)  
-        Deze laag is verantwoordelijk voor het voorbereiden van gegevens zodat deze door de toepassingslaag kunnen worden gebruikt; met andere woorden, laag 6 maakt de gegevens toonbaar voor toepassingen om te consumeren. De presentatielaag is verantwoordelijk voor de vertaling, versleuteling en compressie van gegevens.
+        Deze laag is verantwoordelijk voor het voorbereiden van gegevens zodat deze door de toepassingslaag kunnen worden gebruikt; met andere woorden, laag 6 maakt de gegevens toonbaar voor toepassingen om te consumeren. 
+        De presentatielaag is verantwoordelijk voor de vertaling, versleuteling en compressie van gegevens.
 
         -   5   -   Sessie laag (Session layer)  
-        Dit is de laag die verantwoordelijk is voor het openen en sluiten van de communicatie tussen de twee apparaten. De tijd tussen het openen en sluiten van de communicatie staat bekend als de sessie. De sessielaag zorgt ervoor dat de sessie lang genoeg open blijft om alle gegevens die worden uitgewisseld over te dragen en sluit vervolgens de sessie onmiddellijk om te voorkomen dat bronnen worden verspild.
+        Dit is de laag die verantwoordelijk is voor het openen en sluiten van de communicatie tussen de twee apparaten. De tijd tussen het openen en sluiten van de communicatie staat bekend als de sessie. 
+        De sessielaag zorgt ervoor dat de sessie lang genoeg open blijft om alle gegevens die worden uitgewisseld over te dragen en sluit vervolgens de sessie onmiddellijk om te voorkomen dat bronnen worden verspild.
 
         -   4   -   Transport laag (Transport layer)  
-        Laag 4 is verantwoordelijk voor end-to-end communicatie tussen de twee apparaten. Dit omvat het nemen van gegevens uit de sessielaag en deze opsplitsen in brokken die segmenten worden genoemd voordat deze naar laag 3 worden verzonden. De transportlaag op het ontvangende apparaat is verantwoordelijk voor het opnieuw monteren van de segmenten tot gegevens die de sessielaag kan verbruiken.
+        Laag 4 is verantwoordelijk voor end-to-end communicatie tussen de twee apparaten. Dit omvat het nemen van gegevens uit de sessielaag en deze opsplitsen in brokken die segmenten worden genoemd voordat deze naar laag 3 worden verzonden. 
+        De transportlaag op het ontvangende apparaat is verantwoordelijk voor het opnieuw monteren van de segmenten tot gegevens die de sessielaag kan verbruiken.
 
         -   3   -   Netwerk laag    (Network layer)  
-        De netwerklaag - laag 3 -is verantwoordelijk voor het vergemakkelijken van gegevensoverdracht tussen twee verschillende netwerken. Als de twee apparaten die communiceren zich op hetzelfde netwerk bevinden, is de netwerklaag overbodig. De netwerklaag breekt segmenten van de transportlaag op in kleinere eenheden, pakketten(pakkets) genoemd, op het apparaat van de afzender en stelt deze pakketten opnieuw in elkaar op het ontvangende apparaat. De netwerklaag vindt ook het beste fysieke pad voor de gegevens om hun bestemming te bereiken; dit staat bekend als routing.
+        De netwerklaag - laag 3 -is verantwoordelijk voor het vergemakkelijken van gegevensoverdracht tussen twee verschillende netwerken. Als de twee apparaten die communiceren zich op hetzelfde netwerk bevinden, is de netwerklaag overbodig. 
+        De netwerklaag breekt segmenten van de transportlaag op in kleinere eenheden, pakketten(pakkets) genoemd, op het apparaat van de afzender en stelt deze pakketten opnieuw in elkaar op het ontvangende apparaat.
+        De netwerklaag vindt ook het beste fysieke pad voor de gegevens om hun bestemming te bereiken; dit staat bekend als routing.
 
         -   2   -   Datalink laag   (Data Link Layer)  
         De datalinklaag - laag 2 - lijkt sterk op de netwerklaag, behalve dat de datalinklaag gegevensoverdracht tussen twee apparaten op hetzelfde netwerk mogelijk maakt. De datalinklaag neemt pakketten van de netwerklaag en breekt ze op in kleinere stukken die frames worden genoemd. Net als de netwerklaag is de datalinklaag ook verantwoordelijk voor flow control en error control in intra-network communicatie (de transportlaag doet alleen flow control en error control voor inter-network communicatie).
@@ -84,6 +90,8 @@ Breakdown UDP.
 -   https://www.tutorialspoint.com/what-is-network-port  
 Breakdown Port definitie.  
 -   https://www.cspsprotocol.com/protocols-in-osi-model/
+-   https://medium.com/jspoint/a-brief-overview-of-the-tcp-ip-model-ssl-tls-https-protocols-and-ssl-certificates-d5a6269fe29e  
+HTTPS 
 -   https://cybernews.com/news/why-facebook-went-down-and-what-s-bgp-routing/
 Facebook BGP causing outage.
 
@@ -124,7 +132,13 @@ Het was even zoeken naar de juiste bronnen voor de termen die opgezocht moesten 
         **- Layer 1 - Physical:       RS232**  
         RS232 staat voor "Recommended Standard 232" en het is een soort 'serial' communicatie die wordt gebruikt voor het aansluiten van de computer en zijn randapparatuur om seriële gegevensuitwisseling tussen hen mogelijk te maken.  
   
-4   -   Facebook was recent een tijd niet beschikbaar. Vele bronnen geven aan dat de Border Gateway Protocol(BGP), misconfigureerd was en hierdoor coordineerde de 'backbone routers' het netwerk verkeerd, ofwel, na de update was het originele DNS niet meer gelinked tot het netwerk en dit zorgde ervoor dat de aanvragen geen directie meer hadden om de DNS op te vragen en een URL uit te kunnen voeren voor de klant. Het DNS was er namelijk niet meer na de misconfiguratie. Dit heeft ervoor gezorgd dat Facebook niet meer beschikbaar was voor een paar uur, samenhangend met de bedrijven die in de overkoepeling vallen van facebook(o.a. Twitter en Instagram).
+4   -   Facebook was recent een tijd niet beschikbaar. Vele bronnen geven aan dat de Border Gateway Protocol(BGP), misconfigureerd was en hierdoor coordineerde de 'backbone routers' het netwerk verkeerd, ofwel, na de update was het originele DNS niet meer gelinked tot het netwerk en dit zorgde ervoor dat de aanvragen geen directie meer hadden om de DNS op te vragen en een URL uit te kunnen voeren voor de klant. Het DNS was er namelijk niet meer na de misconfiguratie. Dit heeft ervoor gezorgd dat Facebook niet meer beschikbaar was voor een paar uur, samenhangend met de bedrijven die in de overkoepeling vallen van facebook(o.a. Twitter en Instagram). 
+  
+  --------  
+
+  --------  
+
+
 
   
 -   Het OSI model:
@@ -133,6 +147,7 @@ Het was even zoeken naar de juiste bronnen voor de termen die opgezocht moesten 
 ![R](https://user-images.githubusercontent.com/95616021/145806452-d62fac29-4f4b-4d07-914c-f2cca3144e1e.jpg)  
 -   Three-way-handshake-model.
 ![TCP3WayHandshake](https://user-images.githubusercontent.com/95616021/145806460-0571b01b-6b22-439b-9a52-d1a704be7840.png)  
+[Protocols](https://user-images.githubusercontent.com/95616021/145985378-b91efef6-0911-405f-a2d0-e029db5980ae.jpg)
 
 
 

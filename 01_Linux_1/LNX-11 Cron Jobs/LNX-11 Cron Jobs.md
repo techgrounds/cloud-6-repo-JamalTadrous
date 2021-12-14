@@ -24,6 +24,8 @@ Breakdown Cron Jobs
 # opdracht 1:  
 
 ![LNX-11 Cron Job - Date and Time](https://user-images.githubusercontent.com/95616021/145731726-4a92345f-aaf7-436a-9a26-6e943767063a.jpg)  
+
+
   
 # opdracht 2:  
   

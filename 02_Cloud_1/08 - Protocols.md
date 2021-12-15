@@ -106,9 +106,8 @@ Het was even zoeken naar de juiste bronnen voor de termen die opgezocht moesten 
 ### opdrachten uitwerking:
 1   -     De belangrijkste motivaties voor HTTPS zijn authenticatie van de geopende website en bescherming van de privacy en integriteit van de uitgewisselde gegevens tijdens het transport. Het beschermt tegen man-in-the-middle-aanvallen en de bidirectionele codering van communicatie tussen een client en server beschermt de communicatie tegen afluisteren en misbruiken van gegevens. Voor het verificatieaspect van HTTPS is een vertrouwde derde partij vereist om digitale certificaten aan de serverzijde te ondertekenen.  
 
-2   -   De zender zend een aanvraag uit naar de ontvanger en aan de hand van de communicatie die word gemaakt in de applicatielaag, word het type protocol bepaald. - het initieren van een protocol.
-    -   Als je letterlijk een nieuwe protocol wil toepassen die ergens in de OSI laag geplaatst moet worden, zou je
-    bij het 'Internet Engineering Task Force (IETF) een request kunnen doen. Het is een non-profit organisatie die vrijwillig het internet standaard onderhouden en beheren om het gebruik en in verwerkingsmogelijkheden.
+2   -   Als je letterlijk een nieuwe protocol wilt toepassen die ergens in de OSI laag geplaatst moet worden, zou je
+    bij het 'Internet Engineering Task Force (IETF) een request kunnen doen. Het is een non-profit organisatie die vrijwillig het internet standaard onderhouden en beheren. Er word democratisch met de commissies en aangesloten groepen die het Internet Standaard bewaren, bepaald of jouw protocol nodig is en binnen het kader van de afgesproken regels bevind. Als jouw protocol een akkoord krijgt en geimplementeerd kunnen worden, word het protocol aangewezen op een ongebruikte/beschikbare port nummer tussen 0-65535.
 
 3   -   Protocol voorbeeld per laag.  
 

@@ -28,7 +28,7 @@ Geen problemen ervaren.
 
 
 ### Resultaat  
-Ik heb veel gelezen en kennis opgedaan over het kosten management in het Microsoft Azure applicatie. Daarnaast heb ik een alart aan kunnen maken om mijn subscritie (Cloud pass) te kunnen monitoren.
+Ik heb veel gelezen en kennis opgedaan over het kosten management in het Microsoft Azure applicatie. Daarnaast heb ik een alert aan kunnen maken om mijn subscritie (Cloud pass) te kunnen monitoren.
 
 
 

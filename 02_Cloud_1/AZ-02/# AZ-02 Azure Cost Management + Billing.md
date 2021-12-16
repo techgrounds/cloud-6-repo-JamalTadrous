@@ -21,7 +21,9 @@ Azure Cost Management helpt u te begrijpen hoe en waar u kosten opbouwt in de cl
 -   TCO  
 
         -   De total cost of ownership (TCO) is de aankoopprijs van een 'waardevol bezit' plus de exploitatiekosten.  
-        Het beoordelen van de totale eigendomskosten betekent een grotere blik werpen op wat het product is en wat de waarde ervan in de loop van de tijd is.  
+        Het beoordelen van de totale eigendomskosten betekent  
+        een grotere blik werpen op wat het product is  
+        en wat de waarde ervan in de loop van de tijd is.  
 
 
 ## **Opdracht**  

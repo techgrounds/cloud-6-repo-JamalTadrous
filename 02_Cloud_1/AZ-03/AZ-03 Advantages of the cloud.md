@@ -1,5 +1,5 @@
 # **AZ-03 Advantages of the cloud** 
-
+Since de cloud in het spel is gekomen in IT, is de bereikbaarheid en flexibiliteit van bestanden en diensten te delen, opslaan en te gebruiken, exponentieel veranderd. De Cloud verzorgd een beveiligde omgeving, die geheel na persoonlijkmaat werk, in een betaalbaar model aangeboden kan worden voor grote en kleine onderneming.
 
 ## **Key-terms**  
 

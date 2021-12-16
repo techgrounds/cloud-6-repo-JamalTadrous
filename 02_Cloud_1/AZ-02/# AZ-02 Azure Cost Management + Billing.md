@@ -4,13 +4,17 @@ Azure Cost Management helpt u te begrijpen hoe en waar u kosten opbouwt in de cl
 ## **Key-terms**  
 -   OPEX  
 
-        -   "Operational Expenses" = Bedrijfskosten. Dit zijn de kosten die een bedrijf maakt voor het uitvoeren van zijn dagelijkse activiteiten.  
+        -   "Operational Expenses" = Bedrijfskosten.  
+        Dit zijn de kosten die een bedrijf maakt voor het uitvoeren van zijn dagelijkse activiteiten.  
         Deze uitgaven moeten gewone en gebruikelijke kosten zijn voor de sector waarin het bedrijf actief is.  
-        Bedrijven rapporteren OPEX op hun winst- en verliesrekening en kunnen OPEX aftrekken van hun belastingen over het jaar waarin de kosten zijn gemaakt.  
+        Bedrijven rapporteren OPEX op hun winst- en verliesrekening en kunnen OPEX  
+        aftrekken van hun belastingen over het jaar waarin de kosten zijn gemaakt.  
 
 -   CAPEX  
 
-        -   Capital expenditures (CAPEX) = Kapitaaluitgaven; zijn aankopen van belangrijke goederen of diensten die zullen worden gebruikt om de prestaties van een bedrijf in de toekomst te verbeteren.  
+        -   Capital expenditures (CAPEX) = Kapitaaluitgaven;  
+        zijn aankopen van belangrijke goederen of diensten die zullen worden gebruikt om  
+        de prestaties van een bedrijf in de toekomst te verbeteren.  
         Kapitaaluitgaven zijn meestal voor vaste activa zoals materiële vaste activa (PP & E).  
         Als een oliemaatschappij bijvoorbeeld een nieuw boorplatform koopt, zou de transactie een kapitaalinvestering zijn.  
 
@@ -18,7 +22,7 @@ Azure Cost Management helpt u te begrijpen hoe en waar u kosten opbouwt in de cl
 
         -   De total cost of ownership (TCO) is de aankoopprijs van een 'waardevol bezit' plus de exploitatiekosten.  
         Het beoordelen van de totale eigendomskosten betekent een grotere blik werpen op wat het product is en wat de waarde ervan in de loop van de tijd is.  
-        
+
 
 ## **Opdracht**  
 1   -   Maak een alert aan waarme je eigen Cloud Pass (Subscriptie) kan moniteren.  

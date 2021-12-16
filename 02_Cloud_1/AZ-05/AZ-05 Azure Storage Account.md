@@ -16,9 +16,9 @@ HTTPS is HTTP met encryptie. Het verschil tussen de twee protocollen is dat HTTP
 
 
 ## **Opdracht**  
-- Maak een Azure Storage Account. Zorg dat alleen jij toegang hebt tot de data.  
-- Plaats data in een storage service naar keuze via de console (bijvoorbeeld een kattenfoto in Blob storage).  
-- Haal de data op naar je eigen computer door middel van de Azure Storage Explorer.  
+-   1    Maak een Azure Storage Account. Zorg dat alleen jij toegang hebt tot de data.  
+-   2   Plaats data in een storage service naar keuze via de console (bijvoorbeeld een kattenfoto in Blob storage).  
+-   3   Haal de data op naar je eigen computer door middel van de Azure Storage Explorer.  
   
 
 ### **Gebruikte bronnen**  
@@ -36,14 +36,14 @@ HTTPS is HTTP met encryptie. Het verschil tussen de twee protocollen is dat HTTP
 ### **Ervaren problemen**
 Na het aanmaken van een Storage account, lijkt het niet mogelijk om de naam ervan te veranderen. Ik ben enige tijd op zoek geweest, maar geen succes. Ik hoop daar snel genoeg achter te komen :).  
 
-De opdracht leek klein, tot ik erachter kwam wat ik allemaal tegenkwam en ik vond het goed om hier even wat dieper op in te gaan. Wat ik heb onderzocht en wat relevant leek heb ik in de bronnen te vermeld. Het was een eureka moment voor mij toen ik opnieuw ontdekte hoe de cloud werkt. Leuk dat Azure het Blobs noemen.
+De opdracht leek klein, tot ik erachter kwam wat ik allemaal tegenkwam en ik vond het goed om hier even wat dieper op in te gaan. Ik heb veel geleerd en wat ik heb onderzocht en wat relevant leek heb ik in de bronnen te vermeld. Het was een eureka moment voor mij toen ik opnieuw ontdekte hoe de cloud werkt.  
 
 
 ### **Resultaat**  
         1 
 ![AZ-05 Azure storage account - Access Control](https://user-images.githubusercontent.com/95616021/146451108-e3dae6b2-fc33-4992-b19b-10bcf31e6acc.jpg)  
   
-        2 
+        2   &   3 
 ![AZ-05 Storage acc blob up portal - download in storage explorer](https://user-images.githubusercontent.com/95616021/146451275-e98d5ed0-7b31-407e-a0fa-8acbb1f505b0.jpg)  
   
 

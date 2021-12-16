@@ -36,7 +36,7 @@ HTTPS is HTTP met encryptie. Het verschil tussen de twee protocollen is dat HTTP
 ### **Ervaren problemen**
 Na het aanmaken van een Storage account, lijkt het niet mogelijk om de naam ervan te veranderen. Ik ben enige tijd op zoek geweest, maar geen succes. Ik hoop daar snel genoeg achter te komen :).  
 
-De opdracht leek klein, tot ik erachter kwam wat ik allemaal tegenkwam en ik vond het goed om hier even wat dieper op in te gaan. Ik heb veel geleerd en wat ik heb onderzocht en wat relevant leek heb ik in de bronnen te vermeld. Het was een eureka moment voor mij toen ik opnieuw ontdekte hoe de cloud werkt.  
+De opdracht leek klein, tot ik erachter kwam wat ik allemaal tegenkwam en ik vond het goed om hier even wat dieper op in te gaan. Ik heb veel geleerd. Wat ik heb onderzocht en wat relevant leek heb ik in de bronnen vermeld. Het was een eureka moment voor mij toen ik opnieuw ontdekte hoe de cloud werkt.  
 
 
 ### **Resultaat**  

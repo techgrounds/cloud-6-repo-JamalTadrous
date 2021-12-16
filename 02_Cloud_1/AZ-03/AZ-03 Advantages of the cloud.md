@@ -17,11 +17,11 @@ Alle diensten kunnen worden voorzien door Microsoft Azure. De Data centres die d
 Bedrijven hoeven dus niet een ernorm kapitaal in te zetten om het infrastructuur voor de cloud diensten van het bedrijf te laten draaien.  
 
 
-        -   Verticaal schalen:  
+-        -   Verticaal schalen:  
 betekent dat u schaalt door meer vermogen toe te voegen aan de bestaande machines in termen van meer CPU, RAM en opslag.  
 
 
-        -   Horizontaal schalen:  
+-        -   Horizontaal schalen:  
 betekent dat u schaalt door meer machines toe te voegen aan uw cloudarchitectuur, zodat ze als één eenheid werken.  
 
         Elasticity (Flexibiliteit)  
@@ -48,21 +48,20 @@ De klok stopt niet op deze statistiek totdat het systeem weer volledig functione
        SLA:  Service Level Agreement.  
 SLA houd in dat een CSP een bepaalde garantie geeft bij het leveren van de diensten die zij aanbieden, omdat zij ondersteuning bieden en hun onderhoudsplicht waarborgen.  
 
-        Disaster recovery: 
+        Disaster recovery:  
+Disaster recovery in cloud computing houdt in dat kritieke gegevens en applicaties worden opgeslagen in cloudopslag en dat in geval van een ramp wordt overgezet naar een secundaire locatie. Cloud computing-services worden aangeboden op basis van pay-as-you-go en zijn overal en altijd toegankelijk. Back-up en noodherstel in cloud computing kunnen worden geautomatiseerd, waardoor je dit minder vaak hoeft te onderhouden.  
 
-
+        Consumption-based model:  
+Dit houd in, dat de gebruiksservice die aangeboden word bij Azure, alleen betaald moet worden als je er gebruik van maakt. De prijs wordt bepaald aan de verticale en horizontale schaling van het gebruiksmodel dat de gebruiker zelf bepaald.
 ## Opdracht 
     Bestudeer:
        - De 6 advantages of the cloud  
        - Het consumption-based model  
   
   
-### Gebruikte bronnen
+### Gebruikte bronnen  
+[6_Key_Advantages_of_Cloud_Services](https://www.impactmybiz.com/blog/blog-6-key-advantages-of-microsoft-azure-cloud-services/)
 [Scalability](https://www.criticalcase.com/blog/cloud-computing-scalability-what-is-it-and-why-its-important.html#)  
-
-
-### Ervaren problemen
-[Geef een korte beschrijving van de problemen waar je tegenaan bent gelopen met je gevonden oplossing.]
-
-### Resultaat
-[Omschrijf hoe je weet dat je opdracht gelukt is (gebruik screenshots waar nodig).]
+[Benefits_of_cloud_computing](https://www.business.qld.gov.au/running-business/it/cloud-computing/benefits#:~:text=Cloud%20computing%20offers%20your%20business%20many%20benefits.%20It,tablets%29%2C%20access%20to%20your%20data%20is%20even%20easier.)  
+[MTBF_&_MTTR](https://valuekeep.com/resources/e-books-articles/what-is-the-mttr-and-the-mtbf/)  
+[Disaster_recovery](https://www.nakivo.com/blog/disaster-recovery-in-cloud-computing/)  

@@ -1,47 +1,51 @@
 # **AZ-03 Advantages of the cloud** 
+Since de cloud in het spel is gekomen in IT, is de bereikbaarheid en flexibiliteit van bestanden en diensten te delen, opslaan en te gebruiken, exponentieel veranderd. De Cloud verzorgd een beveiligde omgeving, die geheel na persoonlijk maatwerk, in een betaalbaar model aangeboden kan worden voor grote en kleine ondernemingen.
 
 
 ## **Key-terms**  
 
-        High Availability (Hoge beschikbaarheid van diensten)  
+    1    High Availability (Hoge beschikbaarheid van diensten)  
 Microsoft Azure heeft veel regions en per region, is er een region-pair.  
-Binnen in de Regions zijn er ook availability zones.  
+Binnen in de Regions zijn er ook availability zones, voor nog meer bereikbaarheidsverdeling.  
 Al deze componenten zorgen ervoor dat bestanden en diensten vrijwel altijd beschikbaar zijn.  
 Als een van de AZs of Regions uitvalt, zal er vrijwel altijd een ander ook het werk op kunnen vangen en zo een minimale downtown wordt gehanteerd.  
+Dit is ook de hoofdreden dat een CSP (Cloud Service Provider),  
+zoals Microsoft Azure, een 99,99% availability garandeerd.  
 
 
-
-        Scalability (schaalbaarheid)  
+    2    Scalability (schaalbaarheid)  
 Door cloud computing heb je vrijwel geen inverstering meer nodig in (server) hardware.  
-Alle diensten kunnen worden voorzien door Microsoft Azure. De Data centres die de cloud servers van Microsoft Azure runnen, kunnen gebruikt worden door middel van een 'betalen naar gebruik model'.  
+Alle diensten kunnen worden voorzien door Microsoft Azure(of AWS en andere concurrenten). De Data centres die de cloud servers van Microsoft Azure runnen, kunnen gebruikt worden door middel van een 'betalen naar gebruik model'.  
 Bedrijven hoeven dus niet een ernorm kapitaal in te zetten om het infrastructuur voor de cloud diensten van het bedrijf te laten draaien.  
 
 
--        -   Verticaal schalen:  
+-           Verticaal schalen:  
 betekent dat u schaalt door meer vermogen toe te voegen aan de bestaande machines in termen van meer CPU, RAM en opslag.  
+*Trick to remember:      "Hogere Prestatie vermogen nodig"*  
 
 
--        -   Horizontaal schalen:  
+-           Horizontaal schalen:  
 betekent dat u schaalt door meer machines toe te voegen aan uw cloudarchitectuur, zodat ze als één eenheid werken.  
+*Trick to remember:      "Breeder schalen = meer toevoegingen zoals VMs"*  
 
-        Elasticity (Flexibiliteit)  
-De gebruikte diensten van elk bedrijf dat zich aansluit bij een Cloud Dienst Provider, verschillen per bedrijf.  
+    3    Elasticity (Flexibiliteit)  
+De gebruikte diensten van elk bedrijf dat zich aansluit bij een Cloud Dienst Provider verschillen per bedrijf.  
 Dit is een hoofdreden waaro flexibiliteit van de Cloud diensten erg belangrijk is.  
 Het is makkelijk aanpasbaar voor het bedrijf dat zich naar de cloud wilt verplaatsen en betaald alleen welke diensten worden ingeschakeld en worden benut.  
 
 
-        Agility (Snelheid)  
-Door de veelvoud van beschikbare datacenters, word ervoor gezorgd dat er dicht bij jouw locatie een AZ/Region is en kan die weldegelijk bijdragen aan een hoge bandwith en lage latency.  
+    4    Agility (behendigheid)  
+In de context van cloud computing verwijst Agility(behendigheid) vaak naar de mogelijkheid om snel softwaretoepassingen te ontwikkelen, testen en lanceren die de bedrijfsgroei stimuleren. Cloud Agility stelt hen in staat om zich te concentreren op andere kwesties zoals beveiliging, monitoring en analyse, in plaats van het inrichten en onderhouden van de resources.  
 
-        Geo-distribution (Geografische distributie)  
-Door de geografische verdeling van de datacenters in de AZ's/Regions, word er voor gezorgd dat in een vrij veel plekken in de wereld, de diensten beschikbaar zullen zijn.  
+    5    Geo-distribution (Geografische distributie)  
+Geo-ditributie staat voor de verderling van de services over verschillende geografische locaties. Vaak per distributiekanalen, worden er verschillende producten en diensten toegewezen, naast het standaard model van Azure.  
 
         MTBF:   "Mean Time Between Failure"  
-is de voorspelde verstreken tijd tussen inherente storingen van een mechanisch of elektronisch systeem, tijdens de normale werking van het systeem.  
+is het voorspelde verstreken tijd tussen inherente storingen van een mechanisch of elektronisch systeem, tijdens de normale werking van het systeem.  
 
 
         MTTR:   "Mean Time To Recovery"  
-is de gemiddelde tijd die nodig is om een ​systeem te repareren (meestal technisch of mechanisch). Het omvat zowel de reparatietijd als de eventuele testtijd.  
+is de gemiddelde tijd die nodig is om een systeem te repareren (meestal technisch of mechanisch). Het omvat zowel de reparatietijd als de eventuele testtijd.  
 De klok stopt niet op deze statistiek totdat het systeem weer volledig functioneel is.  
 
 
@@ -49,15 +53,34 @@ De klok stopt niet op deze statistiek totdat het systeem weer volledig functione
 SLA houd in dat een CSP een bepaalde garantie geeft bij het leveren van de diensten die zij aanbieden, omdat zij ondersteuning bieden en hun onderhoudsplicht waarborgen.  
 
         Disaster recovery:  
-Disaster recovery in cloud computing houdt in dat kritieke gegevens en applicaties worden opgeslagen in cloudopslag en dat in geval van een ramp wordt overgezet naar een secundaire locatie. Cloud computing-services worden aangeboden op basis van pay-as-you-go en zijn overal en altijd toegankelijk. Back-up en noodherstel in cloud computing kunnen worden geautomatiseerd, waardoor je dit minder vaak hoeft te onderhouden.  
+Disaster recovery in cloud computing houdt in dat kritieke gegevens en applicaties worden opgeslagen in een cloudopslag en dat in geval van een ramp wordt overgezet naar een secundaire locatie. Back-up en noodherstel in cloud computing kunnen worden geautomatiseerd, waardoor je dit minder vaak hoeft te onderhouden.  
 
-        Consumption-based model:  
-Dit houd in, dat de gebruiksservice die aangeboden word bij Azure, alleen betaald moet worden als je er gebruik van maakt. De prijs wordt bepaald aan de verticale en horizontale schaling van het gebruiksmodel dat de gebruiker zelf bepaald.
+
 ## Opdracht 
     Bestudeer:
-       - De 6 advantages of the cloud  
-       - Het consumption-based model  
+    1   - De 6 advantages of the cloud  
+    2   - Het consumption-based model    
+
+______
+
+
+
+        1    -  De 6 voordelen van de Cloud zijn:  
+
+- Betere Prestaties
+- Verhoogde schaalbaarheid
+- Beveiligde gegevens
+- Kostenbesparend
+- Goede Stabiliteit 
+- Ongelooflijke snelheid    
   
+______
+
+        2     -  Consumption-based model:  
+Dit houd in, dat de gebruiksservice die aangeboden word bij Azure, alleen betaald moet worden als je er gebruik van maakt. De prijs wordt bepaald aan de verticale en horizontale schaling van het gebruiksmodel dat de gebruiker zelf bepaald, of misschien in samenwerking met een cloud consultant/engineer. Pay-as-you-Go!  
+  
+_____
+
   
 ### Gebruikte bronnen  
 [6_Key_Advantages_of_Cloud_Services](https://www.impactmybiz.com/blog/blog-6-key-advantages-of-microsoft-azure-cloud-services/)

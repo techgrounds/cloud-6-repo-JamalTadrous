@@ -1,4 +1,4 @@
-# [Onderwerp]
+# AZ-05 Azure Storage Account
 [Geef een korte beschrijving van het onderwerp]
 
 ## Key-terms

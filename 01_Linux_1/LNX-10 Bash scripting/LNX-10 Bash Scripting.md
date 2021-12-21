@@ -27,27 +27,17 @@ opdracht 3:
   
 
 ### Gebruikte bronnen
--   https://linuxconfig.org/bash-scripting-tutorial-for-beginners#:~:text=In%20a%20highly%20simplistic%20view%2C%20a%20bash%20script,script%20is%20executed.%20Consider%20the%20following%20video%20example%3A  
-Bash Shell Scripting Definitie informatie.  
+- [Bash Shell Scripting Definitie informatie.](https://linuxconfig.org/bash-scripting-tutorial-for-beginners#:~:text=In%20a%20highly%20simplistic%20view%2C%20a%20bash%20script,script%20is%20executed.%20Consider%20the%20following%20video%20example%3A)  
+- [PATH_environment_variable_example](https://www.youtube.com/watch?v=abN6bvyPRxQ)  
+- [Bash_scripting_full_course](https://www.youtube.com/watch?v=e7BufAVwDiM&t=2718s)  
+- [create_save_and_close_vim](https://www.youtube.com/watch?v=r6euRUb18ks).  
+- [finding a solution for 'cant save a file or open file for wrinting in vim'](https://cloudlinuxtech.com/fix-vim-cant-open-file-for-writing-e212/)   
+(oplossing: ownership, write, read and execute permissions voor mijn persoonlijke user.)  
+- [Dit is voor het toelaten van Apache door de Ubuntu Firewall.](https://www.webservertalk.com/ubuntu-firewall-how-to-configure-ufw#:~:text=UFW%20allows%20you%20to%20access%20all%20ports%20from,port%20%288080%29%20from%20the%20specific%20IP%20address%20%28192.168.0.101%29)  
+- [Syntax voor het installeren, updaten en automatisch opstarten van Apache2.](https://www.tecmint.com/install-apache-web-server-on-ubuntu-20-04/#:~:text=Installing%20Apache2%20in%20Ubuntu%2020.04.%201.%20First%2C%20log,install%20apache2.%20Install%20Apache%20on%20Ubuntu%2020.04.%203)  
+- [Creating a random number script through variables with conditions video.](https://www.youtube.com/watch?v=DS0VQAC-gak)  
+- [Creating a random number script through variables with conditions theory.](https://appuals.com/set-bash-variables-random-numbers/)  
 
--   https://www.youtube.com/watch?v=abN6bvyPRxQ   - PATH environment variable example.
-  
-  -   https://www.youtube.com/watch?v=e7BufAVwDiM&t=2718s   - Bash scripting full course.
-  
-  -   https://www.youtube.com/watch?v=r6euRUb18ks   - create, save and close vim.  
-  - https://cloudlinuxtech.com/fix-vim-cant-open-file-for-writing-e212/   
-  finding a solution for 'cant save a file or open file for wrinting in vim'.  
-  (oplossing: ownership, write, read and execute permissions voor mijn persoonlijke user.)  
-  - https://httpd.apache.org/  
-  - https://www.cyberciti.biz/faq/bash-rename-files/   
-  hernoemen van bestand jamalscripts to jamalscripts.sh
-  - https://www.webservertalk.com/ubuntu-firewall-how-to-configure-ufw#:~:text=UFW%20allows%20you%20to%20access%20all%20ports%20from,port%20%288080%29%20from%20the%20specific%20IP%20address%20%28192.168.0.101%29.  
-  Dit is voor het toelaten van Apache door de Ubuntu Firewall.
-  - https://www.tecmint.com/install-apache-web-server-on-ubuntu-20-04/#:~:text=Installing%20Apache2%20in%20Ubuntu%2020.04.%201.%20First%2C%20log,install%20apache2.%20Install%20Apache%20on%20Ubuntu%2020.04.%203.  
-  Syntax voor het installeren, updaten en automatisch opstarten van Apache2.  
-  - https://www.youtube.com/watch?v=DS0VQAC-gak  
-  - https://appuals.com/set-bash-variables-random-numbers/  
-  Creating a random number script through variables with conditions.
 
 
 

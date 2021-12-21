@@ -101,7 +101,7 @@ Vervolgd met..
 
 
   
-## 4  
+## 1.4  
 ![LNX-10 opdracht 1 - 4 Apache script1](https://user-images.githubusercontent.com/95616021/145730984-098c286f-7e3d-43f3-92d7-386f3f52ddf8.jpg)  
 
 ![LNX-10 opdracht 1 - 4 Apache script2](https://user-images.githubusercontent.com/95616021/145730987-e60c3da5-03c6-4dc8-8c18-15e861ad6fae.jpg)

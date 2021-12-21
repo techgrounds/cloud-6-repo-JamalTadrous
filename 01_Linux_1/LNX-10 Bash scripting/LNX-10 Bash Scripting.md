@@ -75,8 +75,7 @@ Na letterlijk een hele dag werken, heb ik door middel van de syntax in mijn ving
 ## 1.3    
 
 ![appendline script](https://user-images.githubusercontent.com/95616021/146925342-59c475f7-4f2b-4a57-832c-0c75d763d86f.jpg)  
-![1 - appendlines script ](https://user-images.githubusercontent.com/95616021/146925087-fe5e8e28-d05e-458c-84ba-4a758e37933d.jpg)  
-
+  
 In de derde stap van exercise 1, moest ik een text bestand aanmaken, met een script  
 die een regel toevoegd, wanneer de script wordt uitgevoerd.  
 In de eerste foto staat het script uitgelicht en het script werkt als volgt:  
@@ -96,8 +95,17 @@ Wanneer dit bestand er niet is, maak het bestand appendline aan en..
 - 4:   De else statement staat voor als de eerste conditie "False" is, voer dan stap 4 uit en..
 - 5:   Plaats de tekst met: "File did exist, so i added this" en plaats dit in het bestand appendline2.  
 Vervolgd met..  
-- 6:   Afsluiten met finish script conditie.
+- 6:   Afsluiten met finish script conditie.  
 
+![1 - appendlines script ](https://user-images.githubusercontent.com/95616021/146925087-fe5e8e28-d05e-458c-84ba-4a758e37933d.jpg)  
+
+In de tweede screenshot kun je aan het begin zien dat het bestand appendline2  
+nog niet bestaat in de scripts directory. Na het uitvoeren van het script appendline2.sh,  
+had ik bij de tweede command pas de juiste bashscript geactiveerd en opnieuw  
+de directory list opgevraagd.  
+Toen stond het nieuwe gemaakte bestand, appendline2, van het script vermeld in de scripts directory list.  
+Tot slot heb ik het bestand appendline2 uitgelezen en het bestand was aangemaakt met  
+de inhoud van de aangegeven conditie die een tekst erin moest printen.  
 
 
   

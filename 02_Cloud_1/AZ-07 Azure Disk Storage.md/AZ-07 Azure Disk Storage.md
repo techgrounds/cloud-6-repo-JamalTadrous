@@ -46,7 +46,8 @@ FDISK is een tool waarmee u de partitionering van uw harde schijven kunt wijzige
 - https://phoenixnap.com/kb/linux-format-disk  
 - https://www.tecmint.com/fdisk-commands-to-manage-linux-disk-partitions/  
 - https://www.webopedia.com/definitions/parent-directory/  
-- https://searchcloudcomputing.techtarget.com/tip/How-to-create-snapshots-for-Azure-VMs-and-managed-disks  
+- https://searchcloudcomputing.techtarget.com/tip/     
+- https://How-to-create-snapshots-for-Azure-VMs-and-managed-disks  
 - http://facstaff.uwa.edu/bmoore/340/theBasics/Operations%20of%20FDISK%20The%20Basics%20of%20FDISK.htm  
 - https://techterms.com/definition/snapshot  
 - https://en.wikipedia.org/wiki/Mount_(computing)  
@@ -79,7 +80,8 @@ peer hoe hij het heeft gedaan en waarom. Na de uitleg was het goed te begrijpen 
         tot de shared disk, wanneer je de VM en Disk op elkaar aansluit.  
 ![AZ-07 VM2 mount directory to shared disk and cat shared file](https://user-images.githubusercontent.com/95616021/146823976-0e683fb1-d69d-40ae-8001-6c72cb328c5d.jpg)  
   
-        5   Maak een snapshot van de schijf(Disk) en probeer hier een nieuwe Disk mee te maken.  
+        5   Maak een snapshot van de schijf(Disk)  
+        en probeer hier een nieuwe Disk mee te maken.  
   
 -    1  
 ![Snapshot disk added to both VMs](https://user-images.githubusercontent.com/95616021/146825079-87425c9e-e39e-4aeb-9c89-1d13d16c0af0.jpg)  

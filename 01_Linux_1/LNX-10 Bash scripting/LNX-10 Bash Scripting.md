@@ -63,20 +63,45 @@ Na letterlijk een hele dag werken, heb ik door middel van de syntax in mijn ving
   
   
 # opdracht 1:
-# 1    
+## 1.1    
 
 ![LNX-10 opdracht 1 - 1 maak een scripts directory](https://user-images.githubusercontent.com/95616021/145730890-f128ca59-c145-4189-8fcb-38c305a95d81.jpg)  
+
   
-# 2    
+## 1.2    
 
 ![LNX-10 opdracht 1 - 2 PATH variable adjustment](https://user-images.githubusercontent.com/95616021/145730939-7d011bde-7c4e-4263-a8d7-6f6d75d360a7.jpg)  
   
-# 3    
+## 1.3    
 
-![LNX-10 opdracht 1 - 3 append line script](https://user-images.githubusercontent.com/95616021/145730960-50e3be4c-7592-42e3-a6d5-cb6f2aaf615b.jpg)  
-![LNX-10 opdracht 1 - 3 append line through scripting](https://user-images.githubusercontent.com/95616021/145730966-4381baab-210d-4294-a650-b074cc01eed7.jpg)  
+![appendline script](https://user-images.githubusercontent.com/95616021/146925342-59c475f7-4f2b-4a57-832c-0c75d763d86f.jpg)  
+![1 - appendlines script ](https://user-images.githubusercontent.com/95616021/146925087-fe5e8e28-d05e-458c-84ba-4a758e37933d.jpg)  
+
+In de derde stap van exercise 1, moest ik een text bestand aanmaken, met een script  
+die een regel toevoegd, wanneer de script wordt uitgevoerd.  
+In de eerste foto staat het script uitgelicht en het script werkt als volgt:  
+
+
+        1      #! /bin/bash  
+        2       if  [ ! -e $HOME/jamal/techgrounds/scripts/appendline2 ]; then  
+        3       	  echo    $"file didn't exist, but now it does" > appendline2  
+        4       else  
+        5       	  echo $"file did exist, so i added this" >> appendline2  
+        6       fi  
+
+- 1:   Hashbang met directory voor het uitvoeren van bash script.  
+- 2:   In stap twee van het script wordt de conditie aangegeven wat er uitgevoerd moet worden.  
+Wanneer dit bestand er niet is, maak het bestand appendline aan en..  
+- 3:   Plaats de tekst met: "File didn't exist, but now it does".  
+- 4:   De else statement staat voor als de eerste conditie "False" is, voer dan stap 4 uit en..
+- 5:   Plaats de tekst met: "File did exist, so i added this" en plaats dit in het bestand appendline2.  
+Vervolgd met..  
+- 6:   Afsluiten met finish script conditie.
+
+
+
   
-# 4  
+## 4  
 ![LNX-10 opdracht 1 - 4 Apache script1](https://user-images.githubusercontent.com/95616021/145730984-098c286f-7e3d-43f3-92d7-386f3f52ddf8.jpg)  
 
 ![LNX-10 opdracht 1 - 4 Apache script2](https://user-images.githubusercontent.com/95616021/145730987-e60c3da5-03c6-4dc8-8c18-15e861ad6fae.jpg)

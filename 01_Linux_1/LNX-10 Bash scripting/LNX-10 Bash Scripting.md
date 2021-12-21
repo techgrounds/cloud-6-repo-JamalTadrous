@@ -98,6 +98,12 @@ Wanneer dit bestand er niet is, maak het bestand appendline aan en..
 Vervolgd met..  
 - 6:   Afsluiten met finish script conditie.
 
+In de tweede screenshot kun je aan het begin zien dat het bestand appendline2  
+nog niet bestaat in de scripts directory. Na het uitvoeren van het script appendline2.sh,  
+had ik bij de tweede command pas de juiste bashscript geactiveerd en opnieuw  
+de directory list opgevraagd. Toen stond het nieuwe gemaakte bestand, appendline2, van het script vermeld in de scripts directory list.  
+Tot slot heb ik het bestand appendline2 uitgelezen en het bestand was vervolgens aangemaakt met  
+de inhoud van de aangegeven conditie die een tekst erin moest printen.  
 
 
   

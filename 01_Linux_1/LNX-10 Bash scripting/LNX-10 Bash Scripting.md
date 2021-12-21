@@ -8,7 +8,7 @@ Willekeurige generator
 De PATH variable map word door het OS gecontrolleerd om het programma te draaien
 die is aangemaakt. Hiermee kun je jouw eigen programmas die in een map zitten
 draaien zonder het pad steeds opnieuw in te voeren.
--   UWF  
+-   UFW  
 Uncomplicated Firewall - Is een simpele firewall voor het linux OS om makkelijk
 toegang te geven of toegang te negeren/blokkeren, op basis van regels die je kunt stellen.
 ## Opdracht

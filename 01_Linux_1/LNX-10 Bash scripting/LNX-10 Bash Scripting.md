@@ -48,7 +48,7 @@ om de opdrachten te kunnen maken. Ik moest veel lezen en veel videos kijken om e
 te begrijpen wat er gebeurd en hoe ik het implementeer.  
 
 ### Resultaat
-Na letterlijk een hele dag werken, heb ik door middel van de syntax in mijn vingers te krijgen, geleerd hoe ik de juiste permissies opzoek als de script niet wil werken. Daarnaast heb ik geleerd dat je accuraat moet met het invoeren, condities te zetten met de juiste variables met if, else en then statements. De producten van de opdrachten zijn een nummergenerator, geautomatiseerde script voor apache2(httpd) 'installatie/update/aanzetten' en het activeren van de directory naar de PATH variable in Bash.  
+Na letterlijk een hele dag werken, heb ik door middel van de syntax in mijn vingers te krijgen, geleerd hoe ik de juiste permissies opzoek als de script niet wil werken. Daarnaast heb ik geleerd dat je accuraat moet zijn met het invoeren, condities te zetten met de juiste variables met if, else en then statements. De producten van de opdrachten zijn een nummergenerator, geautomatiseerde script voor apache2(httpd) 'installatie/update/aanzetten' en het activeren van de directory naar de PATH variable in Bash.  
   
   
   

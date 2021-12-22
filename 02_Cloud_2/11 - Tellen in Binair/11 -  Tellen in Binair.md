@@ -62,3 +62,7 @@ _____
 
 ![binary base](https://user-images.githubusercontent.com/95616021/146841717-1924b04e-ceae-4ccc-a087-baf207e5586f.png)  
 ![Binaries](https://user-images.githubusercontent.com/95616021/146841801-ebcd9064-be3b-41fc-b589-6338fa4676b3.jpg)  
+
+Mijn eigen uitgeschreven opdrachten:  
+![Binary1](https://user-images.githubusercontent.com/95616021/146992308-89d40b51-8286-45f6-9e5c-50f88f828e93.jpg)  
+![Binary2](https://user-images.githubusercontent.com/95616021/146992309-466a39d9-c00d-4d3d-92e4-c4f9dc7dc4df.jpg)  

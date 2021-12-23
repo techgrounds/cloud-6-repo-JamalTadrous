@@ -46,13 +46,33 @@ Ik heb mij gehouden aan de minimale vereisten van de opdracht en heb niet de ava
   
 *(**Ik heb de Internet gateway wat op de lijn vermeld van het LAN&VPC, want daardoor was de text 'Internet Gateway' leesbaar.**)*  
 
--        1   De 1e Private Subnet moest minimaal 15 hosts kunnen plaatsen. De Prefix size, voor de hoeveelheid adressen met deze context, is /28 en geeft 16 adressen beschikbaar.  
+-        1   De 1e Private Subnet moest minimaal 15 hosts kunnen plaatsen.  
+             De Prefix size, voor de hoeveelheid adressen met deze context,  
+             is /28 en geeft 16 adressen beschikbaar.  
 
--        2   De 2e Private Subnet moest minimaal 30 hosts kunnen plaatsen. De Prefix size, voor de hoeveelheid adressen met deze context, is /27 en geeft 32 adressen vrij. Waarvan er een adres aangewezen moet worden aan de NAT Gateway.  
+-        2   De 2e Private Subnet moest minimaal 30 hosts kunnen plaatsen.  
+             De Prefix size, voor de hoeveelheid adressen met deze context,  
+             is /27 en geeft 32 adressen vrij. Waarvan er een adres aangewezen moet worden aan de NAT Gateway.  
 
--        3   De Public Subnet moest minimaal 5 hosts kunnen plaatsen. De Prefix size, voor de hoeveelheid adressen met deze context, is /29 en geeft 8 adressen beschikbaar.  
+-        3   De Public Subnet moest minimaal 5 hosts kunnen plaatsen.  
+             De Prefix size, voor de hoeveelheid adressen met deze context,  
+             is /29 en geeft 8 adressen beschikbaar.  
 
+_____
+_____  
+
+
+        Uitwerking 1: (precies uitgevoerde richtlijnen = waarschijnlijk incorrect. zie Uitwerking 2!)  
 ![Network Diagram drawio](https://user-images.githubusercontent.com/95616021/147143836-ff1a8b5d-92d1-41b7-8546-9665cdaec6ab.png)  
+
+        Uitwerking 2: Na wat research gedaan te hebben, kwam ik erachter dat 
+                      de NAT gateway in het Publieke Subnet zit. 
+                      Het Prive subnet gaat via de NAT in de publieke Subnet 
+                      naar de router en dan kan het naar de Internet gateway gaan. 
+                      Daarna zou het bij het internet uit moeten kunnen komen. 
+![Network Diagram2 drawio](https://user-images.githubusercontent.com/95616021/147220842-9bf88abe-89bc-49a2-887a-beae09c0cc95.png)
+
+
 
 
 

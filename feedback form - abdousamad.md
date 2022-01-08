@@ -8,7 +8,7 @@ assignees: Jamal Tadrous
 ---
 
 # Feedback Request [Azure Core Services]
-Permalink naar bestand: [https://github.com/AbdouSamad99/cloud-6-repo-AbdouSamad99/blob/main/02_Cloud_1/AZ-04%20Azure%20Core%20Services.md]
+Permalink naar bestand: (Repo Abdousamad - Azure Core Services)[https://github.com/AbdouSamad99/cloud-6-repo-AbdouSamad99/blob/main/02_Cloud_1/AZ-04%20Azure%20Core%20Services.md]
 
 Template voor reviewers:
 ```

@@ -25,7 +25,7 @@ Elke Azure-regio beschikt over datacenters die zijn geïmplementeerd binnen een 
 Azure-regio's en beschikbaarheidszones (Availabilty Zones) zijn ontworpen om te helpen de veerkracht en betrouwbaarheid te bereiken voor bedrijfskritische workloads. Azure onderhoudt meerdere regio's. Deze afzonderlijke afbakeningen definiëren grenzen voor noodherstel en gegevenslocatie in een of meerdere Azure-regio's. Het onderhouden van veel regio's zorgt ervoor dat klanten over de hele wereld worden ondersteund.
 
 -       Wat is een Azure Region Pair?  
-Is een relatie tussen 2 Azure-regio's binnen dezelfde geografische regio voor noodhersteldoeleinden. Als een van de regio's een ramp of storing zou ervaren, zullen de services in die regio automatisch failover uitvoeren naar de secundaire regio van die regio in het paar
+Is een relatie tussen 2 Azure-regio's binnen dezelfde geografische regio voor noodhersteldoeleinden. Als een van de regio's een ramp of storing zou ervaren, zullen de services in die regio automatisch failover uitvoeren naar de secundaire regio van die regio in het paar.
 
 -       Waarom zou je een regio boven een andere verkiezen?  
 Als een regio aansluit op jouw geografische locatie, is de latency(wachttijd) lager ,snelheid hoger en kan de bandwith (bandbreedte) veel meer van jouw workload verwerken. Dit zorgt voor effectiviteit, sneller je werk kunnen realiseren en het zorgt ervoor dat de beschikbaarheid van de bestanden en service, marginaal hoger is dan in een andere regios.

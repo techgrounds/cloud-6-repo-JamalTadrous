@@ -1,6 +1,6 @@
 # **AZ-17 Well Architected Framework**  
 ## *Introductie:*  
-
+-----
 Het maken van een softwaresysteem lijkt veel op het bouwen van een gebouw.  
 Als de fundering niet solide is, kunnen structurele problemen de integriteit  
 en functie van het gebouw ondermijnen.  
@@ -19,32 +19,27 @@ in de loop van de tijd meegroeien met de applicatiebehoeften.
 The 5 Pilars of a Well-Architected Framework;  
 Cost Optimization, Reliability, Operational excellence, Performance Efficiency, Security:  
 
-        Cost Optimization:  
+> ***Cost Optimization***:  
+Kosten optimalizatie; de mogelijkheid om systemen te laten draaien om zakelijke  
+waarde te leveren tegen de laagste prijs.  
 
-        Kosten optimalizatie; de mogelijkheid om systemen te laten draaien om zakelijke  
-        waarde te leveren tegen de laagste prijs.  
+> ***Reliability***:  
+Betrouwbaarheid; het vermogen van een werkbelasting om de beoogde functie  
+correct en consistent uit te voeren wanneer dat wordt verwacht.  
 
-        Reliability:  
+> ***Operational Excellence***:  
+Operationele uitmuntendheid; het vermogen om ontwikkeling te ondersteunen  
+en werklasten effectief uit te voeren, inzicht te krijgen in hun werking  
+en continu ondersteunende processen en procedures te verbeteren om bedrijfswaarde te leveren.  
 
-        Betrouwbaarheid; het vermogen van een werkbelasting om de beoogde functie  
-        correct en consistent uit te voeren wanneer dat wordt verwacht.  
+> ***Performance Efficiency***:  
+Prestatie-efficiëntie; het vermogen om computerbronnen efficiënt te gebruiken om  
+aan systeemvereisten te voldoen, en om die efficiëntie te behouden naarmate  
+de vraag verandert en technologieën evolueren.  
 
-        Operational Excellence:  
-
-        Operationele uitmuntendheid; het vermogen om ontwikkeling te ondersteunen  
-        en werklasten effectief uit te voeren, inzicht te krijgen in hun werking  
-        en continu ondersteunende processen en procedures te verbeteren om bedrijfswaarde te leveren.  
-
-        Performance Efficiency:  
-
-        Prestatie-efficiëntie; het vermogen om computerbronnen efficiënt te gebruiken om  
-        aan systeemvereisten te voldoen, en om die efficiëntie te behouden naarmate  
-        de vraag verandert en technologieën evolueren.  
-
-        Security:  
-        
-        Veiligheid/Beveiliging; de mogelijkheid om gegevens, systemen en activa  
-        te beschermen om te profiteren van cloudtechnologieën om uw beveiliging te verbeteren.  
+> ***Security***:  
+Veiligheid/Beveiliging; de mogelijkheid om gegevens, systemen en activa  
+te beschermen om te profiteren van cloudtechnologieën om uw beveiliging te verbeteren.  
 
 ## **Opdracht**  
 Bestudeerd het Well-Architected Framework van Azure en  

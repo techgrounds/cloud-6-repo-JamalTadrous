@@ -8,11 +8,12 @@ assignees: Jamal Tadrous
 ---
 
 # Feedback Request [Azure Core Services]
-Permalink naar bestand: (Repo Abdousamad - Azure Core Services)[https://github.com/AbdouSamad99/cloud-6-repo-AbdouSamad99/blob/main/02_Cloud_1/AZ-04%20Azure%20Core%20Services.md]
+Permalink naar bestand:  
+(Repo Abdousamad Azure Core Services)[https://github.com/AbdouSamad99/cloud-6-repo-AbdouSamad99/blob/main/02_Cloud_1/AZ-04%20Azure%20Core%20Services.md]
 
 Template voor reviewers:
 ```
-## **Samenvatting**  
+## Samenvatting  
 - Beschrijft de samenvatting het onderwerp volledig genoeg?  
 Ja. De onderwerpen worden goed uitgedrukt en volledig uitgeschreven.  
 
@@ -27,20 +28,20 @@ Niet in mijn bevinding.
 Na het lezen van de beschrijvingen heb ik een goed begrip gekregen  
 van alle vermelde termen.  
 
-## **Key Terms**  
+## Key Terms  
 - Missen er sleutelwoorden?  
 Nee.  
 
 - Zijn de sleutelwoorden goed uitgelegd?  
 Ja.  
 
-## **Bronnen**  
+## Bronnen  
 - Zijn bronnen vernoemd?  
 Ja.  
 - Zijn de genoemde bronnen juist?  
 Ja.  
 
-## **Opdracht**
+## Opdracht
 (Waar van toepassing)
 - Is het resultaat correct?  
 Ja. Hoewel de hoeveelheid informatie vrij veel is en dat geld ook voor  

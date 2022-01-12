@@ -12,8 +12,6 @@ te evalueren en biedt richtlijnen voor het implementeren van ontwerpen die
 in de loop van de tijd meegroeien met de applicatiebehoeften.  
 
 -----  
------  
-
 
 ## **Key-terms**  
 The 5 Pilars of a Well-Architected Framework;  
@@ -52,7 +50,7 @@ Bestudeer hoe je elke pilaar kan implementeren met cloud-diensten.
         De 5 pilars wordt makkelijk uitgedrukt in simpel ezelsbruggetje; CROPS.  
 
 -----  
------  
+
 
         In Kosten optimalizatie (Cost Optimization) zijn vijf ontwerpprincipes in de cloud:  
 
@@ -62,7 +60,6 @@ Bestudeer hoe je elke pilaar kan implementeren met cloud-diensten.
     -   Stop met geld uitgeven aan ongedifferentieerd zwaar workloads draaien.  
     -   Analyseren en toewijzen van uitgaven.  
 
------
 -----
 
         In Betrouwbaarheid (Reliability) zijn vijf ontwerpprincipes in de cloud:  
@@ -74,7 +71,6 @@ Bestudeer hoe je elke pilaar kan implementeren met cloud-diensten.
     -   Beheer verandering in automatisering  
   
 -----
------
 
         In Operationele uitmuntendheid zijn vijf ontwerpprincipes in de cloud:  
 
@@ -84,7 +80,6 @@ Bestudeer hoe je elke pilaar kan implementeren met cloud-diensten.
     -   Anticipeer op mislukking  
     -   Leer van alle operationele fouten  
 
------
 -----
 
 
@@ -96,7 +91,6 @@ Bestudeer hoe je elke pilaar kan implementeren met cloud-diensten.
     -   Experimenteer vaker  
     -   Overweeg mechanische sympathie  
 
------
 -----
 
         In Beveiliging zijn zeven ontwerpprincipes in de cloud:  

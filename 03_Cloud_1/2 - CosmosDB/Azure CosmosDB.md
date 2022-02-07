@@ -103,20 +103,25 @@ Je kunt kiezen tussen Core SQL( wat verschillende SQLs herkent zoals bijvoorbeel
 
 
 ##   ***Hoe kan ik deze dienst koppelen aan andere resources?***  
-Voorbeeld uitwerking met Python SQL. De Script in de Data explorer wordt gesynchroniseerd met VSCODE via de aangewezen DNS URL, die handmatig is toegevoegd aan het script. 
+*Voorbeeld uitwerking met Python SQL.*  
+- De Script in de Data explorer wordt gesynchroniseerd met VSCODE via de aangewezen DNS URL, die handmatig is toegevoegd aan het script.  
 
-> CosmosDB Overview; met aangewezen DNS URL.
-![CosmosDB overview](https://user-images.githubusercontent.com/95616021/149672965-b6762a72-12a1-47b4-964c-a202117e9ac8.jpg)
+> - CosmosDB Overview; met aangewezen DNS URL.  
+![CosmosDB overview](https://user-images.githubusercontent.com/95616021/149672965-b6762a72-12a1-47b4-964c-a202117e9ac8.jpg)  
 
 
->  CosmosDB Data Explorer Json File script.
-![CosmosDB Data explorer JSON file script](https://user-images.githubusercontent.com/95616021/149672876-2ce98b86-97c4-41a0-aa5a-6f64acd39007.jpg)
+> - CosmosDB Data Explorer Json File script.
+![CosmosDB Data explorer JSON file script](https://user-images.githubusercontent.com/95616021/149672876-2ce98b86-97c4-41a0-aa5a-6f64acd39007.jpg)  
 
-> Opslaan van cosmosdb url and private key into Python file in VSCode.  
-Hierdoor wordt de script die is toegevoegd in de data explorer van de CosmosDB, uit te lezen en aanpasbaar in VSCode. 
-![Saving cosmosdb url and pkey into Python file in VSCode](https://user-images.githubusercontent.com/95616021/149672119-043a2e6c-955b-423f-a789-5cfdee890232.jpg)
+> - Opslaan van cosmosdb url and private key into Python file in VSCode.  
+Hierdoor wordt de script die is toegevoegd in de data explorer van de CosmosDB, beschikbaar om uit te lezen en aan te passen in VSCode.  
+![Saving cosmosdb url and pkey into Python file in VSCode](https://user-images.githubusercontent.com/95616021/149672119-043a2e6c-955b-423f-a789-5cfdee890232.jpg)  
 
-> Python script via VSCODE- repository en CosmosDB geintegreerd - py script uitgevoerd in terminal vscode - uit te lezen in de Data explorer van de CosmosDB in Azure Portal.
+> **1: Wat staat er in de VSCODE screenshot?**  
+- Python script via VSCODE: repository en CosmosDB geintegreerd  
+- .py script uitgevoerd in terminal vscode.  
+> **2:**  
+- uit te lezen in de Data explorer van de CosmosDB in Azure Portal.  
 ![Python script via VSCODE- repository en CosmosDB geintegreerd - py script uitgevoerd in terminal vscode - uit te lezen in Data explorer in Portal](https://user-images.githubusercontent.com/95616021/149672039-fd10766b-0c69-4177-8a4a-e18df0716e57.jpg)  
 
 

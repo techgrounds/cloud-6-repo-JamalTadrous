@@ -1,7 +1,7 @@
 # **Lists**
-Je kunt een lijst met waarden in een enkele variabele declareren. Een lijst wordt weergegeven door vierkante haken [] en elke waarde wordt gescheiden door een komma.  
+Je kunt een lijst met waarden in een enkele variabele declareren. Een lijst wordt weergegeven door *square brackets* (vierkante haken) [] en elke waarde wordt gescheiden door een komma.  
 
-Aan elke positie in een lijst is een nummer gekoppeld dat de index wordt genoemd. Indexen beginnen bij 0, dus het eerste item in een lijst heeft de index 0. Het tweede item heeft index 1, enz. Je kunt afzonderlijke items in een lijst oproepen door de index ervan aan te roepen.  
+Aan elke positie in een lijst is een nummer gekoppeld dat de *index* wordt genoemd. Indexen beginnen bij 0, dus het eerste item in een lijst heeft de index 0. Het tweede item heeft index 1, enz. Je kunt afzonderlijke items in een lijst oproepen door de index ervan aan te roepen.  
 
 Je kunt een lijst doorlopen met een for-loop. In plaats van een getal binnen een bereik, heeft i (of hoe je de variabele ook noemt die je declareert) de waarde van een item in de lijst. Je kunt range() nog steeds gebruiken om een ​​lijst te doorlopen. In dit geval zal ik worden gebruikt om een ​​index in een lijst aan te roepen.  
 
@@ -12,6 +12,7 @@ Je kunt een lijst doorlopen met een for-loop. In plaats van een getal binnen een
 - Maak een variabele die een lijst met vijf namen bevat.  
 - Loop over de lijst met een for-loop. Print elke individuele naam in de lijst op een nieuwe regel.  
 
+#### **Resultaat**  
 ```Python
 # Exercise 1 :
 
@@ -33,6 +34,7 @@ for i in name_list:
 - Gebruik een for-loop om het volgende te doen voor elk item in de lijst:
 Druk de waarde van dat item af, opgeteld bij de waarde van het volgende item in de lijst. Als het het laatste item is, voeg het dan toe aan de waarde van het eerste item (aangezien er geen volgend item is).  
 
+#### **Resultaat**  
 ```Python
 # Exercise 2 :
 

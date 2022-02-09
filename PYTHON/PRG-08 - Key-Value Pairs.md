@@ -8,8 +8,8 @@ Een *"Key-Value pair"* bestaat uit twee gerelateerde gegevenselementen: een *Key
 - Maak een woordenboek met de volgende sleutels en waarden:  
 ![tabel PRG08](https://user-images.githubusercontent.com/95616021/153305749-24609245-e03b-44ab-b03a-fc72c181df65.jpg)  , een
 - Loop over de 'dictionary' en druk elk key/value-pair (sleutel/waarde-paar) in de terminal af.  
-
-
+  
+#### **Resultaat**  
 ```Python
 # Exercise 1 :
 
@@ -32,7 +32,8 @@ print(dictionary)
 - Gebruik *user input* om hun informatie op te vragen (voornaam, achternaam, functie, bedrijf). - Bewaar de informatie in een *dictionary*.  
 - Schrijf de informatie naar een csv-bestand (door komma's gescheiden waarden). De gegevens mogen *niet worden overschreven* wanneer u het script meerdere keren uitvoert.  
 
-
+  
+#### **Resultaat**  
 ```Python
 
 # Exercise 2 :
@@ -54,9 +55,20 @@ with open('mycsvfile.csv', 'a') as f:
 print(dictionary)
 
 # output exercise 2 :
-# mycsvfile.csv
+# mycsvfile.csv - > verdeling door keys en values apart uit te drukken:
+
+First Name,Last Name,Job Title,Company
+
+Jamal,Tadrous,Student Cloud Engineer,Techgrounds
+
+
 # &
 # extra example file; mycsvfile2.csv is with: w.writerow(dictionary.items())
+
+# mycsvfile2.csv - > alle keys en values samen in een 'list' uitgedrukt, d.m.v. '.items':
+
+"('First Name', 'Jamal')","('Last Name', 'Tadrous')","('Job Title', 'Student Cloud Engineer')","('Company', 'Techgrounds')"
+
 
 # source: https://stackoverflow.com/questions/10373247/how-do-i-write-a-python-dictionary-to-a-csv-file?noredirect=1&lq=1
 

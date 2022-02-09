@@ -10,7 +10,8 @@ Naast de ingebouwde functies kunt u ook aangepaste functies schrijven, of functi
 - Maak een nieuw script.  
 - Importeer het *random* pakket.  
 - Print 5 willekeurige gehele getallen af ​​met een waarde tussen 0 en 100.  
-
+  
+#### **Resultaat**  
 ```Python
 import random
 for i in range(5):
@@ -34,6 +35,7 @@ for i in range(5):
 - Call myfunction.  
 - Herschrijf je functie zodat er een string als argument voor nodig is. Dan zou het "Hello, <string>!" moeten afdrukken.  
 
+#### **Resultaat**  
 ```Python
 # Exercise 2 :
 
@@ -50,9 +52,9 @@ def myfunction():
 myfunction();
 ```
 
-**Exercise 3:**
-- Maak een nieuw script.
-- Kopieer onderstaande code in je script.
+**Exercise 3:**  
+- Maak een nieuw script.  
+- Kopieer onderstaande code in je script.  
 ```Python
 def avg():
     # write your code here
@@ -63,7 +65,9 @@ z = avg(x,y)
 print ("The average of",x,"and", y, "is", z)
 ```
 - Schrijf de aangepaste functie avg() zo dat deze het gemiddelde van de gegeven parameters retourneert.  
-
+  
+  
+#### **Resultaat**  
 ```Python
 # Exercise 3 :
 

@@ -6,7 +6,7 @@ while x <= 10:
     x = x + 1;
 
 
-# Exercise 2 :
+# # Exercise 2 :
 
 x = 5
 for i in range(50):

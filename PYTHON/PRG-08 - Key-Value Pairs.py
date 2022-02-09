@@ -1,13 +1,15 @@
 # Exercise 1 :
 
-# dictionary = {
-#     "First Name": "Coen",
-#     "Last Name": "Meulenkamp",
-#     "Job Title": "Learning Coach",
-#     "Company": "Techgrounds"
-#     }
-# print(dictionary)
+dictionary = {
+    "First Name": "Coen",
+    "Last Name": "Meulenkamp",
+    "Job Title": "Learning Coach",
+    "Company": "Techgrounds"
+    }
+print(dictionary)
 
+# output dictionary:
+# {'First Name': 'Coen', 'Last Name': 'Meulenkamp', 'Job Title': 'Learning Coach', 'Company': 'Techgrounds'}
 
 # Exercise 2 :
 

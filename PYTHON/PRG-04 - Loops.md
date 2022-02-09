@@ -12,6 +12,7 @@ De for-loop wordt uitgevoerd voor een vooraf bepaald aantal iteraties. Dit numme
 - Maak een variabele x en geef deze de waarde 0.  
 Gebruik een while-loop om de waarde van x in elke iteratie van de lus af te drukken. Na het afdrukken moet de waarde van x met 1 toenemen. De loop moet lopen zolang x kleiner is dan of gelijk is aan 10.  
 
+#### **Resultaat**  
 ```Python
 x = 0 
 while x <= 10:
@@ -44,7 +45,7 @@ for i in range(10):
 - Voeg een variabele *x* toe met waarde 5 bovenaan je script.  
 - Gebruik de for-loop om de waarde van *'x'* vermenigvuldigd met de waarde van *'i'* af te drukken voor maximaal 50 iteraties.  
 
-
+#### **Resultaat**  
 ```Python
 x = 5
 for i in range(50):
@@ -69,6 +70,7 @@ for i in range(50):
 arr = ["Coen", "Casper", "Joshua", "Abdessamad", "Saskia"]
 Gebruik een for-loop om over de array te loopen. Print elke naam afzonderlijk.
 
+#### **Resultaat**  
 ```Python
 arr = ["Coen", "Casper", "Joshua", "Abdessamad", "Saskia"]
 for x in arr:

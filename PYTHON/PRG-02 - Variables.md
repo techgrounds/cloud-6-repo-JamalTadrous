@@ -13,6 +13,7 @@ Onthoud dat u op elk moment in de code een print-instructie kunt plaatsen om de 
 - Maak een derde variabele met de naam z. De waarde van z moet de som zijn van x en y.  
 - Druk de waarde van z af.  
 
+#### **Resultaat**  
 ```Python
 x = 10
 y = 20
@@ -28,6 +29,7 @@ output: 30
 - Maak een variabelenaam. De waarde van naam moet uw naam zijn.  
 - Druk de tekst "Hello, <hier uw naam>!" af. Gebruik naam in de printopdracht.  
 
+#### **Resultaat**  
 ```Python
 name = "Jamal Tadrous"
 print("Hello, " + name);
@@ -44,6 +46,7 @@ output: Hello, Jamal Tadrous
 - Verander de waarde van diezelfde variabele.  
 - Print de tekst “Waarde 3: <waarde 3 hier>”.  
 
+#### **Resultaat**  
 ```Python
 Value_1 = "Jamal"
 print("Value 1: " + Value_1)

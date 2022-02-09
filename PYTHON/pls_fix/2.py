@@ -5,3 +5,6 @@ The output should be:
 foo = 20
 bar = '80'
 print(int(foo) + int(bar));
+
+# output=
+# 100

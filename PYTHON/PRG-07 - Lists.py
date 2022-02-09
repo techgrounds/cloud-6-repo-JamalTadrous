@@ -4,6 +4,12 @@ name_list = ['Casper', 'Coen', 'Kim Sing', 'Achraf', 'Clyde']
 for i in name_list:
     print(i)
 
+# output exercise 1:
+# Casper
+# Coen
+# Kim Sing
+# Achraf
+# Clyde
 
 print("------------------")
 
@@ -17,3 +23,10 @@ for i in range(len(pricelist)):
         print(pricelist[i] + pricelist[0])
     else:
         print(pricelist[i] + pricelist[i+1])
+
+# output exercise 2:
+# 60
+# 100
+# 140
+# 180
+# 120

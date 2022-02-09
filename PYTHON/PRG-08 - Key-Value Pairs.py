@@ -27,6 +27,10 @@ with open('mycsvfile.csv', 'a') as f:
 
 print(dictionary)
 
+# output exercise 2 :
+# mycsvfile.csv
+# &
+# extra example file; mycsvfile2.csv is with: w.writerow(dictionary.items())
 
 # source: https://stackoverflow.com/questions/10373247/how-do-i-write-a-python-dictionary-to-a-csv-file?noredirect=1&lq=1
 

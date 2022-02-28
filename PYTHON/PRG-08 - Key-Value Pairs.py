@@ -22,10 +22,10 @@ dictionary = {
     "Company": input("Company: "),
 }
 
-with open('mycsvfile.csv', 'a') as f:
-    w = csv.writer(f)
-    w.writerow(dictionary.keys())
-    w.writerow(dictionary.values())
+with open('mycsvfile3.csv', 'a') as f:
+    write = csv.writer(f)
+    write.writerow(dictionary.keys())
+    write.writerow(dictionary.values())
 
 print(dictionary)
 

@@ -10,23 +10,6 @@ targetScope = 'subscription'
 param location string = 'westeurope'
 param resourceGroupName string = 'JamsProjectV1'
 
-//VIRTUAL NETWORK
-param adminUsername1 string = 'jamaltadrous'
-
-// @secure() 
-param adminPassword1 string = 'Techgr0und$'
-
-//VM credentials
-param adminUsername2 string = 'jamaltadrous'
-
-@description('Password for the Virtual Machine.')
-// param sshPublicKey string = loadFileAsBase64('../misc/sshpk')
-param adminPassword2 string = 'Techgr0und$'
-
-//___________________ VARIABLES __________________________//
-
-
-
 
 /////////////////////RESOURCES////////////////////////////
 
@@ -35,7 +18,7 @@ param adminPassword2 string = 'Techgr0und$'
 
 
 //RESOURCE GROUP
-module rg './RESOURCEGROUP.bicep' = {
+module rg './Modules/RESOURCEGROUP.bicep' = {
   name: resourceGroupName
   params: {
     location: location
@@ -48,7 +31,7 @@ module rg './RESOURCEGROUP.bicep' = {
 
 // STORAGE ACCOUNT
 // DEPLOYMENT SCRIPT
-module stg './STORAGEACCOUNT.bicep' = {
+module stg './Modules/STORAGEACCOUNT.bicep' = {
   name: 'jamalv1storageaccount'
   params: {
     storageAccountName: 'jamalv1storageaccount'
@@ -65,10 +48,14 @@ module stg './STORAGEACCOUNT.bicep' = {
 //____________________VIRTUAL MACHINES_____________________//
 /////////////////////___ADMINSERVER___///////////////////////
 
+param adminUsername1 string = 'jamaltadrous'
+// @secure() 
+param adminPassword1 string = 'Techgr0und$'
 
+//______________________________________________________
 
 //ADMINSERVER
-module ADMINSERVER 'ADMINSERVER.bicep' = {
+module ADMINSERVER './Modules/ADMINSERVER.bicep' = {
   name: 'ADMINSERVER'
   scope: resourceGroup('JamsProjectV1')
   dependsOn: [
@@ -89,8 +76,18 @@ module ADMINSERVER 'ADMINSERVER.bicep' = {
 
 ////////////////////___WEBSERVER___///////////////////////
 
+
+//VM credentials
+param adminUsername2 string = 'jamaltadrous'
+
+@description('Password for the Virtual Machine.')
+// param sshPublicKey string = loadFileAsBase64('../misc/sshpk')
+param adminPassword2 string = 'Techgr0und$'
+
+//________________________________________________________
+
 //WEBSERVER(Linux)
-module WEBSERVER 'WEBSERVER.bicep' = {
+module WEBSERVER './Modules/WEBSERVER.bicep' = {
   name: 'WEBSERVER'
   scope: resourceGroup('JamsProjectV1')
   dependsOn:[
@@ -109,16 +106,13 @@ module WEBSERVER 'WEBSERVER.bicep' = {
 }
 
 
-
-
-
-//____________________KeyVault___________________________//
+//////////////////////___KeyVault___________________________//
 
 
 //VAULT
 //KEYS
 //POLICIES
-module KEYVAULT 'KeyVault.bicep' = {
+module KEYVAULT './Modules/KeyVault.bicep' = {
   name: 'projexkeyvault'
   dependsOn: [
     rg

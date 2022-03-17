@@ -1,3 +1,5 @@
+param location string = resourceGroup().location
+
 @description('The name of you Virtual Machine.')
 param vmName string = 'simpleLinuxVM'
 

@@ -1,84 +1,41 @@
-param vaultName string = 'keyVault${uniqueString(resourceGroup().id)}' // must be globally unique
-param skuName string = 'Standard'
+targetScope = 'resourceGroup'
+
 param location string = resourceGroup().location
-param tenantId string = subscription().tenantId
-param objectId string
-
-param keysPermissions array = [
-  'list'
-]
-param secretsPermissions array = [
-  'list'
-]
-@allowed([
-  'standard'
-
-@secure()
-param secretsObject object
-
-param accessPolicies array = [
-  {
-    tenantId: tenantId
-    objectId: objectId
-    permissions: {
-      keys: [
-        'Get'
-        'List'
-        'Update'
-        'Create'
-        'Import'
-        'Delete'
-        'Recover'
-        'Backup'
-        'Restore'
-      ]
-      secrets: [
-        'Get'
-        'List'
-        'Set'
-        'Delete'
-        'Recover'
-        'Backup'
-        'Restore'
-      ]
-      certificates: [
-        'Get'
-        'List'
-        'Update'
-        'Create'
-        'Import'
-        'Delete'
-        'Recover'
-        'Backup'
-        'Restore'
-        'ManageContacts'
-        'ManageIssuers'
-        'GetIssuers'
-        'ListIssuers'
-        'SetIssuers'
-        'DeleteIssuers'
-      ]
-    }
-  }
-]
-
 param enabledForDeployment bool = true
 param enabledForTemplateDeployment bool = true
 param enabledForDiskEncryption bool = true
-param enableRbacAuthorization bool = false
-param softDeleteRetentionInDays int = 90
+param enableSoftDelete bool = true
+param enablePurgeProtection bool = true
+// param enableRbacAuthorization bool = false
+param keyVaultName string = 'jamsKV2'
+param tenantId string = subscription().tenantId
+@description('Specifies the object ID of a user, service principal or security group in the Azure Active Directory tenant for the vault. The object ID must be unique for the list of access policies. Get it by using Get-AzADUser or Get-AzADServicePrincipal cmdlets.')
+param objectId string = '214bb771-fd30-4f8e-9dfc-7195f7b165ff'
 
-param keyName string 
-param secretName string 
-param secretValue string 
+// param sub1 string
 
-param networkAcls object = {
-  ipRules: []
-  virtualNetworkRules: []
-}
+
+
+@description('Specifies whether the key vault is a standard vault or a premium vault.')
+@allowed([
+  'standard'
+])
+param skuName string = 'standard'
+
+// param networkAcls object = {
+//   ipRules: []
+//   virtualNetworkRules: [
+//     {
+//       id: subscription().id
+//     }
+//   ]
+// }
+
+
+///////////////////////////////////////////////////////////////
 
 resource keyvault 'Microsoft.KeyVault/vaults@2019-09-01' = {
-  name: vaultName
+  name: keyVaultName
   location: location
   tags: {
     displayName: 'KeyVault'
@@ -87,14 +44,28 @@ resource keyvault 'Microsoft.KeyVault/vaults@2019-09-01' = {
     enabledForDeployment: enabledForDeployment
     enabledForTemplateDeployment: enabledForTemplateDeployment
     enabledForDiskEncryption: enabledForDiskEncryption
+    enableRbacAuthorization: false
     tenantId: tenantId
+    enableSoftDelete: enableSoftDelete
+    enablePurgeProtection: enablePurgeProtection
+    softDeleteRetentionInDays: 7
     accessPolicies: [
       {
         objectId: objectId
         tenantId: tenantId
         permissions: {
-          keys: keysPermissions
-          secrets: secretsPermissions
+          keys: [
+            'all'
+          ]
+          secrets: [
+            'all'
+          ]
+          certificates: [
+            'all'
+          ]
+          storage: [
+            'all'
+          ]
         }
       }
     ]
@@ -105,15 +76,39 @@ resource keyvault 'Microsoft.KeyVault/vaults@2019-09-01' = {
     networkAcls: {
       defaultAction: 'Allow'
       bypass: 'AzureServices'
+      // virtualNetworkRules:[
+      //   {
+      //     id: sub1
+      //   }
+      // ]
     }
   }
 }
 
+resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' = {
+  name:  'projectadmin'
+  location: location
+  dependsOn: [
+    keyvault
+  ]
+}
+
+// secret
+resource secret 'Microsoft.KeyVault/vaults/secrets@2021-10-01' = {
+  parent: keyvault
+  name: 'ssh'
+  properties: {
+    value: loadTextContent('../misc/id_rsa.pub')
+  }
+}
+
 // create key
-resource key 'Microsoft.KeyVault/vaults/keys@2019-09-01' = {
-  name: '${keyvault.name}/${keyName}'
+resource RSAkey 'Microsoft.KeyVault/vaults/keys@2021-10-01' = {
+  name: 'RSAKey'
+  parent: keyvault
   properties: {
     kty: 'RSA' // key type
+    keySize: 4096
     keyOps: [
       // key operations
       'encrypt'
@@ -123,16 +118,74 @@ resource key 'Microsoft.KeyVault/vaults/keys@2019-09-01' = {
       'verify'
       'wrapKey'
     ]
-    keySize: 4096
+    attributes:{
+      enabled: true
+    }
   }
 }
 
-// create secret
-resource secret 'Microsoft.KeyVault/vaults/secrets@2018-02-14' = {
-  name: '${keyvault.name}/${secretName}'
+
+resource dskEncrKey 'Microsoft.Compute/diskEncryptionSets@2021-08-01' = {
+  name: 'dskEncrKeyV1'
+  location: location
+  // tags:tags
+  identity: {
+    type: 'SystemAssigned'
+  }
   properties: {
-    value: secretValue
+    rotationToLatestKeyVersionEnabled:true
+    activeKey: {
+      keyUrl: RSAkey.properties.keyUriWithVersion
+      sourceVault: {
+        id: keyvault.id
+      }
+    }
+    encryptionType: 'EncryptionAtRestWithCustomerKey'
+  }
+}
+resource kvPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2021-10-01'= {
+  name: 'add'
+  parent: keyvault
+  properties:{
+    accessPolicies:[
+      {
+        tenantId: tenantId
+        objectId: dskEncrKey.identity.principalId
+        permissions:{
+          keys:[
+            'all'
+          ]
+          storage:[
+            'all'
+          ]
+        }
+        
+      }
+      {
+        tenantId: tenantId
+        objectId: mngId.properties.principalId
+        permissions: {
+          keys: [
+            'all'
+          ]
+          secrets: [
+            'all'
+          ]
+          certificates: [
+            'all'
+          ]
+          storage: [
+            'all'
+          ]
+        }    
+      }
+    ]
   }
 }
 
-output proxyKey object = key
+output keyvaultId string = keyvault.id
+output proxyKey object = RSAkey
+output objectId string = objectId
+output dskEncrKey string = dskEncrKey.id
+
+

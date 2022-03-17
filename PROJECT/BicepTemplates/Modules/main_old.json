@@ -1,0 +1,1035 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.4.1272.37030",
+      "templateHash": "10679481263176503867"
+    }
+  },
+  "parameters": {
+    "location": {
+      "type": "string",
+      "defaultValue": "westeurope"
+    },
+    "resourceGroupName": {
+      "type": "string",
+      "defaultValue": "JamsProjectV1"
+    },
+    "adminUsername": {
+      "type": "string",
+      "defaultValue": "jamaltadrous"
+    },
+    "adminPassword": {
+      "type": "secureString"
+    },
+    "adminUsername1": {
+      "type": "string",
+      "defaultValue": "jamaltadrous"
+    },
+    "sshPublicKey": {
+      "type": "string",
+      "defaultValue": "c3NoLXJzYSBBQUFBQjNOemFDMXljMkVBQUFBREFRQUJBQUFCZ1FDZVd6MDM2N0lBb1gvaGtnUDh1b01EN2xrRDk0RUJiYzgwZWFUMzB2Yy9SRGhtSlJsQm1sU052OUNab3VBWTBhSzAxbFE4M1BQYzduZE5zc0UvK3RxQkY2UEx0NDJONmFCSGg3bjJ5Z2pxUUNJOUU2NjRTSzF1VlZEakNOellzYVpMWGFGY1RGRzg2SC9iRnhpUm1yMmVqcTNMOUVmeEF4WE5mNzZZYTFTU1ZON2RTSCtYL2Y1NmYrRk5DN1Y2ZFQ5Z1V0eGE5emV0SWtYZjB3SVR0QWhoU053RGd1ZXo0MVk3a0xuaUlmVXVWRHZ2N25Kb3o1Q1RSeXZUM3djYzdjbGoyMlg5ZnI5dUNXMTRYZzVMakMxOGNIOHJrOER4NnY5VVlBVkd4elc1dWJNSXd3d0MvUW16eXlUS1BDRU9uUmx5ZlcvVW5oOGpuN200TmVBTUFCbDllVDB4cmJUdDV5ejh2K1pQQ2Z0TlR5ZzVQV2lHWWRiWi93U2R4dDlUVDVQRWZsYnZVUDU5QTdRWTR1NXIxUENWWk9xbTg3SC9PNzc1dGhQNWNpVWxCZFFOMm0rcGw1RUJ0ejhJU21EYWhocHg4SW5Eb0FxZDVsU0VRSm9iWmd0aU9kZ1o5WlVGZjVPay9jWjdEZm84dld4TjRldXl1VXhocHExeG9mN2hJck09IGphbWFyQE1TSQo=",
+      "metadata": {
+        "description": "Password for the Virtual Machine."
+      }
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "[parameters('resourceGroupName')]",
+      "location": "[deployment().location]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "location": {
+            "value": "[parameters('location')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.4.1272.37030",
+              "templateHash": "17967552635663858220"
+            }
+          },
+          "parameters": {
+            "location": {
+              "type": "string",
+              "defaultValue": "westeurope"
+            }
+          },
+          "variables": {
+            "resourceGroupName": "JamsProjectV1"
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Resources/resourceGroups",
+              "apiVersion": "2021-04-01",
+              "name": "[variables('resourceGroupName')]",
+              "location": "[parameters('location')]"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "jamalv1storageaccount",
+      "resourceGroup": "JamsProjectV1",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "storageAccountName": {
+            "value": "jamalv1storageaccount"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.4.1272.37030",
+              "templateHash": "4779980168158716222"
+            }
+          },
+          "parameters": {
+            "storageAccountName": {
+              "type": "string",
+              "defaultValue": "jamalv1storageaccount"
+            },
+            "location": {
+              "type": "string",
+              "defaultValue": "[resourceGroup().location]"
+            },
+            "containerName": {
+              "type": "string",
+              "defaultValue": "logs"
+            },
+            "scriptToExecute": {
+              "type": "string",
+              "defaultValue": "date"
+            },
+            "subId": {
+              "type": "string",
+              "defaultValue": "[subscription().id]"
+            },
+            "currentTime": {
+              "type": "string",
+              "defaultValue": "[utcNow()]"
+            }
+          },
+          "variables": {
+            "uamiId": "[uniqueString(parameters('subId'), 'Microsoft.ManagedIdentity/userAssignedIdentities')]"
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Storage/storageAccounts",
+              "apiVersion": "2021-04-01",
+              "name": "[parameters('storageAccountName')]",
+              "location": "[parameters('location')]",
+              "sku": {
+                "name": "Standard_LRS"
+              },
+              "kind": "StorageV2",
+              "properties": {
+                "accessTier": "Cool"
+              }
+            },
+            {
+              "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+              "apiVersion": "2019-06-01",
+              "name": "[format('{0}/default/{1}', parameters('storageAccountName'), parameters('containerName'))]",
+              "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]"
+              ]
+            },
+            {
+              "type": "Microsoft.Resources/deploymentScripts",
+              "apiVersion": "2019-10-01-preview",
+              "name": "scriptWithStorage",
+              "location": "[parameters('location')]",
+              "kind": "AzureCLI",
+              "identity": {
+                "type": "UserAssigned",
+                "userAssignedIdentities": {
+                  "[format('{0}', variables('uamiId'))]": {}
+                }
+              },
+              "properties": {
+                "azCliVersion": "2.0.80",
+                "storageAccountSettings": {
+                  "storageAccountName": "[parameters('storageAccountName')]",
+                  "storageAccountKey": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')), '2021-04-01').keys[0].value]"
+                },
+                "scriptContent": "[parameters('scriptToExecute')]",
+                "cleanupPreference": "OnSuccess",
+                "retentionInterval": "P1D",
+                "forceUpdateTag": "[parameters('currentTime')]"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]"
+              ]
+            }
+          ],
+          "outputs": {
+            "scriptLogs": {
+              "type": "string",
+              "value": "[reference(format('{0}/logs/default', resourceId('Microsoft.Resources/deploymentScripts', 'scriptWithStorage')), '2019-10-01-preview', 'Full').properties.log]"
+            }
+          }
+        }
+      },
+      "dependsOn": [
+        "[subscriptionResourceId('Microsoft.Resources/deployments', parameters('resourceGroupName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "projexkeyvault",
+      "resourceGroup": "JamsProjectV1",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "location": {
+            "value": "[parameters('location')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.4.1272.37030",
+              "templateHash": "12328462632006414977"
+            }
+          },
+          "parameters": {
+            "objectid": {
+              "type": "string",
+              "defaultValue": "Microsoft.Compute/diskEncryptionSets@2021-08-01"
+            },
+            "vaultName": {
+              "type": "string",
+              "defaultValue": "[format('keyVault{0}', uniqueString(resourceGroup().id))]"
+            },
+            "location": {
+              "type": "string",
+              "defaultValue": "[resourceGroup().location]"
+            },
+            "sku": {
+              "type": "string",
+              "defaultValue": "Standard"
+            },
+            "tenant": {
+              "type": "string",
+              "defaultValue": "[subscription().id]"
+            },
+            "accessPolicies": {
+              "type": "array",
+              "defaultValue": [
+                {
+                  "tenantId": "[parameters('tenant')]",
+                  "objectId": "[subscription().id]",
+                  "permissions": {
+                    "keys": [
+                      "Get",
+                      "List",
+                      "Update",
+                      "Create",
+                      "Import",
+                      "Delete",
+                      "Recover",
+                      "Backup",
+                      "Restore"
+                    ],
+                    "secrets": [
+                      "Get",
+                      "List",
+                      "Set",
+                      "Delete",
+                      "Recover",
+                      "Backup",
+                      "Restore"
+                    ],
+                    "certificates": [
+                      "Get",
+                      "List",
+                      "Update",
+                      "Create",
+                      "Import",
+                      "Delete",
+                      "Recover",
+                      "Backup",
+                      "Restore",
+                      "ManageContacts",
+                      "ManageIssuers",
+                      "GetIssuers",
+                      "ListIssuers",
+                      "SetIssuers",
+                      "DeleteIssuers"
+                    ]
+                  }
+                }
+              ]
+            },
+            "enabledForDeployment": {
+              "type": "bool",
+              "defaultValue": true
+            },
+            "enabledForTemplateDeployment": {
+              "type": "bool",
+              "defaultValue": true
+            },
+            "enabledForDiskEncryption": {
+              "type": "bool",
+              "defaultValue": true
+            },
+            "enableRbacAuthorization": {
+              "type": "bool",
+              "defaultValue": false
+            },
+            "softDeleteRetentionInDays": {
+              "type": "int",
+              "defaultValue": 0
+            },
+            "keyName": {
+              "type": "string",
+              "defaultValue": "accKey"
+            },
+            "networkAcls": {
+              "type": "object",
+              "defaultValue": {
+                "ipRules": [],
+                "virtualNetworkRules": [
+                  {
+                    "id": "[subscription().id]"
+                  }
+                ]
+              }
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.KeyVault/vaults",
+              "apiVersion": "2019-09-01",
+              "name": "[parameters('vaultName')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "tenantId": "[parameters('tenant')]",
+                "sku": {
+                  "family": "A",
+                  "name": "[parameters('sku')]"
+                },
+                "accessPolicies": "[parameters('accessPolicies')]",
+                "enabledForDeployment": "[parameters('enabledForDeployment')]",
+                "enabledForDiskEncryption": "[parameters('enabledForDiskEncryption')]",
+                "enabledForTemplateDeployment": "[parameters('enabledForTemplateDeployment')]",
+                "softDeleteRetentionInDays": "[parameters('softDeleteRetentionInDays')]",
+                "enableRbacAuthorization": "[parameters('enableRbacAuthorization')]",
+                "networkAcls": "[parameters('networkAcls')]"
+              }
+            },
+            {
+              "type": "Microsoft.KeyVault/vaults/keys",
+              "apiVersion": "2019-09-01",
+              "name": "[format('{0}/{1}', parameters('vaultName'), parameters('keyName'))]",
+              "properties": {
+                "kty": "RSA",
+                "keyOps": [
+                  "encrypt",
+                  "decrypt",
+                  "sign",
+                  "unwrapKey",
+                  "verify",
+                  "wrapKey"
+                ],
+                "keySize": 2048
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('vaultName'))]"
+              ]
+            },
+            {
+              "type": "Microsoft.KeyVault/vaults/secrets",
+              "apiVersion": "2021-10-01",
+              "name": "[format('{0}/{1}', parameters('vaultName'), 'ssh')]",
+              "properties": {
+                "value": "-----BEGIN OPENSSH PRIVATE KEY-----\n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\numKUXzlmQxs/1vAAAACWphbWFyQE1TSQE=\n-----END OPENSSH PRIVATE KEY-----\n"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('vaultName'))]"
+              ]
+            },
+            {
+              "type": "Microsoft.KeyVault/vaults/accessPolicies",
+              "apiVersion": "2021-10-01",
+              "name": "[format('{0}/{1}', parameters('vaultName'), 'add')]",
+              "properties": {
+                "accessPolicies": [
+                  {
+                    "tenantId": "[parameters('tenant')]",
+                    "objectId": "[parameters('objectid')]",
+                    "permissions": {
+                      "keys": [
+                        "all"
+                      ],
+                      "storage": [
+                        "all"
+                      ]
+                    }
+                  },
+                  {
+                    "tenantId": "[parameters('tenant')]",
+                    "objectId": "[parameters('objectid')]",
+                    "permissions": {
+                      "keys": [
+                        "all"
+                      ],
+                      "storage": [
+                        "all"
+                      ]
+                    }
+                  }
+                ]
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('vaultName'))]"
+              ]
+            }
+          ],
+          "outputs": {
+            "proxyKey": {
+              "type": "object",
+              "value": "[reference(resourceId('Microsoft.KeyVault/vaults/keys', split(format('{0}/{1}', parameters('vaultName'), parameters('keyName')), '/')[0], split(format('{0}/{1}', parameters('vaultName'), parameters('keyName')), '/')[1]), '2019-09-01', 'full')]"
+            }
+          }
+        }
+      },
+      "dependsOn": [
+        "[subscriptionResourceId('Microsoft.Resources/deployments', parameters('resourceGroupName'))]",
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, 'JamsProjectV1'), 'Microsoft.Resources/deployments', 'jamalv1storageaccount')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "VNETS",
+      "resourceGroup": "JamsProjectV1",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "vnet1Name": {
+            "value": "WEBSERVER"
+          },
+          "vnet2Name": {
+            "value": "ADMINSERVER"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.4.1272.37030",
+              "templateHash": "6773872807954928206"
+            }
+          },
+          "parameters": {
+            "location": {
+              "type": "string",
+              "defaultValue": "[resourceGroup().location]",
+              "metadata": {
+                "description": "Location of the resources"
+              }
+            },
+            "vnet1Name": {
+              "type": "string",
+              "defaultValue": "app-prod-vnet",
+              "metadata": {
+                "description": "Name for vNet 1"
+              }
+            },
+            "vnet2Name": {
+              "type": "string",
+              "defaultValue": "management-prd-vnet",
+              "metadata": {
+                "description": "Name for vNet 2"
+              }
+            }
+          },
+          "variables": {
+            "vnet1Config": {
+              "addressSpacePrefix": "10.10.10.0/24",
+              "subnetName": "websubnet1",
+              "subnetPrefix": "10.10.10.0/24"
+            },
+            "vnet2Config": {
+              "addressSpacePrefix": "10.20.20.0/24",
+              "subnetName": "admsubnet2",
+              "subnetPrefix": "10.20.20.0/24"
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Network/virtualNetworks",
+              "apiVersion": "2020-05-01",
+              "name": "[parameters('vnet1Name')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "addressSpace": {
+                  "addressPrefixes": [
+                    "[variables('vnet1Config').addressSpacePrefix]"
+                  ]
+                },
+                "subnets": [
+                  {
+                    "name": "[variables('vnet1Config').subnetName]",
+                    "properties": {
+                      "addressPrefix": "[variables('vnet1Config').subnetPrefix]"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+              "apiVersion": "2020-05-01",
+              "name": "[format('{0}/{1}', parameters('vnet1Name'), format('{0}-{1}', parameters('vnet1Name'), parameters('vnet2Name')))]",
+              "properties": {
+                "allowVirtualNetworkAccess": true,
+                "allowForwardedTraffic": false,
+                "allowGatewayTransit": false,
+                "useRemoteGateways": false,
+                "remoteVirtualNetwork": {
+                  "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnet2Name'))]"
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnet1Name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnet2Name'))]"
+              ]
+            },
+            {
+              "type": "Microsoft.Network/virtualNetworks",
+              "apiVersion": "2020-05-01",
+              "name": "[parameters('vnet2Name')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "addressSpace": {
+                  "addressPrefixes": [
+                    "[variables('vnet2Config').addressSpacePrefix]"
+                  ]
+                },
+                "subnets": [
+                  {
+                    "name": "[variables('vnet2Config').subnetName]",
+                    "properties": {
+                      "addressPrefix": "[variables('vnet2Config').subnetPrefix]"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+              "apiVersion": "2020-05-01",
+              "name": "[format('{0}/{1}', parameters('vnet2Name'), format('{0}-{1}', parameters('vnet2Name'), parameters('vnet1Name')))]",
+              "properties": {
+                "allowVirtualNetworkAccess": true,
+                "allowForwardedTraffic": false,
+                "allowGatewayTransit": false,
+                "useRemoteGateways": false,
+                "remoteVirtualNetwork": {
+                  "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnet1Name'))]"
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnet1Name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnet2Name'))]"
+              ]
+            }
+          ],
+          "outputs": {
+            "subnetId1": {
+              "type": "string",
+              "value": "[format('{0}/subnets/subnet1', resourceId('Microsoft.Network/virtualNetworks', parameters('vnet1Name')))]"
+            },
+            "subnetId2": {
+              "type": "string",
+              "value": "[format('{0}/subnets/subnet2', resourceId('Microsoft.Network/virtualNetworks', parameters('vnet2Name')))]"
+            }
+          }
+        }
+      },
+      "dependsOn": [
+        "[subscriptionResourceId('Microsoft.Resources/deployments', parameters('resourceGroupName'))]",
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, 'JamsProjectV1'), 'Microsoft.Resources/deployments', 'jamalv1storageaccount')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "WEBSERVER",
+      "resourceGroup": "JamsProjectV1",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "adminUsername": {
+            "value": "[parameters('adminUsername')]"
+          },
+          "sshPublicKey": {
+            "value": "[parameters('sshPublicKey')]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "subId2": {
+            "value": "[subscription().id]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.4.1272.37030",
+              "templateHash": "6191234604711691593"
+            }
+          },
+          "parameters": {
+            "location": {
+              "type": "string",
+              "defaultValue": "[resourceGroup().location]"
+            },
+            "vmName": {
+              "type": "string",
+              "defaultValue": "webserv"
+            },
+            "adminUsername": {
+              "type": "string"
+            },
+            "sshPublicKey": {
+              "type": "string",
+              "defaultValue": "c3NoLXJzYSBBQUFBQjNOemFDMXljMkVBQUFBREFRQUJBQUFCZ1FDZVd6MDM2N0lBb1gvaGtnUDh1b01EN2xrRDk0RUJiYzgwZWFUMzB2Yy9SRGhtSlJsQm1sU052OUNab3VBWTBhSzAxbFE4M1BQYzduZE5zc0UvK3RxQkY2UEx0NDJONmFCSGg3bjJ5Z2pxUUNJOUU2NjRTSzF1VlZEakNOellzYVpMWGFGY1RGRzg2SC9iRnhpUm1yMmVqcTNMOUVmeEF4WE5mNzZZYTFTU1ZON2RTSCtYL2Y1NmYrRk5DN1Y2ZFQ5Z1V0eGE5emV0SWtYZjB3SVR0QWhoU053RGd1ZXo0MVk3a0xuaUlmVXVWRHZ2N25Kb3o1Q1RSeXZUM3djYzdjbGoyMlg5ZnI5dUNXMTRYZzVMakMxOGNIOHJrOER4NnY5VVlBVkd4elc1dWJNSXd3d0MvUW16eXlUS1BDRU9uUmx5ZlcvVW5oOGpuN200TmVBTUFCbDllVDB4cmJUdDV5ejh2K1pQQ2Z0TlR5ZzVQV2lHWWRiWi93U2R4dDlUVDVQRWZsYnZVUDU5QTdRWTR1NXIxUENWWk9xbTg3SC9PNzc1dGhQNWNpVWxCZFFOMm0rcGw1RUJ0ejhJU21EYWhocHg4SW5Eb0FxZDVsU0VRSm9iWmd0aU9kZ1o5WlVGZjVPay9jWjdEZm84dld4TjRldXl1VXhocHExeG9mN2hJck09IGphbWFyQE1TSQo="
+            },
+            "dnsLabelPrefix": {
+              "type": "string",
+              "defaultValue": "[toLower(format('webservervm-{0}', uniqueString(resourceGroup().id)))]",
+              "metadata": {
+                "description": "Unique DNS Name for the Public IP used to access the Virtual Machine."
+              }
+            },
+            "ubuntuOSVersion": {
+              "type": "string",
+              "defaultValue": "18.04-LTS",
+              "allowedValues": [
+                "18.04-LTS"
+              ],
+              "metadata": {
+                "description": "The Ubuntu version for the VM."
+              }
+            },
+            "vmSize": {
+              "type": "string",
+              "defaultValue": "Standard_B1s"
+            },
+            "subId2": {
+              "type": "string"
+            }
+          },
+          "variables": {
+            "publicIPAddressName": "[format('{0}PublicIP', parameters('vmName'))]",
+            "osDiskType": "Standard_LRS",
+            "nicName": "webnic1",
+            "nsgName": "webNSG"
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Network/networkInterfaces",
+              "apiVersion": "2020-06-01",
+              "name": "[variables('nicName')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "ipConfigurations": [
+                  {
+                    "name": "ipconfig2",
+                    "properties": {
+                      "subnet": {
+                        "id": "[parameters('subId2')]"
+                      },
+                      "privateIPAllocationMethod": "Dynamic",
+                      "publicIPAddress": {
+                        "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]"
+                      }
+                    }
+                  }
+                ],
+                "networkSecurityGroup": {
+                  "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('nsgName'))]"
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', variables('nsgName'))]",
+                "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]"
+              ]
+            },
+            {
+              "type": "Microsoft.Network/networkSecurityGroups",
+              "apiVersion": "2020-06-01",
+              "name": "[variables('nsgName')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "securityRules": [
+                  {
+                    "name": "SSH",
+                    "properties": {
+                      "priority": 1000,
+                      "protocol": "Tcp",
+                      "access": "Allow",
+                      "direction": "Inbound",
+                      "sourceAddressPrefix": "*",
+                      "sourcePortRange": "*",
+                      "destinationAddressPrefix": "*",
+                      "destinationPortRange": "22"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "Microsoft.Network/publicIPAddresses",
+              "apiVersion": "2020-06-01",
+              "name": "[variables('publicIPAddressName')]",
+              "location": "[parameters('location')]",
+              "sku": {
+                "name": "Basic"
+              },
+              "properties": {
+                "publicIPAllocationMethod": "Dynamic",
+                "publicIPAddressVersion": "IPv4",
+                "dnsSettings": {
+                  "domainNameLabel": "[parameters('dnsLabelPrefix')]"
+                },
+                "idleTimeoutInMinutes": 4
+              }
+            },
+            {
+              "type": "Microsoft.Compute/virtualMachines",
+              "apiVersion": "2020-06-01",
+              "name": "[parameters('vmName')]",
+              "location": "[parameters('location')]",
+              "zones": [
+                "1"
+              ],
+              "properties": {
+                "hardwareProfile": {
+                  "vmSize": "[parameters('vmSize')]"
+                },
+                "storageProfile": {
+                  "osDisk": {
+                    "createOption": "FromImage",
+                    "managedDisk": {
+                      "storageAccountType": "[variables('osDiskType')]"
+                    }
+                  },
+                  "imageReference": {
+                    "publisher": "Canonical",
+                    "offer": "UbuntuServer",
+                    "sku": "[parameters('ubuntuOSVersion')]",
+                    "version": "latest"
+                  }
+                },
+                "networkProfile": {
+                  "networkInterfaces": [
+                    {
+                      "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('nicName'))]"
+                    }
+                  ]
+                },
+                "osProfile": {
+                  "computerName": "[parameters('vmName')]",
+                  "adminUsername": "[parameters('adminUsername')]",
+                  "customData": "IyEvYmluL2Jhc2gNCnN1ZG8gc3UNCmFwdCB1cGRhdGUNCmFwdCBpbnN0YWxsIGFwYWNoZTIgLXkNCnVmdyBhbGxvdyAnQXBhY2hlJw0Kc3lzdGVtY3RsIGVuYWJsZSBhcGFjaGUyDQpzeXN0ZW1jdGwgcmVzdGFydCBhcGFjaGUy",
+                  "linuxConfiguration": {
+                    "disablePasswordAuthentication": true,
+                    "ssh": {
+                      "publicKeys": [
+                        {
+                          "keyData": "[parameters('sshPublicKey')]",
+                          "path": "LS0tLS1CRUdJTiBPUEVOU1NIIFBSSVZBVEUgS0VZLS0tLS0KYjNCbGJuTnphQzFyWlhrdGRqRUFBQUFBQkc1dmJtVUFBQUFFYm05dVpRQUFBQUFBQUFBQkFBQUJsd0FBQUFkemMyZ3RjbgpOaEFBQUFBd0VBQVFBQUFZRUFubHM5Tit1eUFLRi80WklEL0xxREErNVpBL2VCQVczUE5IbWs5OUwzUDBRNFppVVpRWnBVCmpiL1FtYUxnR05HaXROWlVQTnp6M081M1RiTEJQL3JhZ1Jlank3ZU5qZW1nUjRlNTlzb0k2a0FpUFJPdXVFaXRibFZRNHcKamMyTEdtUzEyaFhFeFJ2T2gvMnhjWWtacTlubzZ0eS9SSDhRTVZ6WCsrbUd0VWtsVGUzVWgvbC8zK2VuL2hUUXUxZW5VLwpZRkxjV3ZjM3JTSkYzOU1DRTdRSVlVamNBNExucytOV081QzU0aUgxTGxRNzcrNXlhTStRazBjcjA5OEhITzNKWTl0bC9YCjYvYmdsdGVGNE9TNHd0ZkhCL0s1UEE4ZXIvVkdBRlJzYzF1Ym16Q01NTUF2MEpzOHNreWp3aERwMFpjbjF2MUo0Zkk1KzUKdURYZ0RBQVpmWGs5TWEyMDdlY3MvTC9tVHduN1RVOG9PVDFvaG1IVzJmOEVuY2JmVTArVHhINVc3MUQrZlFPMEdPTHVhOQpUd2xXVHFwdk94L3p1KytiWVQrWElsSlFYVURkcHZxWmVSQWJjL0NFcGcyb1lhY2ZDSnc2QUtuZVpVaEVDYUcyWUxZam5ZCkdmV1ZCWCtUcFAzR2V3MzZQTDFzVGVIcnNybE1ZYWF0Y2FIKzRTS3pBQUFGZ1A5SDJsci9SOXBhQUFBQUIzTnphQzF5YzIKRUFBQUdCQUo1YlBUZnJzZ0NoZitHU0EveTZnd1B1V1FQM2dRRnR6elI1cFBmUzl6OUVPR1lsR1VHYVZJMi8wSm1pNEJqUgpvclRXVkR6Yzg5enVkMDJ5d1QvNjJvRVhvOHUzalkzcG9FZUh1ZmJLQ09wQUlqMFRycmhJclc1VlVPTUkzTml4cGt0ZG9WCnhNVWJ6b2Y5c1hHSkdhdlo2T3JjdjBSL0VERmMxL3ZwaHJWSkpVM3QxSWY1ZjkvbnAvNFUwTHRYcDFQMkJTM0ZyM042MGkKUmQvVEFoTzBDR0ZJM0FPQzU3UGpWanVRdWVJaDlTNVVPKy91Y21qUGtKTkhLOVBmQnh6dHlXUGJaZjErdjI0SmJYaGVEawp1TUxYeHdmeXVUd1BIcS8xUmdCVWJITmJtNXN3akREQUw5Q2JQTEpNbzhJUTZkR1hKOWI5U2VIeU9mdWJnMTRBd0FHWDE1ClBUR3R0TzNuTFB5LzVrOEorMDFQS0RrOWFJWmgxdG4vQkozRzMxTlBrOFIrVnU5US9uMER0QmppN212VThKVms2cWJ6c2YKODd2dm0yRS9seUpTVUYxQTNhYjZtWGtRRzNQd2hLWU5xR0duSHdpY09nQ3AzbVZJUkFtaHRtQzJJNTJCbjFsUVYvazZUOQp4bnNOK2p5OWJFM2g2N0s1VEdHbXJYR2gvdUVpc3dBQUFBTUJBQUVBQUFHQVhxRVJMU2lZbjAzaStHM2tHaE51bFZ2S0w5CmVvYkswdEJDT3BGRHNxYXRFZWp0T2VpeGhwYktkeVJVMFNjMkphdzR2TW5PNUFnQWEwbm1heW1zUVI3TkN1bmQ4YkpQRzIKU09odmxXMVg5SHZNdWdqWUFPSFZXYmg3OUovb01VbS9vUXZia0NjL05ROE8wR0sxMk5US2VVU3owTXd5YlhDMWg2N051NQpGdjRWMzhLK25WN1lMbm5sWnEwVHF0QVBldG5xY0ZiUXFNWjlheVFMVjhhVC9OUGkxbTVHWkdoYlhWWXhUeUw1S3hURFVqCitCWGFvbzFlek5QYitla3QrL2lQem5GSU1qbDRhWlk3ZysrRlJrTE9kWHpnZnpvUzJFV0FLQnNTdVFSZVJvZkpMc1QzK0UKWlc1cWVLeWwxRkpWWmRMS0pYaGRtYyt1dExSVHBmaXBySG5aRm1KdDhMYVJVQ0J6Vk1Sdkhnamk0RW5sc3FoTEQyTUU4cQpnVXlYMm1ZTW5tQ3BQTHBZUjB4Y0FCaHBWMEtGbUxCWEx5Qjk3MXBDWGY4SSsvdFRIQTNwS1U1c2ZleUhuWG9lc3R0bUVsCnZ4TUthWGlHRnNvYmxlNHV6dFRnT0hiY0FZT0tzbkpaRmhaMDRQbG9mdC9iSmFSbW9lMjBVRFdLbjJ3MVArc2JhWkFBQUEKd1FDYnAxdm1VTUQ0THJvZGl2MWtka2RWRDYxbkcwblh5Z0dnRWZqZWZ0WUdubzg3VlhGQ3lQMWpiVFdlVThsZHN0S3VHRwpTMWtnR0RRNkFWUTlQSG91dUxGS1NEa25STDFIckVMdjVrYnRJSEZ2WmR3dkFqaDUwN1FYRHU1d2FUL1psamExQnB6MHZUCkFPWjYwcGJmWnUxRytRUFB4VDY3eXpwMGkxdStjQ2xLUmNvTzRlUjZ6TmY5bEVvNTdSNHJoMWp2eHdTSGhla1U2c01uUkEKT0tZZlRUOWZuV1k1cWdOUFFLQUY4ZDlSamFOTE9XbEtGenIybUVNd21mSG4wWEV5b0FBQURCQU05ZlhDeDNwdVVMbUlSVwpYVEJNOVk4V0pRZG9YWWhIVmludXRXNW5rQ1JXSGFRT2VjWVJZVW5TM3Z5andaSlIySjJzeXFDZngyMkVoY2h2eFJ0R0ljCk5yRGYrQWxhV1dWS0NCNkUrV3hJRFZnQnd3SFpTUUlWME01UGdtcGUzaWZHd000OFFPbHAzYmV3L1F4RlREWXRtWHBJTzcKb2FRcitBckhjcWJ6ZXo1NUp0OXZSclZUTHo2OGlxaVg1clVydlppdFUzT21qZTRRVmZXQUpoUlMzYSt2NDRjcWh4ZXdKbApUU0JaajExend6UHBCRlBGUmlzdk1QVFJIQ2YzMFUvUUFBQU1FQXczMXRMM1FtdnVjVzk1Ukw4Q1kvOGlSbmRtc0hyRmFmClBTNmNsODE5TGl3OUR1Y09kOG50U3NSUXZ3enJwS3NYbXBUOVdBUlAweE5USnlMZEdqNzRXOHQvZVBMZS83cUgrRFVvWm4KNndld1h1U2pqMWt6M3JhOW1MNmFQMHFYZllGaFIxeTFKZ0JFN2FiUFR5M095Kzk1N1B0U2VmbkQwVjJhaXBHNEZlaXNYZwo0c2NVM3ZOVjJGU0dmZ2IzSzRSZStjM1gwUjJSN0lSUU16bVhaRnNiT3F1bGFISUpwOXo5c3gxNlVqKy9CKy9wS2pFajN2CnVtS1VYemxtUXhzLzF2QUFBQUNXcGhiV0Z5UUUxVFNRRT0KLS0tLS1FTkQgT1BFTlNTSCBQUklWQVRFIEtFWS0tLS0tCg=="
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/networkInterfaces', variables('nicName'))]"
+              ]
+            }
+          ],
+          "outputs": {
+            "adminUsername": {
+              "type": "string",
+              "value": "[parameters('adminUsername')]"
+            },
+            "hostname": {
+              "type": "string",
+              "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))).dnsSettings.fqdn]"
+            },
+            "sshCommand": {
+              "type": "string",
+              "value": "[format('ssh {0}@{1}', parameters('adminUsername'), reference(resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))).dnsSettings.fqdn)]"
+            }
+          }
+        }
+      },
+      "dependsOn": [
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, 'JamsProjectV1'), 'Microsoft.Resources/deployments', 'projexkeyvault')]",
+        "[subscriptionResourceId('Microsoft.Resources/deployments', parameters('resourceGroupName'))]",
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, 'JamsProjectV1'), 'Microsoft.Resources/deployments', 'jamalv1storageaccount')]",
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, 'JamsProjectV1'), 'Microsoft.Resources/deployments', 'VNETS')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "ADMINSERVER",
+      "resourceGroup": "JamsProjectV1",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "adminUsername1": {
+            "value": "[parameters('adminUsername1')]"
+          },
+          "adminPassword1": {
+            "value": "[parameters('adminPassword')]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "subId1": {
+            "value": "[subscription().id]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.4.1272.37030",
+              "templateHash": "7249679747254618949"
+            }
+          },
+          "parameters": {
+            "adminUsername1": {
+              "type": "string"
+            },
+            "adminPassword1": {
+              "type": "secureString",
+              "minLength": 6,
+              "metadata": {
+                "description": "Password for the Virtual Machine."
+              }
+            },
+            "OSVersion": {
+              "type": "string",
+              "defaultValue": "2019-Datacenter",
+              "allowedValues": [
+                "2019-Datacenter"
+              ],
+              "metadata": {
+                "description": "The Windows version for the VM. This will pick a fully patched image of this given Windows version."
+              }
+            },
+            "vmSize1": {
+              "type": "string",
+              "defaultValue": "Standard_B1s"
+            },
+            "location": {
+              "type": "string",
+              "defaultValue": "[resourceGroup().location]"
+            },
+            "dnsLabelPrefix1": {
+              "type": "string",
+              "defaultValue": "[toLower(format('adminManage-vm-{0}', uniqueString(resourceGroup().id)))]"
+            },
+            "subId1": {
+              "type": "string"
+            }
+          },
+          "variables": {
+            "nicName1": "adminnic",
+            "nsgName": "adminNSG",
+            "publicIPAddressName": "AdminPublicIP"
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Network/networkInterfaces",
+              "apiVersion": "2021-02-01",
+              "name": "[variables('nicName1')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "ipConfigurations": [
+                  {
+                    "name": "ipconfigWeb1",
+                    "properties": {
+                      "privateIPAllocationMethod": "Dynamic",
+                      "publicIPAddress": {
+                        "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]"
+                      },
+                      "subnet": {
+                        "id": "[parameters('subId1')]"
+                      }
+                    }
+                  }
+                ],
+                "networkSecurityGroup": {
+                  "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('nsgName'))]"
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', variables('nsgName'))]",
+                "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]"
+              ]
+            },
+            {
+              "type": "Microsoft.Network/networkSecurityGroups",
+              "apiVersion": "2020-06-01",
+              "name": "[variables('nsgName')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "securityRules": [
+                  {
+                    "name": "SSH",
+                    "properties": {
+                      "priority": 1000,
+                      "protocol": "Tcp",
+                      "access": "Allow",
+                      "direction": "Inbound",
+                      "sourceAddressPrefix": "*",
+                      "sourcePortRange": "*",
+                      "destinationAddressPrefix": "*",
+                      "destinationPortRange": "22"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "Microsoft.Network/publicIPAddresses",
+              "apiVersion": "2020-06-01",
+              "name": "[variables('publicIPAddressName')]",
+              "location": "[parameters('location')]",
+              "sku": {
+                "name": "Basic"
+              },
+              "properties": {
+                "publicIPAllocationMethod": "Dynamic",
+                "publicIPAddressVersion": "IPv4",
+                "dnsSettings": {
+                  "domainNameLabel": "[parameters('dnsLabelPrefix1')]"
+                },
+                "idleTimeoutInMinutes": 4
+              }
+            },
+            {
+              "type": "Microsoft.Compute/virtualMachines",
+              "apiVersion": "2021-03-01",
+              "name": "adminManage-server",
+              "location": "[parameters('location')]",
+              "zones": [
+                "2"
+              ],
+              "properties": {
+                "hardwareProfile": {
+                  "vmSize": "[parameters('vmSize1')]"
+                },
+                "osProfile": {
+                  "computerName": "adminManage-server",
+                  "adminUsername": "[parameters('adminUsername1')]",
+                  "adminPassword": "[parameters('adminPassword1')]"
+                },
+                "storageProfile": {
+                  "imageReference": {
+                    "publisher": "MicrosoftWindowsServer",
+                    "offer": "WindowsServer",
+                    "sku": "[parameters('OSVersion')]",
+                    "version": "latest"
+                  },
+                  "osDisk": {
+                    "createOption": "FromImage",
+                    "managedDisk": {
+                      "storageAccountType": "StandardSSD_LRS"
+                    }
+                  },
+                  "dataDisks": [
+                    {
+                      "diskSizeGB": 1023,
+                      "lun": 0,
+                      "createOption": "Empty"
+                    }
+                  ]
+                },
+                "networkProfile": {
+                  "networkInterfaces": [
+                    {
+                      "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('nicName1'))]"
+                    }
+                  ]
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/networkInterfaces', variables('nicName1'))]"
+              ]
+            }
+          ]
+        }
+      },
+      "dependsOn": [
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, 'JamsProjectV1'), 'Microsoft.Resources/deployments', 'projexkeyvault')]",
+        "[subscriptionResourceId('Microsoft.Resources/deployments', parameters('resourceGroupName'))]",
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, 'JamsProjectV1'), 'Microsoft.Resources/deployments', 'jamalv1storageaccount')]",
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, 'JamsProjectV1'), 'Microsoft.Resources/deployments', 'VNETS')]"
+      ]
+    }
+  ]
+}

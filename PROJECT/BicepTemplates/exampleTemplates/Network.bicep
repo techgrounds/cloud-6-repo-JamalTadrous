@@ -90,3 +90,4 @@ resource vnetPeering2 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@
     }
   }
 }
+

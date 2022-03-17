@@ -1,1 +1,0 @@
-Remove-AzResourceGroup -Name MyResourceGroup -Verbose

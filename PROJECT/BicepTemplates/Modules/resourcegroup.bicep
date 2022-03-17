@@ -4,8 +4,12 @@ targetScope = 'subscription'
 
 param location string = 'westeurope'
 
-resource resourcegroup 'Microsoft.Resources/resourceGroups@2021-04-01'= {
-  name: 'JamsProjectRG'
+var resourceGroupName = 'JamsProjectV1'
+
+resource resoGroup 'Microsoft.Resources/resourceGroups@2021-04-01'= {
+  name: resourceGroupName
   location: location
 }
 
+output resoGroup string = resoGroup.id
+output resourceGroupName string = resoGroup.name

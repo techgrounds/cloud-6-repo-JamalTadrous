@@ -5,9 +5,8 @@ param suffix string
 // Resource location
 param location string = resourceGroup().location
 
-
 // CIDR notation of the Virtual Networks.
-param virtualNetworkAddressPrefix string = '10.10.10.0/16'
+param virtualNetworkAddressPrefix string = '10.10.10.0/24'
 // CIDR notation of the Virtual Network Subnets.
 param virtualNetworkSubnetPrefix string = '10.10.10.0/24'
 
@@ -40,12 +39,9 @@ param virtualMachineOffer string = 'Windows-10'
 
 // The Windows version for the VM. This will pick a fully patched image of this given Windows version.
 @allowed([
-  'vs-2019-comm-latest-ws2019'
-  'vs-2019-ent-latest-ws2019'
-  '20h1-pro-g2'
-  '20h1-ent-g2'
+  '2019-Datacenter'
 ])
-param virtualMachineSku string = '20h1-pro-g2'
+param virtualMachineSku string = '2019-Datacenter'
 
 // The URI of the PowerShell Custom Script.
 param virtualMachineExtensionCustomScriptUri string = 'https://raw.githubusercontent.com/Azure/bicep/main/docs/examples/201/vm-windows-with-custom-script-extension/install.ps1'
@@ -81,9 +77,6 @@ resource pip 'Microsoft.Network/publicIPAddresses@2020-06-01' = {
   location: publicIp.location
   properties: {
     publicIPAllocationMethod: 'Static'
-    dnsSettings: {
-      domainNameLabel: (publicIpDnsLabel ?? '') == '' ? replace(metadata.shortName, '{0}', 'vm') : publicIpDnsLabel
-    }
   }
 }
 

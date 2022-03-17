@@ -1,8 +1,20 @@
 $templateFile = 'main.bicep'
+$deploymentName = "jamalprojexv1"
+$Location = 'westeurope'
+
+New-AzSubscriptionDeployment `
+-ResourceGroupName JamsProjectV1RG `
+-Name $deploymentName `
+-Location $Location `
+-TemplateFile $templateFile
+
+///////////////////////////////////////////////
+
+$templateFile = 'main.bicep'
 $today = Get-Date -Format 'MM-dd-yyyy'
 $deploymentName = "sub-scope-$today"
-$virtualNetworkName = 'rnd-vnet-001'
-$virtualNetworkAddressPrefix = '10.0.0.0/24'
+$virtualNetworkName = 'management_prd_vnet'
+$virtualNetworkAddressPrefix = '10.10.10.0/24'
 
 New-AzSubscriptionDeployment `
   -Name $deploymentName `
@@ -11,16 +23,6 @@ New-AzSubscriptionDeployment `
   -virtualNetworkName $virtualNetworkName `
   -virtualNetworkAddressPrefix $virtualNetworkAddressPrefix
 
-`
-____________________________________________DeploymentScript syntax_________________________________________________________
-
-$templateFile = 'main.bicep'
-$today = Get-Date -Format 'MM-dd-yyyy'
-$deploymentName = "deploymentscript-$today"
-New-AzResourceGroupDeployment `
-  -ResourceGroupName $resourceGroupName `
-  -Name $deploymentName `
-  -TemplateFile $templateFile
 
 // after deployment, use:
 
@@ -44,3 +46,4 @@ Remove-AzResourceGroup -Name ToyNetworking
 _________________ remove resourceGroup_____________________________
 
 Remove-AzResourceGroup -Name MyResourceGroup -Verbose
+

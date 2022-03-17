@@ -1,3 +1,4 @@
+targetScope = 'resourceGroup'
 // var managementGroupName = 'ProjectManagementV1'
 
 // resource managementGroup 'Microsoft.Management/managementGroups/subscriptions@2021-04-01': {

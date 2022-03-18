@@ -7,7 +7,7 @@ param enabledForDiskEncryption bool = true
 param enableSoftDelete bool = true
 param enablePurgeProtection bool = true
 // param enableRbacAuthorization bool = false
-param keyVaultName string = 'jamsKV2'
+param keyVaultName string = 'jamsKV3'
 param tenantId string = subscription().tenantId
 @description('Specifies the object ID of a user, service principal or security group in the Azure Active Directory tenant for the vault. The object ID must be unique for the list of access policies. Get it by using Get-AzADUser or Get-AzADServicePrincipal cmdlets.')
 param objectId string = '214bb771-fd30-4f8e-9dfc-7195f7b165ff'
@@ -38,7 +38,7 @@ resource keyvault 'Microsoft.KeyVault/vaults@2019-09-01' = {
   name: keyVaultName
   location: location
   tags: {
-    displayName: 'KeyVault'
+    'projectv1': 'jamaltadrous'
   }
   properties: {
     enabledForDeployment: enabledForDeployment
@@ -100,6 +100,9 @@ resource secret 'Microsoft.KeyVault/vaults/secrets@2021-10-01' = {
   properties: {
     value: loadTextContent('../misc/id_rsa.pub')
   }
+  tags: {
+    'projectv1': 'jamaltadrous'
+  }
 }
 
 // create key
@@ -122,13 +125,18 @@ resource RSAkey 'Microsoft.KeyVault/vaults/keys@2021-10-01' = {
       enabled: true
     }
   }
+  tags: {
+    'projectv1': 'jamaltadrous'
+  }
 }
 
 
 resource dskEncrKey 'Microsoft.Compute/diskEncryptionSets@2021-08-01' = {
   name: 'dskEncrKeyV1'
   location: location
-  // tags:tags
+  tags: {
+    'projectv1': 'jamaltadrous'
+  }
   identity: {
     type: 'SystemAssigned'
   }

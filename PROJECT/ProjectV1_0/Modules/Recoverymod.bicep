@@ -1,120 +1,110 @@
-@description('Name of the Recovery Services Vault')
-param vaultName string = 'RecovServVault'
+//////////////////__RECOVERYMOD__//////////////////////
 
-@description('Name of the Backup Policy')
-param policyName string = 'BackupPolicy'
+//PARAMETER
+param RecoveryVaultName string = 'RecoVault'
+param BackupPolicyName string = 'BackupPolicy'
+param location string = resourceGroup().location
 
-@description('Backup Schedule will run on array of Days like, Monday, Tuesday etc. Applies in Weekly Backup Type only.')
-param scheduleRunDays array
+var backupFabric = 'Azure'
+var protectionContainer = 'iaasvmcontainer;iaasvmcontainerv2;${resourceGroup().name};${admVm.name}'
+var protectedItem = 'vm;iaasvmcontainerv2;${resourceGroup().name};${admVm.name}'
+var protectionContainer2 = 'iaasvmcontainer;iaasvmcontainerv2;${resourceGroup().name};${webvm.name}'
+var protectedItem2 = 'vm;iaasvmcontainerv2;${resourceGroup().name};${webvm.name}'
 
-@description('Times in day when backup should be triggered. e.g. 01:00, 13:00. This will be used in LTR too for daily, weekly, monthly and yearly backup.')
-param scheduleRunTimes array
+/////////////////////////___RESOURCES___////////////////////////////
 
-@description('Any Valid timezone, for example:UTC, Pacific Standard Time. Refer: https://msdn.microsoft.com/en-us/library/gg154758.aspx')
-param timeZone string = 'W. Europe Standard Time'
-
-@description('Number of weeks you want to retain the backup')
-param weeklyRetentionDurationCount int
-
-@description('Array of Days for Monthly Retention (Min One or Max all values from scheduleRunDays, but not any other days which are not part of scheduleRunDays)')
-param daysOfTheWeekForMontlyRetention array
-
-@description('Array of Weeks for Monthly Retention - First, Second, Third, Fourth, Last')
-param weeksOfTheMonthForMonthlyRetention array
-
-@description('Number of months you want to retain the backup')
-param monthlyRetentionDurationCount int
-
-@description('Array of Months for Yearly Retention')
-param monthsOfYear array
-
-@description('Array of Days for Yearly Retention (Min One or Max all values from scheduleRunDays, but not any other days which are not part of scheduleRunDays)')
-param daysOfTheWeekForYearlyRetention array
-
-@description('Array of Weeks for Yearly Retention - First, Second, Third, Fourth, Last')
-param weeksOfTheMonthForYearlyRetention array
-
-@description('Number of years you want to retain the backup')
-param yearlyRetentionDurationCount int
-
-@description('Location for all resources.')
-param location string 
-
-resource recoveryServicesVault 'Microsoft.RecoveryServices/vaults@2020-10-01' = {
-  name: vaultName
+//RECOVERYVAULT
+resource recoveryVault 'Microsoft.RecoveryServices/vaults@2020-10-01' = {
+  name: RecoveryVaultName
   location: location
   sku: {
     name: 'RS0'
     tier: 'Standard'
   }
-  properties: {}
+  identity:{
+    type: 'UserAssigned'
+    userAssignedIdentities:{
+      '${mngId.id}' : {}
+    }
+  }
+  tags: {
+    'projectv1': 'jamaltadrous'
+  }
 }
 
+resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' existing = {
+  name:  'projectadmin'
+}
+
+
+//BACKUP_POLICY
 resource backupPolicy 'Microsoft.RecoveryServices/vaults/backupPolicies@2016-06-01' = {
-  parent: recoveryServicesVault
-  name: policyName
+  parent: recoveryVault
+  name: BackupPolicyName
   location: location
   properties: {
     backupManagementType: 'AzureIaasVM'
-    // instantRpRetentionRangeInDays: 7
     schedulePolicy: {
-      scheduleRunFrequency: 'Weekly'
-      scheduleRunDays: scheduleRunDays
-      scheduleRunTimes: scheduleRunTimes
+      scheduleRunFrequency: 'Daily'
       schedulePolicyType: 'SimpleSchedulePolicy'
+      scheduleRunTimes: [
+        '2022-03-10T00:30:00Z'
+      ]
+      scheduleWeeklyFrequency: 0
     }
     retentionPolicy: {
-      weeklySchedule: {
-        daysOfTheWeek: scheduleRunDays
-        retentionTimes: scheduleRunTimes
-        retentionDuration: {
-          count: weeklyRetentionDurationCount
-          durationType: 'Weeks'
-        }
-      }
-      monthlySchedule: {
-        retentionScheduleFormatType: 'Weekly'
-        retentionScheduleDaily: {
-          daysOfTheMonth: [
-            {
-              date: 1
-              isLast: false
-            }
-          ]
-        }
-        retentionScheduleWeekly: {
-          daysOfTheWeek: daysOfTheWeekForMontlyRetention
-          weeksOfTheMonth: weeksOfTheMonthForMonthlyRetention
-        }
-        retentionTimes: scheduleRunTimes
-        retentionDuration: {
-          count: monthlyRetentionDurationCount
-          durationType: 'Months'
-        }
-      }
-      yearlySchedule: {
-        retentionScheduleFormatType: 'Weekly'
-        monthsOfYear: monthsOfYear
-        retentionScheduleDaily: {
-          daysOfTheMonth: [
-            {
-              date: 1
-              isLast: false
-            }
-          ]
-        }
-        retentionScheduleWeekly: {
-          daysOfTheWeek: daysOfTheWeekForYearlyRetention
-          weeksOfTheMonth: weeksOfTheMonthForYearlyRetention
-        }
-        retentionTimes: scheduleRunTimes
-        retentionDuration: {
-          count: yearlyRetentionDurationCount
-          durationType: 'Years'
-        }
-      }
       retentionPolicyType: 'LongTermRetentionPolicy'
+      dailySchedule: {
+        retentionTimes: [
+          '2022-03-17T00:30:00.000Z'
+        ]
+        retentionDuration: {
+          count: 7
+          durationType: 'Days'
+        }
+      }
     }
-    timeZone: timeZone
+    instantRpRetentionRangeInDays: 3
+    timeZone: 'W. Europe Standard Time'
+  }
+  // tags: {
+  //   'projectv1': 'jamaltadrous'
+  // }
+}
+
+resource admVm 'Microsoft.Compute/virtualMachines@2021-03-01' existing = {
+  name: 'adminserv'
+}
+resource webvm 'Microsoft.Compute/virtualMachines@2020-06-01' existing = {
+  name: 'webserv'
+}
+
+
+resource backupAdmin 'Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems@2021-12-01' = {
+  name: '${recoveryVault.name}/${backupFabric}/${protectionContainer}/${protectedItem}'
+  tags: {
+    'projectv1': 'jamaltadrous'
+  }
+  properties: {
+    protectedItemType: 'Microsoft.Compute/virtualMachines'
+    policyId: backupPolicy.id
+    sourceResourceId: admVm.id
+  }
+  dependsOn:[
+  backupWeb
+  ]
+} 
+
+
+resource backupWeb 'Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems@2021-12-01' = {
+  name: '${RecoveryVaultName}/${backupFabric}/${protectionContainer2}/${protectedItem2}'
+  tags: {
+    'projectv1': 'jamaltadrous'
+  }
+  properties: {
+    protectedItemType: 'Microsoft.Compute/virtualMachines'
+    policyId: backupPolicy.id
+    sourceResourceId: webvm.id
   }
 }
+

@@ -1,23 +1,28 @@
-//___________________ main.bicep __________________________//
-
+//////////////////////__ main.bicep ___////////////////////////
+//SCOPE
 
 targetScope = 'subscription'
 
 
-// ____________________PARAMETERS __________________________//
-
-//RESOURCE GROUP
+//////////////////////___PARAMETERS ___////////////////////////
+// LOCATION
+// RESOURCE GROUP
 param location string = 'westeurope'
 param resourceGroupName string = 'JamsProjectV1'
 
 
-/////////////////////RESOURCES////////////////////////////
 
 
-//__________________RESOURCE GROUP_________________________//
 
 
+////////////////////////////////////////////////////////////////
+////______________________RESOURCES_________________________////
+////////////////////////////////////////////////////////////////
+
+
+///////////////////___RESOURCE GROUP____/////////?/////////////
 //RESOURCE GROUP
+
 module rg './Modules/RESOURCEGROUP.bicep' = {
   name: resourceGroupName
   params: {
@@ -27,10 +32,10 @@ module rg './Modules/RESOURCEGROUP.bicep' = {
 
 
 
-//___________________STORAGE ACCOUNT_______________________//
-
+////////////////////___STORAGE ACCOUNT___/////////////////////
 // STORAGE ACCOUNT
 // DEPLOYMENT SCRIPT
+
 module stg './Modules/STORAGEACCOUNT.bicep' = {
   name: 'jamalv1storageaccount'
   params: {
@@ -45,9 +50,16 @@ module stg './Modules/STORAGEACCOUNT.bicep' = {
 
 
 
-//____________________VIRTUAL MACHINES_____________________//
-/////////////////////___ADMINSERVER___///////////////////////
 
+/////////////////////___ADMINSERVER___///////////////////////
+//VNET1
+//SUBNET1
+//NIC1
+//NSG1
+//PublicIP
+//ADMIN_VM(WINDOWS)
+
+//PARAMS
 param adminUsername1 string = 'jamaltadrous'
 // @secure() 
 param adminPassword1 string = 'Techgr0und$'
@@ -74,10 +86,19 @@ module ADMINSERVER './Modules/ADMINSERVER.bicep' = {
   }
 }
 
+
+
+
 ////////////////////___WEBSERVER___///////////////////////
+//VNET2
+//SUBNET2
+//NIC2
+//NSG2
+//PublicIP
+//WEB_VM(LINUX)
 
 
-//VM credentials
+//PARAMS
 param adminUsername2 string = 'jamaltadrous'
 
 @description('Password for the Virtual Machine.')
@@ -106,12 +127,19 @@ module WEBSERVER './Modules/WEBSERVER.bicep' = {
 }
 
 
-//////////////////////___KeyVault___________________________//
 
 
+
+//////////////////////___KeyVault____///////////////////////
 //VAULT
-//KEYS
-//POLICIES
+//ManagedIdentity
+//SECRET(ssh)
+//RSAkey
+//DiscEncryptionKey
+//KV_Policy
+
+
+
 module KEYVAULT './Modules/KeyVault.bicep' = {
   name: 'projexkeyvault'
   dependsOn: [
@@ -126,30 +154,21 @@ module KEYVAULT './Modules/KeyVault.bicep' = {
 }
 
 
+/////////////////___RECOVERY SERVICE VAULT___/////////////////
+//RECOVERYVAULT
+//BACKUP_POLICY_WITH_SCHEDULE
 
 
-//____________________RECOVERY SERVICE VAULT_______________//
-
-
-
-
-
-
-
-//_______________________NETWORK___________________________//
-///////////"management_prd_vnet" & "app-prod-vnet"///////////
-
-// module VNETS './VNETS.bicep' = {
-//   name: 'VNETS'
+// module RECOVERY './Modules/Recoverymod.bicep' = {
+//   name: 'RecovServVault'
 //   scope: resourceGroup('JamsProjectV1')
 //   dependsOn: [
-//     stg
 //     rg
-    
+//     KEYVAULT
+//     ADMINSERVER
+//     WEBSERVER
 //   ]
 //   params: {
-//     vnet1Name: 'WEBSERVER'
-//     vnet2Name: 'ADMINSERVER'
 //     location: location
 //   }
 // }
@@ -157,4 +176,18 @@ module KEYVAULT './Modules/KeyVault.bicep' = {
 
 
 
-// output sshPublicKey string = sshPublicKey
+
+/////////////////___VNET PEERING___/////////////////
+//VNET PEERING 1 & 2
+
+
+module VPEERING './Modules/VNETpeering.bicep' = {
+  name: 'VNETpeering'
+  scope: resourceGroup('JamsProjectV1')
+  dependsOn: [
+    ADMINSERVER
+    WEBSERVER
+  ]
+}
+
+

@@ -73,7 +73,7 @@ module ADMINSERVER './Modules/ADMINSERVER.bicep' = {
   dependsOn: [
     stg
     rg
-    // KEYVAULT
+    KEYVAULT
   ]
   params: {
     adminUsername1: adminUsername1

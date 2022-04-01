@@ -23,109 +23,120 @@ resource stg 'Microsoft.Storage/storageAccounts@2021-04-01' = {
   }
 }
 
-//////////////CONTAINER////////////////////////////////
 
-//PARAMETERS
-param containerName string = 'logs'
+////////////STORAGE BLOB_SERVICES /////////////////////
 
-//RESOURCE
-resource container 'Microsoft.Storage/storageAccounts/blobServices/containers@2019-06-01' = {
-  name: '${stg.name}/default/${containerName}'
-  
+resource storageBlob 'Microsoft.Storage/storageAccounts/blobServices@2021-08-01' = {
+  parent: stg
+  name: 'default'
+  properties:{
+    containerDeleteRetentionPolicy:{
+      enabled: true
+      days: 30
+    }
+    deleteRetentionPolicy:{
+      enabled: true
+      days: 30
+    }
+    automaticSnapshotPolicyEnabled:true
+    isVersioningEnabled: true
+    restorePolicy:{
+      enabled: true
+      days:7
+    }
+    changeFeed: {
+      enabled: true
+      retentionInDays: 14
+    }
+  }
 }
 
 
 
 
 
+//////////////CONTAINER////////////////////////////////
 
-// //////////////DISC + DISCENCRYPTIONSET//////////////
-// resource disc 'Microsoft.Compute/disks@2021-08-01' = {
-//   name: '${stg.name}'
-//   location: location
-//   properties: {
-//     creationData: {
-//       createOption: 'Empty'
-//     }
-//     diskSizeGB: 1024
-//     networkAccessPolicy: 'AllowAll'
-//   }
-//   resourceId: 
-// }
+//PARAMETERS
+param containerName string = 'webcontainer'
 
-
-// resource discencryptionset 'Microsoft.Compute/diskEncryptionSets@2021-08-01' = {
-//   name: 'encryption${stg.name}'
-//   location: location
-//   properties: {
-//     encryptionType: 'EncryptionAtRestWithCustomerKey'
-//   }
-//   dependsOn: [
-//     disc
-//   ]
-// }
+//RESOURCE
+resource container 'Microsoft.Storage/storageAccounts/blobServices/containers@2019-06-01' = {
+  parent: storageBlob
+  name: containerName
+  properties:{
+    publicAccess: 'Container'
+  }
+}
 
 
-// output disc string = disc.id
-// output discencryptionset string = discencryptionset.id
+//////////////DISC + DISCENCRYPTIONSET//////////////
+resource disc 'Microsoft.Compute/disks@2021-08-01' = {
+  name: '${stg.name}'
+  location: location
+  properties: {
+    creationData: {
+      createOption: 'Empty'
+    }
+    encryption:{
+      type: 'EncryptionAtRestWithCustomerKey'
+      diskEncryptionSetId: 'Microsoft.Compute/diskEncryptionSets@2021-08-01'
+    }
+    diskSizeGB: 4
+    networkAccessPolicy: 'AllowPrivate'
+    publicNetworkAccess:'Enabled'
+    // maxShares: 3
+    // burstingEnabled: true
+    diskAccessId: dskAccess.id
+    osType: 'Linux'
+  }
+}
+
+resource dskAccess 'Microsoft.Compute/diskAccesses@2021-08-01' = {
+  location: location
+  name: 'diskAccess'
+  tags: {
+    'XYZ': 'jamaltadrous'
+  }
+}
 
 
+////////////deploymentScripts///////
 
+@description('UTC timestamp used to create distinct deployment scripts for each deployment')
+param utcValue string = utcNow()
+param filename string = 'webserver.sh'
 
+resource deploymentScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
+  name: 'deployscript${utcValue}'
+  tags: {
+    'XYZ': 'jamaltadrous'
+  }
+  location: location
+  kind: 'AzureCLI'
+  properties: {
+    azCliVersion: '2.26.1'
+    timeout: 'PT5M'
+    retentionInterval: 'PT1H'
+    environmentVariables: [
+      {
+        name: 'AZURE_STORAGE_ACCOUNT'
+        value: stg.name
+      }
+      {
+        name: 'AZURE_STORAGE_KEY'
+        secureValue: stg.listKeys().keys[0].value
+      }
+      {
+        name: 'CONTENT'
+        value: loadFileAsBase64('../misc/webinstallscript.sh')
+      }
+    ]
+    
+    scriptContent: 'echo $CONTENT | base64 -d > ${filename} && az storage blob upload -f ${filename} -c ${containerName} -n ${filename}'
+  }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/////////////DEPLOYMENT SCRIPT/////////////////////////
-
-// //PARAMETERS
-// param scriptToExecute string = 'date' // will print current date & time on container
-// param subId string = subscription().id // defaults to current sub
-// // param rgName string = resourceGroup().name // defaults to current rg
-// // param uamiName string = 'projexadmin'
-
-// param currentTime string = utcNow()
-
-// //VARIABLES
-// var uamiId = uniqueString(subId, 'Microsoft.ManagedIdentity/userAssignedIdentities')
-
-// //RESOURCE
-// resource dScript 'Microsoft.Resources/deploymentScripts@2019-10-01-preview' = {
-//   name: 'scriptWithStorage'
-//   location: location
-//   kind: 'AzureCLI'
-//   identity: {
-//     type: 'UserAssigned'
-//     userAssignedIdentities: {
-//       '${uamiId}': {}
-//     }
-//   }
-//   properties: {
-//     azCliVersion: '2.0.80'
-//     storageAccountSettings: {
-//       storageAccountName: stg.name
-//       storageAccountKey: stg.listKeys().keys[0].value
-//     }
-//     scriptContent: scriptToExecute
-//     cleanupPreference: 'OnSuccess'
-//     retentionInterval: 'P1D'
-//     forceUpdateTag: currentTime // ensures script will run every time
-//   }
-// }
-
-
-// //OUTPUTS
-// // print logs from script after template is finished deploying
-// output scriptLogs string = reference('${dScript.id}/logs/default', dScript.apiVersion, 'Full').properties.log
-
+output disc string = disc.id
+output stgName string = stg.name
 

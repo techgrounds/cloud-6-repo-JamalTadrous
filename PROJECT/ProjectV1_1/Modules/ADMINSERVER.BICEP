@@ -30,9 +30,9 @@ param dnsLabelPrefix1 string = toLower('adminManage-vm-${uniqueString(resourceGr
 param vnet1Name string = 'management-prd-vnet'
 
 var vnet1Config = {
-  addressSpacePrefix: '10.10.10.0/24'
+  addressSpacePrefix: '10.10.0.0/16'
   subnetName: 'admsubnet'
-  subnetPrefix: '10.10.10.0/24'
+  subnetPrefix: '10.10.0.0/24'
 }
 
 
@@ -126,6 +126,20 @@ resource nsg1 'Microsoft.Network/networkSecurityGroups@2020-06-01' = {
         }
         
       }
+      {
+        name: 'RDP'
+        properties: {
+          description: 'rdp-rule'
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          destinationPortRange: '3389'
+          sourceAddressPrefix: 'VirtualNetwork'
+          destinationAddressPrefix: '*'
+          access: 'Allow'
+          priority: 300
+          direction: 'Inbound'
+        }
+      }
     ]
   }
 }
@@ -137,6 +151,9 @@ var publicIPAddressName = 'AdminPublicIP'
 resource publicIP 'Microsoft.Network/publicIPAddresses@2020-06-01' = {
   name: publicIPAddressName
   location: location
+  zones: [
+    '1'
+  ]
   sku: {
     name: 'Basic'
   }
@@ -155,9 +172,9 @@ resource publicIP 'Microsoft.Network/publicIPAddresses@2020-06-01' = {
 resource admVm 'Microsoft.Compute/virtualMachines@2021-03-01' = {
   name: adminvmName
   location: location
-  // zones: [
-  //   '1'
-  // ]
+  zones: [
+    '1'
+  ]
   properties: {
     hardwareProfile: {
       vmSize: vmSize1
@@ -192,12 +209,6 @@ resource admVm 'Microsoft.Compute/virtualMachines@2021-03-01' = {
         }
       ]
     }
-    // diagnosticsProfile: {
-    //   bootDiagnostics: {
-    //     enabled: true
-    //     storageUri: stg.properties.primaryEndpoints.blob
-    //   }
-    // }
   }
 }
 
@@ -209,23 +220,6 @@ output nsg1 string = nsg1.id
 output vnet1Name string = vnet1.name
 output admsubId1 string = admsub1.id
 
-// converted from: https://github.com/Azure/azure-quickstart-templates/tree/master/201-existing-vnet-to-vnet-peering
-
-// param remoteVnetName string 
-
-
-// resource peer 'microsoft.network/virtualNetworks/virtualNetworkPeerings@2020-05-01' = {
-//   name: '${vnet1.name}/peering-to-remote-vnet'
-//   properties: {
-//     allowVirtualNetworkAccess: true
-//     allowForwardedTraffic: false
-//     allowGatewayTransit: false
-//     useRemoteGateways: false
-//     remoteVirtualNetwork: {
-//       id: resourceId('Microsoft.Network/virtualNetworks', remoteVnetName)
-//     }
-//   }
-// }
 
 
 

@@ -4,47 +4,32 @@ param location string = resourceGroup().location
 param enabledForDeployment bool = true
 param enabledForTemplateDeployment bool = true
 param enabledForDiskEncryption bool = true
-param enableSoftDelete bool = false
-param enablePurgeProtection bool = false
-// param enableRbacAuthorization bool = false
-param keyVaultName string = 'jamsKV4'
+param enableSoftDelete bool = true
+param enablePurgeProtection bool = true
+param enableRbacAuthorization bool = false
+
+
+param keyVaultName string = 'XYZkv${toLower(utcNow())}'
 param tenantId string = subscription().tenantId
 @description('Specifies the object ID of a user, service principal or security group in the Azure Active Directory tenant for the vault. The object ID must be unique for the list of access policies. Get it by using Get-AzADUser or Get-AzADServicePrincipal cmdlets.')
 param objectId string = '214bb771-fd30-4f8e-9dfc-7195f7b165ff'
 
-// param sub1 string
 
-
-
-@description('Specifies whether the key vault is a standard vault or a premium vault.')
-@allowed([
-  'standard'
-])
-param skuName string = 'standard'
-
-// param networkAcls object = {
-//   ipRules: []
-//   virtualNetworkRules: [
-//     {
-//       id: subscription().id
-//     }
-//   ]
-// }
 
 
 ///////////////////////////////////////////////////////////////
 
-resource keyvault 'Microsoft.KeyVault/vaults@2019-09-01' = {
+resource KEYVAULT 'Microsoft.KeyVault/vaults@2019-09-01' = {
   name: keyVaultName
   location: location
   tags: {
-    'projectv1': 'jamaltadrous'
+    'XYZ': 'jamaltadrous'
   }
   properties: {
     enabledForDeployment: enabledForDeployment
     enabledForTemplateDeployment: enabledForTemplateDeployment
     enabledForDiskEncryption: enabledForDiskEncryption
-    enableRbacAuthorization: false
+    enableRbacAuthorization: enableRbacAuthorization
     tenantId: tenantId
     enableSoftDelete: enableSoftDelete
     enablePurgeProtection: enablePurgeProtection
@@ -70,7 +55,7 @@ resource keyvault 'Microsoft.KeyVault/vaults@2019-09-01' = {
       }
     ]
     sku: {
-      name: skuName
+      name: 'standard'
       family: 'A'
     }
     networkAcls: {
@@ -86,47 +71,51 @@ resource keyvault 'Microsoft.KeyVault/vaults@2019-09-01' = {
 }
 
 resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' = {
-  name:  'projectadmin'
+  name:  'XYZadmin'
   location: location
+  tags: {
+    'XYZ': 'jamaltadrous'
+  }
   dependsOn: [
-    keyvault
+    KEYVAULT
   ]
 }
 
 // secret
 resource secret 'Microsoft.KeyVault/vaults/secrets@2021-10-01' = {
-  parent: keyvault
+  parent: KEYVAULT
   name: 'ssh'
   properties: {
-    value: loadTextContent('../misc/id_rsa.pub')
+    value: loadTextContent('../misc/cert_key/xyz_keyp.pub')
   }
   tags: {
     'projectv1': 'jamaltadrous'
   }
 }
 
+
+
 // create key
 resource RSAkey 'Microsoft.KeyVault/vaults/keys@2021-10-01' = {
   name: 'RSAKey'
-  parent: keyvault
+  parent: KEYVAULT
   properties: {
     kty: 'RSA' // key type
-    keySize: 4096
+    keySize: 2048
     keyOps: [
-      // key operations
-      'encrypt'
-      'decrypt'
-      'sign'
       'unwrapKey'
-      'verify'
       'wrapKey'
+      'decrypt'
+      'encrypt'
+      'verify'
+      'sign'
     ]
     attributes:{
       enabled: true
     }
   }
   tags: {
-    'projectv1': 'jamaltadrous'
+    'XYZ': 'jamaltadrous'
   }
 }
 
@@ -135,7 +124,7 @@ resource dskEncrKey 'Microsoft.Compute/diskEncryptionSets@2021-08-01' = {
   name: 'dskEncrKeyV1'
   location: location
   tags: {
-    'projectv1': 'jamaltadrous'
+    'XYZ': 'jamaltadrous'
   }
   identity: {
     type: 'SystemAssigned'
@@ -143,17 +132,21 @@ resource dskEncrKey 'Microsoft.Compute/diskEncryptionSets@2021-08-01' = {
   properties: {
     rotationToLatestKeyVersionEnabled:true
     activeKey: {
-      keyUrl: RSAkey.properties.keyUriWithVersion
       sourceVault: {
-        id: keyvault.id
+        id: KEYVAULT.id
       }
+      keyUrl: RSAkey.properties.keyUriWithVersion
     }
     encryptionType: 'EncryptionAtRestWithCustomerKey'
   }
 }
+
+
+
+
 resource kvPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2021-10-01'= {
   name: 'add'
-  parent: keyvault
+  parent: KEYVAULT
   properties:{
     accessPolicies:[
       {
@@ -163,7 +156,13 @@ resource kvPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2021-10-01'= {
           keys:[
             'all'
           ]
-          storage:[
+          secrets: [
+            'all'
+          ]
+          certificates: [
+            'all'
+          ]
+          storage: [
             'all'
           ]
         }
@@ -185,14 +184,16 @@ resource kvPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2021-10-01'= {
           storage: [
             'all'
           ]
-        }    
+        }
       }
     ]
   }
 }
 
-output keyvaultId string = keyvault.id
-output proxyKey object = RSAkey
+output KEYVAULTName string = KEYVAULT.name
+output KeyvaultUri string = KEYVAULT.properties.vaultUri
+output mngId string = mngId.id
+output keyvaultId string = KEYVAULT.id
 output objectId string = objectId
 output dskEncrKey string = dskEncrKey.id
 

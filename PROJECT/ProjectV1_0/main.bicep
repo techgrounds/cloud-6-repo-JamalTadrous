@@ -13,8 +13,6 @@ param resourceGroupName string = 'JamsProjectV1'
 
 
 
-
-
 ////////////////////////////////////////////////////////////////
 ////______________________RESOURCES_________________________////
 ////////////////////////////////////////////////////////////////
@@ -45,7 +43,7 @@ module stg './Modules/STORAGEACCOUNT.bicep' = {
   dependsOn: [
     rg
   ]
-  scope: resourceGroup('JamsProjectV1')
+  scope: resourceGroup('XYZv1')
 }
 
 
@@ -69,7 +67,7 @@ param adminPassword1 string = 'Techgr0und$'
 //ADMINSERVER
 module ADMINSERVER './Modules/ADMINSERVER.bicep' = {
   name: 'ADMINSERVER'
-  scope: resourceGroup('JamsProjectV1')
+  scope: resourceGroup('XYZv1')
   dependsOn: [
     stg
     rg
@@ -110,7 +108,7 @@ param adminPassword2 string = 'Techgr0und$'
 //WEBSERVER(Linux)
 module WEBSERVER './Modules/WEBSERVER.bicep' = {
   name: 'WEBSERVER'
-  scope: resourceGroup('JamsProjectV1')
+  scope: resourceGroup('XYZv1')
   dependsOn:[
     stg
     rg
@@ -122,7 +120,6 @@ module WEBSERVER './Modules/WEBSERVER.bicep' = {
     // sshPublicKey: sshPublicKey
     location: location
     dskEncrKey: KEYVAULT.outputs.dskEncrKey
-    // subnetId2: VNETS.outputs.subnetId2
   }
 }
 
@@ -134,7 +131,7 @@ module WEBSERVER './Modules/WEBSERVER.bicep' = {
 
 module VPEERING './Modules/VNETpeering.bicep' = {
   name: 'VNETpeering'
-  scope: resourceGroup('JamsProjectV1')
+  scope: resourceGroup('XYZv1')
   dependsOn: [
     ADMINSERVER
     WEBSERVER
@@ -154,12 +151,12 @@ module VPEERING './Modules/VNETpeering.bicep' = {
 
 
 module KEYVAULT './Modules/KeyVault.bicep' = {
-  name: 'prov1vault'
+  name: 'XYZv1vault'
   dependsOn: [
     rg
     stg
   ]
-  scope: resourceGroup('JamsProjectV1')
+  scope: resourceGroup('XYZv1')
   params:{
     location: location
     // sub1: ADMINSERVER.outputs.admsubId1
@@ -174,7 +171,7 @@ module KEYVAULT './Modules/KeyVault.bicep' = {
 
 // module RECOVERY './Modules/Recoverymod.bicep' = {
 //   name: 'RecovServVault'
-//   scope: resourceGroup('JamsProjectV1')
+//   scope: resourceGroup('XYZv1')
 //   dependsOn: [
 //     rg
 //     KEYVAULT
@@ -185,7 +182,8 @@ module KEYVAULT './Modules/KeyVault.bicep' = {
 //     location: location
 //   }
 // }
-
+//WARNING: C:\Users\Jamal\github-classroom\techgrounds\cloud-6-repo-JamalTadrous\PROJECT\ProjectV1_0\Modules\Recoverymod.bicep(67,5) : Warning BCP037: The property "instantRpRetentionRangeInDays" is not allowed on objects of type "AzureIaasVM". Permissible properties include "protectedItemsCount". If this is an inaccuracy in the documentation, please report it to the Bicep Team. [https://aka.ms/bicep-type-issues]
+//C:\Users\Jamal\github-classroom\techgrounds\cloud-6-repo-JamalTadrous\PROJECT\ProjectV1_0\Modules\Recoverymod.bicep(68,5) : Warning BCP037: The property "timeZone" is not allowed on objects of type "AzureIaasVM". Permissible properties include "protectedItemsCount". If this is an inaccuracy in the documentation, please report it to the Bicep Team. [https://aka.ms/bicep-type-issues]
 
 
 

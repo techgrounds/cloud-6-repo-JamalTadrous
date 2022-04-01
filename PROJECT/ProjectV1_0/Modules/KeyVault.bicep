@@ -4,10 +4,10 @@ param location string = resourceGroup().location
 param enabledForDeployment bool = true
 param enabledForTemplateDeployment bool = true
 param enabledForDiskEncryption bool = true
-param enableSoftDelete bool = false
-param enablePurgeProtection bool = false
+param enableSoftDelete bool = true
+param enablePurgeProtection bool = true
 // param enableRbacAuthorization bool = false
-param keyVaultName string = 'jamsKV4'
+param keyVaultName string = 'XYZv1vault1'
 param tenantId string = subscription().tenantId
 @description('Specifies the object ID of a user, service principal or security group in the Azure Active Directory tenant for the vault. The object ID must be unique for the list of access policies. Get it by using Get-AzADUser or Get-AzADServicePrincipal cmdlets.')
 param objectId string = '214bb771-fd30-4f8e-9dfc-7195f7b165ff'
@@ -151,6 +151,7 @@ resource dskEncrKey 'Microsoft.Compute/diskEncryptionSets@2021-08-01' = {
     encryptionType: 'EncryptionAtRestWithCustomerKey'
   }
 }
+
 resource kvPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2021-10-01'= {
   name: 'add'
   parent: keyvault

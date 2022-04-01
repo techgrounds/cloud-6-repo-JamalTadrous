@@ -64,8 +64,8 @@ resource backupPolicy 'Microsoft.RecoveryServices/vaults/backupPolicies@2016-06-
         }
       }
     }
-    instantRpRetentionRangeInDays: 3
-    timeZone: 'W. Europe Standard Time'
+    // instantRpRetentionRangeInDays: 3
+    // timeZone: 'W. Europe Standard Time'
   }
   // tags: {
   //   'projectv1': 'jamaltadrous'

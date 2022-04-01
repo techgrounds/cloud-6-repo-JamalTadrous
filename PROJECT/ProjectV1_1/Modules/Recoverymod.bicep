@@ -8,8 +8,8 @@ param location string = resourceGroup().location
 var backupFabric = 'Azure'
 var protectionContainer = 'iaasvmcontainer;iaasvmcontainerv2;${resourceGroup().name};${admVm.name}'
 var protectedItem = 'vm;iaasvmcontainerv2;${resourceGroup().name};${admVm.name}'
-var protectionContainer2 = 'iaasvmcontainer;iaasvmcontainerv2;${resourceGroup().name};${webvm.name}'
-var protectedItem2 = 'vm;iaasvmcontainerv2;${resourceGroup().name};${webvm.name}'
+var protectionContainer2 = 'iaasvmcontainer;iaasvmcontainerv2;${resourceGroup().name};${webvmss.name}'
+var protectedItem2 = 'vm;iaasvmcontainerv2;${resourceGroup().name};${webvmss.name}'
 
 /////////////////////////___RESOURCES___////////////////////////////
 
@@ -75,8 +75,8 @@ resource backupPolicy 'Microsoft.RecoveryServices/vaults/backupPolicies@2016-06-
 resource admVm 'Microsoft.Compute/virtualMachines@2021-03-01' existing = {
   name: 'adminserv'
 }
-resource webvm 'Microsoft.Compute/virtualMachines@2020-06-01' existing = {
-  name: 'webserv'
+resource webvmss 'Microsoft.Compute/virtualMachineScaleSets@2020-06-01' existing = {
+  name: 'WebVMss'
 }
 
 
@@ -104,7 +104,7 @@ resource backupWeb 'Microsoft.RecoveryServices/vaults/backupFabrics/protectionCo
   properties: {
     protectedItemType: 'Microsoft.Compute/virtualMachines'
     policyId: backupPolicy.id
-    sourceResourceId: webvm.id
+    sourceResourceId: webvmss.id
   }
 }
 

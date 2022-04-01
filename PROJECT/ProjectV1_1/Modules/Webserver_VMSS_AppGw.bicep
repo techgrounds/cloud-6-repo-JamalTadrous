@@ -5,13 +5,16 @@ param virtualNetworkName string = 'app-prod-vnet'
 param vnetAddressPrefix string = '10.20.0.0/16'
 
 //SUBNET
-param subnetName string = 'ApplicationGatewaySubnet'
-param subnetPrefix string = '10.20.0.0/24'
+param subnetName1 string = 'WebSubnet'
+param subnetPrefix1 string = '10.20.0.1/24'
+
+param subnetName2 string = 'AppGWSubnet'
+param subnetPrefix2 string = '10.20.0.2/24'
 
 //NSG2
 param nsgName string = 'webNSG'
-//APPGW
 
+//APPGW
 param applicationGatewayName string = 'XYZwebAGW'
 
 //AUTOSCALING
@@ -58,29 +61,15 @@ resource vnet2 'Microsoft.Network/virtualNetworks@2020-06-01' = {
     }
     subnets: [
       {
-        name: subnetName
+        name: subnetName1
         properties: {
-          addressPrefix: subnetPrefix
-          // networkSecurityGroup: {
-          //   properties: {
-          //     securityRules: [
-          //       {
-          //         properties: {
-          //           direction: 'Inbound'
-          //           protocol: '*'
-          //           access: 'Allow'
-          //         }
-          //       }
-          //       {
-          //         properties: {
-          //           direction: 'Outbound'
-          //           protocol: '*'
-          //           access: 'Allow'
-          //         }
-          //       }
-          //     ]
-          //   }
-          // }
+          addressPrefix: subnetPrefix1
+        }
+      }
+      {
+        name: subnetName2
+        properties: {
+          addressPrefix: subnetPrefix2
         }
       }
     ]
@@ -194,10 +183,30 @@ resource nsg2 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
 
 
 ////////////////////////__SUBNET__////////////////////////////////
-resource websub2 'Microsoft.Network/virtualNetworks/subnets@2021-05-01' = {
-  name: subnetName
+resource websub 'Microsoft.Network/virtualNetworks/subnets@2021-05-01' = {
+  name: subnetName1
   properties: {
-    addressPrefix: subnetPrefix
+    addressPrefix: subnetPrefix1
+    networkSecurityGroup: {
+      id: nsg2.id
+    }
+    serviceEndpoints: [
+      { 
+        service: 'Microsoft.KeyVault'
+      }
+      {  
+        service: 'Microsoft.Storage'
+      }
+    ]
+  }
+  parent: vnet2
+}
+
+////////////////////////__SUBNET__////////////////////////////////
+resource AppGWsub 'Microsoft.Network/virtualNetworks/subnets@2021-05-01' = {
+  name: subnetName2
+  properties: {
+    addressPrefix: subnetPrefix2
     networkSecurityGroup: {
       id: nsg2.id
     }
@@ -214,10 +223,9 @@ resource websub2 'Microsoft.Network/virtualNetworks/subnets@2021-05-01' = {
 }
 
 
-
 ////////////////////////__NETWORK INTERFACE CONTROLLER__////////////////////////////////
 
-resource nic2 'Microsoft.Network/networkInterfaces@2020-06-01' = {
+resource webnic 'Microsoft.Network/networkInterfaces@2020-06-01' = {
   name: 'webnic1'
   location: location
   properties: {
@@ -226,12 +234,9 @@ resource nic2 'Microsoft.Network/networkInterfaces@2020-06-01' = {
         name: 'ipconfig2'
         properties: {
           subnet: {
-            id: websub2.id
+            id: websub.id
           }
           privateIPAllocationMethod: 'Dynamic'
-          publicIPAddress: {
-            id: publicIP.id
-          }
         }
       }
     ]
@@ -241,7 +246,26 @@ resource nic2 'Microsoft.Network/networkInterfaces@2020-06-01' = {
   }
 }
 
-
+// resource AppGWnic2 'Microsoft.Network/networkInterfaces@2020-06-01' = {
+//   name: 'AppGWnic1'
+//   location: location
+//   properties: {
+//     ipConfigurations: [
+//       {
+//         name: 'ipconfig3'
+//         properties: {
+//           subnet: {
+//             id: AppGWsub.id
+//           }
+//           privateIPAllocationMethod: 'Dynamic'
+//         }
+//       }
+//     ]
+//     networkSecurityGroup: {
+//       id: nsg2.id
+//     }
+//   }
+// }
 
 
 
@@ -273,7 +297,7 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2020-06-01' =
         name: 'appGatewayIpConfig'
         properties: {
           subnet: {
-            id: resourceId('Microsoft.Network/virtualNetworks/subnets', vnet2.name, subnetName)
+            id: resourceId('Microsoft.Network/virtualNetworks/subnets', vnet2.name, subnetName2)
             // id: websub2.id
           }
         }
@@ -475,7 +499,6 @@ param adminPassword2 string
 param dskEncrKey string
 
 
-var bePoolName = '${WebVMssName}bepool'
 var nicname = '${WebVMssName}nic'
 var ipConfigName = '${WebVMssName}ipconfig'
 
@@ -565,12 +588,12 @@ resource WebVMss 'Microsoft.Compute/virtualMachineScaleSets@2020-06-01' = {
                   name: ipConfigName
                   properties: {
                     subnet: {
-                      id: '${vnet2.id}/subnets/${subnetName}'
+                      id: '${vnet2.id}/subnets/${subnetName2}'
                     }
                     primary: true
                     applicationGatewayBackendAddressPools: [
                       {
-                      id: resourceId('Microsoft.Network/applicationGateways/backendAddressPools/', applicationGatewayName, bePoolName)
+                      id: resourceId('Microsoft.Network/applicationGateways/backendAddressPools', applicationGatewayName, 'appGatewayBackendPool')
                         // id: '${applicationGateway.id}/backendAddressPools/${bePoolName}'
                       }
                     ]
@@ -585,7 +608,7 @@ resource WebVMss 'Microsoft.Compute/virtualMachineScaleSets@2020-06-01' = {
     
   automaticRepairsPolicy: {
     enabled: true
-    gracePeriod: 'PT5M'
+    gracePeriod: 'PT10M'
   }
   platformFaultDomainCount: 1
   }

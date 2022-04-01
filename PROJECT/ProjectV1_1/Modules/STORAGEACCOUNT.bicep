@@ -129,7 +129,7 @@ resource container 'Microsoft.Storage/storageAccounts/blobServices/containers@20
 
 //////////////DISC + DISCENCRYPTIONSET//////////////
 resource disc 'Microsoft.Compute/disks@2021-08-01' = {
-  name: '${stg.name}'
+  name: 'StorageDisc'
   location: location
   properties: {
     creationData: {

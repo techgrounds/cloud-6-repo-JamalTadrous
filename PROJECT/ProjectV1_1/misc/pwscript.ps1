@@ -1,12 +1,9 @@
-$tempVault = Get-AzKeyVault
-$temp2 = $tempVault.VaultName
-$secret = Get-AzKeyVaultSecret -VaultName $temp2 -Name "genPass" -AsPlainText
-Write-Output "-----------------------------------------------------------------------"
-Write-Output "------------------ Your deployment has finished -----------------------"
-Write-Output "--------------------- Your password to log in: ------------------------" 
-Write-Output "-----------------------------------------------------------------------" 
-Write-Output "-----------------      $secret      -----------------"
-Write-Output "-----------------------------------------------------------------------"
-Write-Output "--- If you lose your password, retrieve it by running '.\pwscript.ps1' ---"
-Write-Output "-----------------------------------------------------------------------"
-Write-Output "-----------------------------------------------------------------------"
+$templateFile = 'main.bicep'
+$deploymentName = "XYZv2"
+$Location = 'westeurope'
+
+New-AzSubscriptionDeployment `
+-ResourceGroupName XYZv1 `
+-Name $deploymentName `
+-Location $Location `
+-TemplateFile $templateFile

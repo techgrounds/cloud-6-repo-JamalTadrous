@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.4.1272.37030",
-      "templateHash": "5698550228053945461"
+      "templateHash": "10658825480560924905"
     }
   },
   "parameters": {
@@ -60,7 +60,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.4.1272.37030",
-              "templateHash": "13110062275914659222"
+              "templateHash": "17998183531265109752"
             }
           },
           "parameters": {
@@ -70,7 +70,7 @@
             }
           },
           "variables": {
-            "resourceGroupName": "JamsProjectV1"
+            "resourceGroupName": "XYZV1"
           },
           "resources": [
             {
@@ -97,7 +97,7 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2020-10-01",
       "name": "jamalv1storageaccount",
-      "resourceGroup": "JamsProjectV1",
+      "resourceGroup": "XYZv1",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
@@ -168,7 +168,7 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2020-10-01",
       "name": "ADMINSERVER",
-      "resourceGroup": "JamsProjectV1",
+      "resourceGroup": "XYZv1",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
@@ -436,14 +436,14 @@
       },
       "dependsOn": [
         "[subscriptionResourceId('Microsoft.Resources/deployments', parameters('resourceGroupName'))]",
-        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, 'JamsProjectV1'), 'Microsoft.Resources/deployments', 'jamalv1storageaccount')]"
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, 'XYZv1'), 'Microsoft.Resources/deployments', 'jamalv1storageaccount')]"
       ]
     },
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2020-10-01",
       "name": "WEBSERVER",
-      "resourceGroup": "JamsProjectV1",
+      "resourceGroup": "XYZv1",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
@@ -460,7 +460,7 @@
             "value": "[parameters('location')]"
           },
           "dskEncrKey": {
-            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, 'JamsProjectV1'), 'Microsoft.Resources/deployments', 'projexkeyvault')).outputs.dskEncrKey.value]"
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, 'XYZv1'), 'Microsoft.Resources/deployments', 'XYZv1vault')).outputs.dskEncrKey.value]"
           }
         },
         "template": {
@@ -743,16 +743,73 @@
         }
       },
       "dependsOn": [
-        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, 'JamsProjectV1'), 'Microsoft.Resources/deployments', 'projexkeyvault')]",
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, 'XYZv1'), 'Microsoft.Resources/deployments', 'XYZv1vault')]",
         "[subscriptionResourceId('Microsoft.Resources/deployments', parameters('resourceGroupName'))]",
-        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, 'JamsProjectV1'), 'Microsoft.Resources/deployments', 'jamalv1storageaccount')]"
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, 'XYZv1'), 'Microsoft.Resources/deployments', 'jamalv1storageaccount')]"
       ]
     },
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2020-10-01",
-      "name": "projexkeyvault",
-      "resourceGroup": "JamsProjectV1",
+      "name": "VNETpeering",
+      "resourceGroup": "XYZv1",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.4.1272.37030",
+              "templateHash": "10585403751474340702"
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+              "apiVersion": "2020-05-01",
+              "name": "[format('{0}/{1}', 'management-prd-vnet', format('{0}-{1}', 'management-prd-vnet', 'app-prod-vnet'))]",
+              "properties": {
+                "allowVirtualNetworkAccess": true,
+                "allowForwardedTraffic": false,
+                "allowGatewayTransit": false,
+                "useRemoteGateways": false,
+                "remoteVirtualNetwork": {
+                  "id": "[resourceId('Microsoft.Network/virtualNetworks', 'app-prod-vnet')]"
+                }
+              }
+            },
+            {
+              "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+              "apiVersion": "2020-05-01",
+              "name": "[format('{0}/{1}', 'app-prod-vnet', format('{0}-{1}', 'app-prod-vnet', 'management-prd-vnet'))]",
+              "properties": {
+                "allowVirtualNetworkAccess": true,
+                "allowForwardedTraffic": false,
+                "allowGatewayTransit": false,
+                "useRemoteGateways": false,
+                "remoteVirtualNetwork": {
+                  "id": "[resourceId('Microsoft.Network/virtualNetworks', 'management-prd-vnet')]"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "dependsOn": [
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, 'XYZv1'), 'Microsoft.Resources/deployments', 'ADMINSERVER')]",
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, 'XYZv1'), 'Microsoft.Resources/deployments', 'WEBSERVER')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "XYZv1vault",
+      "resourceGroup": "XYZv1",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
@@ -770,7 +827,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.4.1272.37030",
-              "templateHash": "18196979717087662573"
+              "templateHash": "2975097793110433591"
             }
           },
           "parameters": {
@@ -800,7 +857,7 @@
             },
             "keyVaultName": {
               "type": "string",
-              "defaultValue": "jamsKV2"
+              "defaultValue": "XYZv1vault1"
             },
             "tenantId": {
               "type": "string",
@@ -831,7 +888,7 @@
               "name": "[parameters('keyVaultName')]",
               "location": "[parameters('location')]",
               "tags": {
-                "displayName": "KeyVault"
+                "projectv1": "jamaltadrous"
               },
               "properties": {
                 "enabledForDeployment": "[parameters('enabledForDeployment')]",
@@ -888,6 +945,9 @@
               "properties": {
                 "value": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCeWz0367IAoX/hkgP8uoMD7lkD94EBbc80eaT30vc/RDhmJRlBmlSNv9CZouAY0aK01lQ83PPc7ndNssE/+tqBF6PLt42N6aBHh7n2ygjqQCI9E664SK1uVVDjCNzYsaZLXaFcTFG86H/bFxiRmr2ejq3L9EfxAxXNf76Ya1SSVN7dSH+X/f56f+FNC7V6dT9gUtxa9zetIkXf0wITtAhhSNwDguez41Y7kLniIfUuVDvv7nJoz5CTRyvT3wcc7clj22X9fr9uCW14Xg5LjC18cH8rk8Dx6v9UYAVGxzW5ubMIwwwC/QmzyyTKPCEOnRlyfW/Unh8jn7m4NeAMABl9eT0xrbTt5yz8v+ZPCftNTyg5PWiGYdbZ/wSdxt9TT5PEflbvUP59A7QY4u5r1PCVZOqm87H/O775thP5ciUlBdQN2m+pl5EBtz8ISmDahhpx8InDoAqd5lSEQJobZgtiOdgZ9ZUFf5Ok/cZ7Dfo8vWxN4euyuUxhpq1xof7hIrM= jamar@MSI\n"
               },
+              "tags": {
+                "projectv1": "jamaltadrous"
+              },
               "dependsOn": [
                 "[resourceId('Microsoft.KeyVault/vaults', parameters('keyVaultName'))]"
               ]
@@ -911,6 +971,9 @@
                   "enabled": true
                 }
               },
+              "tags": {
+                "projectv1": "jamaltadrous"
+              },
               "dependsOn": [
                 "[resourceId('Microsoft.KeyVault/vaults', parameters('keyVaultName'))]"
               ]
@@ -920,6 +983,9 @@
               "apiVersion": "2021-08-01",
               "name": "dskEncrKeyV1",
               "location": "[parameters('location')]",
+              "tags": {
+                "projectv1": "jamaltadrous"
+              },
               "identity": {
                 "type": "SystemAssigned"
               },
@@ -1005,7 +1071,7 @@
       },
       "dependsOn": [
         "[subscriptionResourceId('Microsoft.Resources/deployments', parameters('resourceGroupName'))]",
-        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, 'JamsProjectV1'), 'Microsoft.Resources/deployments', 'jamalv1storageaccount')]"
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, 'XYZv1'), 'Microsoft.Resources/deployments', 'jamalv1storageaccount')]"
       ]
     }
   ]

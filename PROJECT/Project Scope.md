@@ -1,4 +1,4 @@
-# Eisen
+# Project XYZ Scope v1.0
 
 ## Team
 - Als team willen wij duidelijk hebben wat de eisen zijn van de applicaties

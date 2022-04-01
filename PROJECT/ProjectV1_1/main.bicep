@@ -8,9 +8,7 @@ targetScope = 'subscription'
 // LOCATION
 // RESOURCE GROUP
 param location string = 'westeurope'
-param resourceGroupName string = 'JamsProjectV1'
-
-
+param resourceGroupName string = 'Prov2'
 
 
 
@@ -37,15 +35,15 @@ module rg './Modules/RESOURCEGROUP.bicep' = {
 // DEPLOYMENT SCRIPT
 
 module stg './Modules/STORAGEACCOUNT.bicep' = {
-  name: 'jamalv1storageaccount'
+  name: 'jamalv2storageaccount'
   params: {
-    storageAccountName: 'jamalv1storageaccount'
     location: location
+    KeyVaultName: KEYVAULT.outputs.KEYVAULTName
   }
   dependsOn: [
     rg
   ]
-  scope: resourceGroup('JamsProjectV1')
+  scope: resourceGroup('Prov2')
 }
 
 
@@ -62,14 +60,14 @@ module stg './Modules/STORAGEACCOUNT.bicep' = {
 //PARAMS
 param adminUsername1 string = 'jamaltadrous'
 // @secure() 
-param adminPassword1 string = 'Techgr0und$'
+param adminPassword1 string = 'T3chgr0und$'
 
 //______________________________________________________
 
 //ADMINSERVER
 module ADMINSERVER './Modules/ADMINSERVER.bicep' = {
   name: 'ADMINSERVER'
-  scope: resourceGroup('JamsProjectV1')
+  scope: resourceGroup('Prov2')
   dependsOn: [
     stg
     rg
@@ -79,54 +77,47 @@ module ADMINSERVER './Modules/ADMINSERVER.bicep' = {
     adminUsername1: adminUsername1
     adminPassword1: adminPassword1
     location: location
-
-    // dskEncrKey: dskEncrKey
-    // remoteVnetName: WEBSERVER.outputs.vnet2
-    // subnetId1: VNETS.outputs.subnetId1
   }
 }
 
 
 
 
-////////////////////___WEBSERVER___///////////////////////
+//////////////////////___WEBSERVER___///////////////////////
 //VNET2
-//SUBNET2
+//PublicIP
+//APPGW 
+//SUBNET
 //NIC2
 //NSG2
-//PublicIP
-//WEB_VM(LINUX)
 
+//VM SCALESET
+//Autoscalesettings
+//FRONTEND POOL/CONFIG
+//BACKEND POOL/CONFIG
+//LISTENER
 
-//PARAMS
+// //PARAMS
 param adminUsername2 string = 'jamaltadrous'
 
 @description('Password for the Virtual Machine.')
-// param sshPublicKey string = loadFileAsBase64('../misc/sshpk')
-param adminPassword2 string = 'Techgr0und$'
+param adminPassword2 string = 'T3chgr0und$'
 
-//________________________________________________________
 
-//WEBSERVER(Linux)
-module WEBSERVER './Modules/WEBSERVER.bicep' = {
+module Webserver_VMSS_AppGw './Modules/Webserver_VMSS_AppGw.bicep' = {
   name: 'WEBSERVER'
-  scope: resourceGroup('JamsProjectV1')
-  dependsOn:[
+  scope: resourceGroup('Prov2')
+  dependsOn: [
     stg
     rg
-    
   ]
   params: {
+    location: location
     adminUsername2: adminUsername2
     adminPassword2: adminPassword2
-    // sshPublicKey: sshPublicKey
-    location: location
     dskEncrKey: KEYVAULT.outputs.dskEncrKey
-    // subnetId2: VNETS.outputs.subnetId2
   }
 }
-
-
 
 /////////////////////___VNET PEERING___/////////////////////
 //VNET PEERING 1 & 2
@@ -134,10 +125,10 @@ module WEBSERVER './Modules/WEBSERVER.bicep' = {
 
 module VPEERING './Modules/VNETpeering.bicep' = {
   name: 'VNETpeering'
-  scope: resourceGroup('JamsProjectV1')
+  scope: resourceGroup('Prov2')
   dependsOn: [
     ADMINSERVER
-    WEBSERVER
+    Webserver_VMSS_AppGw
   ]
 }
 
@@ -154,32 +145,32 @@ module VPEERING './Modules/VNETpeering.bicep' = {
 
 
 module KEYVAULT './Modules/KeyVault.bicep' = {
-  name: 'prov1vault'
+  name: 'XYZkv'
   dependsOn: [
     rg
-    stg
+    
   ]
-  scope: resourceGroup('JamsProjectV1')
+  scope: resourceGroup('Prov2')
   params:{
     location: location
-    // sub1: ADMINSERVER.outputs.admsubId1
   }
 }
 
 
-/////////////////___RECOVERY SERVICE VAULT___/////////////////
+
+///////////////___RECOVERY SERVICE VAULT___/////////////////
 //RECOVERYVAULT
 //BACKUP_POLICY_WITH_SCHEDULE
 
 
 // module RECOVERY './Modules/Recoverymod.bicep' = {
 //   name: 'RecovServVault'
-//   scope: resourceGroup('JamsProjectV1')
+//   scope: resourceGroup('Prov2')
 //   dependsOn: [
 //     rg
 //     KEYVAULT
 //     ADMINSERVER
-//     WEBSERVER
+//     Webserver_VMSS_AppGw
 //   ]
 //   params: {
 //     location: location

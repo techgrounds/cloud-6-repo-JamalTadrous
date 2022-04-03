@@ -6,16 +6,16 @@ param vnetAddressPrefix string = '10.20.0.0/16'
 
 //SUBNET
 param subnetName1 string = 'WebSubnet'
-param subnetPrefix1 string = '10.20.0.1/24'
+param subnetPrefix1 string = '10.20.40.0/27'
 
 param subnetName2 string = 'AppGWSubnet'
-param subnetPrefix2 string = '10.20.0.2/24'
+param subnetPrefix2 string = '10.20.0.0/27'
 
 //NSG2
 param nsgName string = 'webNSG'
 
 //APPGW
-param applicationGatewayName string = 'XYZwebAGW'
+param applicationGatewayName string = 'webAppGW'
 
 //AUTOSCALING
 param minCapacity int = 1
@@ -24,10 +24,10 @@ param maxCapacity int = 3
 //BACKEND
 param backendIPAddresses array = [
   {
-    IpAddress: '10.20.0.4'
+    IpAddress: '10.20.20.4'
   }
   {
-    IpAddress: '10.20.0.5'
+    IpAddress: '10.20.20.5'
   }
 ]
 
@@ -42,15 +42,14 @@ var appGwSize = 'Standard_v2'
 
 
 
-////////////////////////////////////////////////////////////////
-////______________________RESOURCES_________________________////
-////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+////////______________________RESOURCES_________________________////
+////////////////////////////////////////////////////////////////////
 
 
 
-////////////////////////__VNET__////////////////////////////////
-
-resource vnet2 'Microsoft.Network/virtualNetworks@2020-06-01' = {
+////////////////////////__VNET__//////////////////////////////////////////////////
+resource vnet2 'Microsoft.Network/virtualNetworks@2021-05-01' = {
   name: virtualNetworkName
   location: location
   properties: {
@@ -77,9 +76,8 @@ resource vnet2 'Microsoft.Network/virtualNetworks@2020-06-01' = {
 }
 
 
-////////////////////////__PUBLIC IP__////////////////////////////////
-
-resource publicIP 'Microsoft.Network/publicIPAddresses@2020-06-01' = {
+////////////////////////__PUBLIC IP__/////////////////////////////////////////////
+resource publicIP 'Microsoft.Network/publicIPAddresses@2021-05-01' = {
   name: appGwPublicIpName
   location: location
   // zones: [
@@ -97,7 +95,6 @@ resource publicIP 'Microsoft.Network/publicIPAddresses@2020-06-01' = {
 
 
 ////////////////////////__NETWORK SECURITY GROUP__////////////////////////////////
-
 resource nsg2 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
   name: nsgName
   location: location
@@ -182,7 +179,7 @@ resource nsg2 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
 
 
 
-////////////////////////__SUBNET__////////////////////////////////
+////////////////////////__SUBNET__///////////////////////////////////////////////
 resource websub 'Microsoft.Network/virtualNetworks/subnets@2021-05-01' = {
   name: subnetName1
   properties: {
@@ -202,7 +199,7 @@ resource websub 'Microsoft.Network/virtualNetworks/subnets@2021-05-01' = {
   parent: vnet2
 }
 
-////////////////////////__SUBNET__////////////////////////////////
+////////////////////////__SUBNET__///////////////////////////////////////////////
 resource AppGWsub 'Microsoft.Network/virtualNetworks/subnets@2021-05-01' = {
   name: subnetName2
   properties: {
@@ -223,9 +220,8 @@ resource AppGWsub 'Microsoft.Network/virtualNetworks/subnets@2021-05-01' = {
 }
 
 
-////////////////////////__NETWORK INTERFACE CONTROLLER__////////////////////////////////
-
-resource webnic 'Microsoft.Network/networkInterfaces@2020-06-01' = {
+////////////////////////__NETWORK INTERFACE CONTROLLER__/////////////////////////
+resource webnic 'Microsoft.Network/networkInterfaces@2021-05-01' = {
   name: 'webnic1'
   location: location
   properties: {
@@ -246,38 +242,9 @@ resource webnic 'Microsoft.Network/networkInterfaces@2020-06-01' = {
   }
 }
 
-// resource AppGWnic2 'Microsoft.Network/networkInterfaces@2020-06-01' = {
-//   name: 'AppGWnic1'
-//   location: location
-//   properties: {
-//     ipConfigurations: [
-//       {
-//         name: 'ipconfig3'
-//         properties: {
-//           subnet: {
-//             id: AppGWsub.id
-//           }
-//           privateIPAllocationMethod: 'Dynamic'
-//         }
-//       }
-//     ]
-//     networkSecurityGroup: {
-//       id: nsg2.id
-//     }
-//   }
-// }
-
-
-
 
 ////////////////////////__APPLICATION GATEWAY__////////////////////////////////
-
-
-
-
-
-
-resource applicationGateway 'Microsoft.Network/applicationGateways@2020-06-01' = {
+resource applicationGateway 'Microsoft.Network/applicationGateways@2021-05-01' = {
   name: applicationGatewayName
   location: location
   // zones: [
@@ -498,17 +465,20 @@ param adminPassword2 string
 //DISC ENCRYPTION
 param dskEncrKey string
 
-
+//NAMES
 var nicname = '${WebVMssName}nic'
 var ipConfigName = '${WebVMssName}ipconfig'
-
 param WebVMssName string = 'WebVMss'
+param computerNamePrefix string = 'WebVM'
+// param osDiskName string = '${WebVMssName}osDisk'
 
-
-//SCALE SET RESOURCE 
-resource WebVMss 'Microsoft.Compute/virtualMachineScaleSets@2020-06-01' = {
+////////////////////////////////////////___SCALE SET RESOURCE___//////////////////////////////////
+resource VMss 'Microsoft.Compute/virtualMachineScaleSets@2021-11-01' = {
   name: WebVMssName
   location: location
+  dependsOn: [
+    applicationGateway
+  ]
   // zones: [
   //   '2'
   // ]
@@ -524,7 +494,7 @@ resource WebVMss 'Microsoft.Compute/virtualMachineScaleSets@2020-06-01' = {
     virtualMachineProfile: {
       storageProfile: {
         osDisk: {
-          name: 'webvmstorage'
+          // name: 'webvmssstorage'
           osType: 'Linux'
           createOption: 'FromImage'
           caching: 'ReadWrite'
@@ -561,7 +531,7 @@ resource WebVMss 'Microsoft.Compute/virtualMachineScaleSets@2020-06-01' = {
         ]
       }
       osProfile: {
-        computerNamePrefix: WebVMssName
+        computerNamePrefix: computerNamePrefix
         adminUsername: adminUsername2
         adminPassword: adminPassword2
         customData: loadFileAsBase64('../misc/webinstallscript.sh')
@@ -588,7 +558,7 @@ resource WebVMss 'Microsoft.Compute/virtualMachineScaleSets@2020-06-01' = {
                   name: ipConfigName
                   properties: {
                     subnet: {
-                      id: '${vnet2.id}/subnets/${subnetName2}'
+                      id: '${vnet2.id}/subnets/${subnetName1}'
                     }
                     primary: true
                     applicationGatewayBackendAddressPools: [
@@ -617,13 +587,12 @@ resource WebVMss 'Microsoft.Compute/virtualMachineScaleSets@2020-06-01' = {
 
 
 ////////////////////////////////////////___SCALE SETTING___///////////////////////////////////////
-
 resource autoScaleSettings 'microsoft.insights/autoscalesettings@2015-04-01' = {
   name: 'cpuautoscale'
   location: location
   properties: {
     name: 'cpuautoscale'
-    targetResourceUri: WebVMss.id
+    targetResourceUri: VMss.id
     enabled: true
     profiles: [
       {
@@ -638,7 +607,7 @@ resource autoScaleSettings 'microsoft.insights/autoscalesettings@2015-04-01' = {
             metricTrigger: {
               metricName: 'Percentage CPU'
               metricNamespace: ''
-              metricResourceUri: WebVMss.id
+              metricResourceUri: VMss.id
               timeGrain: 'PT1M'
               timeWindow: 'PT5M'
               timeAggregation: 'Average'
@@ -657,7 +626,7 @@ resource autoScaleSettings 'microsoft.insights/autoscalesettings@2015-04-01' = {
             metricTrigger: {
               metricName: 'Percentage CPU'
               metricNamespace: ''
-              metricResourceUri: WebVMss.id
+              metricResourceUri: VMss.id
               timeGrain: 'PT1M'
               timeWindow: 'PT5M'
               timeAggregation: 'Average'
@@ -681,7 +650,8 @@ resource autoScaleSettings 'microsoft.insights/autoscalesettings@2015-04-01' = {
             }
             metricTrigger: {
               metricName: 'CurrentConnections'
-              metricResourceUri: applicationGateway.id
+              // metricResourceUri: applicationGateway.id
+              metricResourceUri: resourceId('Microsoft.Network/applicationGateways', applicationGatewayName)
               operator: 'GreaterThan'
               statistic: 'Sum'
               threshold: 2500
@@ -715,3 +685,26 @@ resource autoScaleSettings 'microsoft.insights/autoscalesettings@2015-04-01' = {
     ]
   }
 }
+
+
+
+// resource AppGWnic2 'Microsoft.Network/networkInterfaces@2020-06-01' = {
+//   name: 'AppGWnic1'
+//   location: location
+//   properties: {
+//     ipConfigurations: [
+//       {
+//         name: 'ipconfig3'
+//         properties: {
+//           subnet: {
+//             id: AppGWsub.id
+//           }
+//           privateIPAllocationMethod: 'Dynamic'
+//         }
+//       }
+//     ]
+//     networkSecurityGroup: {
+//       id: nsg2.id
+//     }
+//   }
+// }

@@ -8,7 +8,7 @@ targetScope = 'subscription'
 // LOCATION
 // RESOURCE GROUP
 param location string = 'westeurope'
-param resourceGroupName string = 'Prov2'
+param resourceGroupName string = 'ZenTIA'
 
 
 
@@ -43,7 +43,7 @@ module stg './Modules/STORAGEACCOUNT.bicep' = {
   dependsOn: [
     rg
   ]
-  scope: resourceGroup('Prov2')
+  scope: resourceGroup(resourceGroupName)
 }
 
 
@@ -67,7 +67,7 @@ param adminPassword1 string = 'T3chgr0und$'
 //ADMINSERVER
 module ADMINSERVER './Modules/ADMINSERVER.bicep' = {
   name: 'ADMINSERVER'
-  scope: resourceGroup('Prov2')
+  scope: resourceGroup(resourceGroupName)
   dependsOn: [
     stg
     rg
@@ -106,7 +106,7 @@ param adminPassword2 string = 'T3chgr0und$'
 
 module Webserver_VMSS_AppGw './Modules/Webserver_VMSS_AppGw.bicep' = {
   name: 'WEBSERVER'
-  scope: resourceGroup('Prov2')
+  scope: resourceGroup(resourceGroupName)
   dependsOn: [
     stg
     rg
@@ -119,13 +119,14 @@ module Webserver_VMSS_AppGw './Modules/Webserver_VMSS_AppGw.bicep' = {
   }
 }
 
+
 /////////////////////___VNET PEERING___/////////////////////
 //VNET PEERING 1 & 2
 
 
 module VPEERING './Modules/VNETpeering.bicep' = {
   name: 'VNETpeering'
-  scope: resourceGroup('Prov2')
+  scope: resourceGroup(resourceGroupName)
   dependsOn: [
     ADMINSERVER
     Webserver_VMSS_AppGw
@@ -142,15 +143,15 @@ module VPEERING './Modules/VNETpeering.bicep' = {
 //DiscEncryptionKey
 //KV_Policy
 
-
+param keyVaultName string = 'ZenTIA${toLower(utcNow())}'
 
 module KEYVAULT './Modules/KeyVault.bicep' = {
-  name: 'XYZkv'
+  name: keyVaultName
   dependsOn: [
     rg
     
   ]
-  scope: resourceGroup('Prov2')
+  scope: resourceGroup(resourceGroupName)
   params:{
     location: location
   }

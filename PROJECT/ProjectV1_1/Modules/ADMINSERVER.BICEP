@@ -8,21 +8,15 @@ param adminUsername1 string
 @minLength(6)
 @secure()
 param adminPassword1 string
-
-
-@description('The Windows version for the VM. This will pick a fully patched image of this given Windows version.')
-@allowed([
-  '2019-Datacenter'
-])
-
 param OSVersion string = '2019-Datacenter'
 param vmSize1 string = 'Standard_B1s'
 param location string = resourceGroup().location
 param dnsLabelPrefix1 string = toLower('adminManage-vm-${uniqueString(resourceGroup().id)}')
 
-// param subnetId1 string
 
-// param dskEncrKey string
+resource dskEncrKey 'Microsoft.Compute/diskEncryptionSets@2021-08-01' existing = {
+  name: 'dskEncrKeyV1'
+}
 
 ////////////////////RESOURCES/////////////////////
 // WITH THEIR VARIABLES CLOSE TO THEM
@@ -45,14 +39,6 @@ resource vnet1 'Microsoft.Network/virtualNetworks@2020-05-01' = {
         vnet1Config.addressSpacePrefix
       ]
     }
-    // subnets: [
-    //   {
-    //     name: vnet1Config
-    //     properties: {
-    //       addressPrefix: vnet1Config
-    //     }
-    //   }
-    // ]
   }
 }
 
@@ -196,9 +182,9 @@ resource admVm 'Microsoft.Compute/virtualMachines@2021-03-01' = {
         createOption: 'FromImage'
         managedDisk: {
           storageAccountType: 'StandardSSD_LRS'
-          // diskEncryptionSet: {
-          //   id: dskEncrKey
-          // }
+          diskEncryptionSet: {
+            id: dskEncrKey.id
+          }
         }
       }
     }

@@ -80,7 +80,7 @@ resource stg 'Microsoft.Storage/storageAccounts@2021-08-01' = {
 }
 
 resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' existing = {
-  name:  'XYZadmin'
+  name:  'ZenTIAadmin'
 }
 ////////////STORAGE BLOB_SERVICES /////////////////////
 
@@ -151,7 +151,7 @@ resource dskAccess 'Microsoft.Compute/diskAccesses@2021-12-01' = {
   location: location
   name: 'diskAccess'
   tags: {
-    'XYZ': 'jamaltadrous'
+    'ZenTia': 'jamaltadrous'
   }
 }
 
@@ -165,7 +165,7 @@ param filename string = 'webserver.sh'
 resource deploymentScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
   name: 'deployscript${utcValue}'
   tags: {
-    'XYZ': 'jamaltadrous'
+    'ZenTia': 'jamaltadrous'
   }
   location: location
   kind: 'AzureCLI'

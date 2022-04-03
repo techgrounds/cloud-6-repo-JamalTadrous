@@ -1,8 +1,8 @@
-$templateFile = 'main.bicep'       
-$deploymentName = "Prov2${toLower(utcNow())}"
+$templateFile = 'main.bicep'
+$deploymentName = "ZenTIA${toLower(utcNow())}"
 $Location = 'westeurope'
 New-AzSubscriptionDeployment `
--ResourceGroupName Prov2${toLower(utcNow())} `
+-ResourceGroupName ZenTIA${toLower(utcNow())} `
 -Name $deploymentName `
 -Location $Location `
 -TemplateFile $templateFile

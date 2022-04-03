@@ -9,7 +9,7 @@ param enablePurgeProtection bool = true
 param enableRbacAuthorization bool = false
 
 
-param keyVaultName string = 'XYZkv${toLower(utcNow())}'
+param keyVaultName string = 'ZenTIA${toLower(utcNow())}'
 param tenantId string = subscription().tenantId
 @description('Specifies the object ID of a user, service principal or security group in the Azure Active Directory tenant for the vault. The object ID must be unique for the list of access policies. Get it by using Get-AzADUser or Get-AzADServicePrincipal cmdlets.')
 param objectId string = '214bb771-fd30-4f8e-9dfc-7195f7b165ff'
@@ -23,7 +23,7 @@ resource KEYVAULT 'Microsoft.KeyVault/vaults@2019-09-01' = {
   name: keyVaultName
   location: location
   tags: {
-    'XYZ': 'jamaltadrous'
+    'ZenTIA': 'jamaltadrous'
   }
   properties: {
     enabledForDeployment: enabledForDeployment
@@ -71,10 +71,10 @@ resource KEYVAULT 'Microsoft.KeyVault/vaults@2019-09-01' = {
 }
 
 resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' = {
-  name:  'XYZadmin'
+  name:  'ZenTIAadmin'
   location: location
   tags: {
-    'XYZ': 'jamaltadrous'
+    'ZenTIA': 'jamaltadrous'
   }
   dependsOn: [
     KEYVAULT
@@ -89,7 +89,7 @@ resource secret 'Microsoft.KeyVault/vaults/secrets@2021-10-01' = {
     value: loadTextContent('../misc/cert_key/xyz_keyp.pub')
   }
   tags: {
-    'projectv1': 'jamaltadrous'
+    'ZenTIA': 'jamaltadrous'
   }
 }
 
@@ -115,7 +115,7 @@ resource RSAkey 'Microsoft.KeyVault/vaults/keys@2021-10-01' = {
     }
   }
   tags: {
-    'XYZ': 'jamaltadrous'
+    'ZenTIA': 'jamaltadrous'
   }
 }
 
@@ -124,7 +124,7 @@ resource dskEncrKey 'Microsoft.Compute/diskEncryptionSets@2021-08-01' = {
   name: 'dskEncrKeyV1'
   location: location
   tags: {
-    'XYZ': 'jamaltadrous'
+    'ZenTIA': 'jamaltadrous'
   }
   identity: {
     type: 'SystemAssigned'

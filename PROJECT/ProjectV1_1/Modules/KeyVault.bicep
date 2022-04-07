@@ -1,6 +1,15 @@
+//////////KEYVAULT MODULE
+
 targetScope = 'resourceGroup'
 
+
+///////////////////////___PARAMETERS__///////////////////////////
 param location string = resourceGroup().location
+
+//KEYVAULT
+param keyVaultName string = 'ZenTIA${toLower(utcNow())}'
+
+//KEYVAULT CONFIG
 param enabledForDeployment bool = true
 param enabledForTemplateDeployment bool = true
 param enabledForDiskEncryption bool = true
@@ -8,8 +17,7 @@ param enableSoftDelete bool = true
 param enablePurgeProtection bool = true
 param enableRbacAuthorization bool = false
 
-
-param keyVaultName string = 'ZenTIA${toLower(utcNow())}'
+//SUBSCRIBTION CREDENTIALS
 param tenantId string = subscription().tenantId
 @description('Specifies the object ID of a user, service principal or security group in the Azure Active Directory tenant for the vault. The object ID must be unique for the list of access policies. Get it by using Get-AzADUser or Get-AzADServicePrincipal cmdlets.')
 param objectId string = '214bb771-fd30-4f8e-9dfc-7195f7b165ff'
@@ -17,8 +25,11 @@ param objectId string = '214bb771-fd30-4f8e-9dfc-7195f7b165ff'
 
 
 
-///////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+////////______________________RESOURCES_________________________////
+////////////////////////////////////////////////////////////////////
 
+//KEYVAULT
 resource KEYVAULT 'Microsoft.KeyVault/vaults@2019-09-01' = {
   name: keyVaultName
   location: location
@@ -70,6 +81,7 @@ resource KEYVAULT 'Microsoft.KeyVault/vaults@2019-09-01' = {
   }
 }
 
+//MANAGED IDENTITY
 resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' = {
   name:  'ZenTIAadmin'
   location: location
@@ -81,7 +93,7 @@ resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' = {
   ]
 }
 
-// secret
+//SECRET (SSH PUBLIC KEY)
 resource secret 'Microsoft.KeyVault/vaults/secrets@2021-10-01' = {
   parent: KEYVAULT
   name: 'ssh'
@@ -93,9 +105,7 @@ resource secret 'Microsoft.KeyVault/vaults/secrets@2021-10-01' = {
   }
 }
 
-
-
-// create key
+//RSA KEY
 resource RSAkey 'Microsoft.KeyVault/vaults/keys@2021-10-01' = {
   name: 'RSAKey'
   parent: KEYVAULT
@@ -119,7 +129,7 @@ resource RSAkey 'Microsoft.KeyVault/vaults/keys@2021-10-01' = {
   }
 }
 
-
+//DISC ENCRYPTION KEY
 resource dskEncrKey 'Microsoft.Compute/diskEncryptionSets@2021-08-01' = {
   name: 'dskEncrKeyV1'
   location: location
@@ -141,9 +151,7 @@ resource dskEncrKey 'Microsoft.Compute/diskEncryptionSets@2021-08-01' = {
   }
 }
 
-
-
-
+//KEYVAULT POLICIES
 resource kvPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2021-10-01'= {
   name: 'add'
   parent: KEYVAULT
@@ -190,6 +198,7 @@ resource kvPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2021-10-01'= {
   }
 }
 
+//OUTPUTS
 output KEYVAULTName string = KEYVAULT.name
 output KeyvaultUri string = KEYVAULT.properties.vaultUri
 output mngId string = mngId.id

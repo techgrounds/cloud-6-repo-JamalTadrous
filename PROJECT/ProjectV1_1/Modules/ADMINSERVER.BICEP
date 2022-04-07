@@ -1,6 +1,13 @@
+//////////ADMIN MODULE
+
+
 targetScope = 'resourceGroup'
 
-////////////////////PARAMETERS//////////////////
+///////////////////////___PARAMETERS__///////////////////////////
+
+param location string = resourceGroup().location
+
+//VM USER CREDENTIALS
 param adminvmName string = 'adminserv'
 param adminUsername1 string
 
@@ -8,29 +15,50 @@ param adminUsername1 string
 @minLength(6)
 @secure()
 param adminPassword1 string
+
+//VM SPECS
 param OSVersion string = '2019-Datacenter'
 param vmSize1 string = 'Standard_B1s'
-param location string = resourceGroup().location
 param dnsLabelPrefix1 string = toLower('adminManage-vm-${uniqueString(resourceGroup().id)}')
 
 
-resource dskEncrKey 'Microsoft.Compute/diskEncryptionSets@2021-08-01' existing = {
-  name: 'dskEncrKeyV1'
-}
-
-////////////////////RESOURCES/////////////////////
-// WITH THEIR VARIABLES CLOSE TO THEM
-@description('Name for vNet 1')
+//VNET
 param vnet1Name string = 'management-prd-vnet'
 
+//VNET ADDRESSPREFIX
 var vnet1Config = {
   addressSpacePrefix: '10.10.0.0/16'
   subnetName: 'admsubnet'
   subnetPrefix: '10.10.0.0/24'
 }
 
+// NETWORK INTERFACE CONTROLLER
+param nicName1 string = 'adminnic'
 
-resource vnet1 'Microsoft.Network/virtualNetworks@2020-05-01' = {
+//NETWORK SECURITY GROUP
+param sourceAddressPrefix string = '84.83.9.144' //(my wifi ip)
+// param sourceAddressPrefix string = '77.63.25.180' //(my mobile hotspot ip)
+var nsgName = 'adminNSG'
+
+//PUBLIC IP
+var publicIPAddressName = 'AdminPublicIP'
+
+/////////////////////__EXISTING RESOURCE__//////////////////////////
+
+
+resource dskEncrKey 'Microsoft.Compute/diskEncryptionSets@2021-08-01' existing = {
+  name: 'dskEncrKeyV1'
+}
+
+////////////////////////////////////////////////////////////////////
+////////______________________RESOURCES_________________________////
+////////////////////////////////////////////////////////////////////
+
+
+
+
+//VNET
+resource vnet1 'Microsoft.Network/virtualNetworks@2021-05-01' = {
   name: vnet1Name
   location: location
   properties: {
@@ -39,9 +67,19 @@ resource vnet1 'Microsoft.Network/virtualNetworks@2020-05-01' = {
         vnet1Config.addressSpacePrefix
       ]
     }
+    subnets: [
+      {
+        name: vnet1Config.subnetName
+        properties: {
+          addressPrefix: vnet1Config.subnetPrefix
+        }
+      }
+    ]
   }
 }
 
+
+//SUBNET
 resource admsub1 'Microsoft.Network/virtualNetworks/subnets@2021-05-01' = {
   name: vnet1Config.subnetName
   properties: {
@@ -61,10 +99,9 @@ resource admsub1 'Microsoft.Network/virtualNetworks/subnets@2021-05-01' = {
   parent: vnet1
 }
 
+
+
 // NETWORK INTERFACE CONTROLLER
-param nicName1 string = 'adminnic'
-
-
 resource nic1 'Microsoft.Network/networkInterfaces@2021-02-01' = {
   name: nicName1
   location: location
@@ -91,8 +128,6 @@ resource nic1 'Microsoft.Network/networkInterfaces@2021-02-01' = {
 
 
 //NETWORK SECURITY GROUP
-var nsgName = 'adminNSG'
-
 resource nsg1 'Microsoft.Network/networkSecurityGroups@2020-06-01' = {
   name: nsgName
   location: location
@@ -105,7 +140,7 @@ resource nsg1 'Microsoft.Network/networkSecurityGroups@2020-06-01' = {
           protocol: 'Tcp'
           access: 'Allow'
           direction: 'Inbound'
-          sourceAddressPrefix: '*'
+          sourceAddressPrefix: sourceAddressPrefix
           sourcePortRange: '*'
           destinationAddressPrefix: '*'
           destinationPortRange: '22'
@@ -119,7 +154,7 @@ resource nsg1 'Microsoft.Network/networkSecurityGroups@2020-06-01' = {
           protocol: 'Tcp'
           sourcePortRange: '*'
           destinationPortRange: '3389'
-          sourceAddressPrefix: 'VirtualNetwork'
+          sourceAddressPrefix: sourceAddressPrefix
           destinationAddressPrefix: '*'
           access: 'Allow'
           priority: 300
@@ -132,8 +167,6 @@ resource nsg1 'Microsoft.Network/networkSecurityGroups@2020-06-01' = {
 
 
 //PUBLIC IP
-var publicIPAddressName = 'AdminPublicIP'
-
 resource publicIP 'Microsoft.Network/publicIPAddresses@2020-06-01' = {
   name: publicIPAddressName
   location: location
@@ -198,6 +231,9 @@ resource admVm 'Microsoft.Compute/virtualMachines@2021-03-01' = {
   }
 }
 
+
+
+//OUTPUTS
 output admVmId string = admVm.id
 output admVmName string = admVm.name
 output hostname string = publicIP.properties.dnsSettings.fqdn

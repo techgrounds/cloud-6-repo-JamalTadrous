@@ -1,3 +1,7 @@
+//////////WEBSERVER MODULE
+
+
+///////////////////////////////___PARAMETERS___///////////////////////////////////////////
 param location string = resourceGroup().location
 
 //VNET
@@ -16,6 +20,7 @@ param nsgName string = 'webNSG'
 
 //APPGW
 param applicationGatewayName string = 'webAppGW'
+var appGwSize = 'Standard_v2'
 
 //AUTOSCALING
 param minCapacity int = 1
@@ -34,11 +39,39 @@ param backendIPAddresses array = [
 //PUBLIC IP
 var appGwPublicIpName = '${applicationGatewayName}-pip'
 
-//APPGW NAME/SIZE
-var appGwSize = 'Standard_v2'
+//ADMIN IP
+param sourceAddressPrefix string = '84.83.9.144' //(my wifi ip)
+
+//STORAGE ACCOUNT 
+param stgName string = 'jamalv2storageaccount'
+
+//VM SCALE SET
+//VM CREDENTIALS
+param adminUsername2 string
+param adminPassword2 string
+
+//DISC ENCRYPTION
+param dskEncrKey string
+
+//NAMES
+var nicname = '${WebVMssName}nic'
+var ipConfigName = '${WebVMssName}ipconfig'
+param WebVMssName string = 'WebVMss'
+param computerNamePrefix string = 'WebVM'
+// param osDiskName string = '${WebVMssName}osDisk' __OSDISK NAME WAS NOT ALLOWED
 
 
-//APPGW
+///////////////////////////////___EXISTING RESOURCES___///////////////////////////////////////////
+
+resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' existing = {
+  name:  'ZenTIAadmin'
+}
+
+
+resource stg 'Microsoft.Storage/storageAccounts@2021-08-01' existing = {
+  name: stgName
+}
+
 
 
 
@@ -48,7 +81,7 @@ var appGwSize = 'Standard_v2'
 
 
 
-////////////////////////__VNET__//////////////////////////////////////////////////
+//VNET
 resource vnet2 'Microsoft.Network/virtualNetworks@2021-05-01' = {
   name: virtualNetworkName
   location: location
@@ -76,7 +109,7 @@ resource vnet2 'Microsoft.Network/virtualNetworks@2021-05-01' = {
 }
 
 
-////////////////////////__PUBLIC IP__/////////////////////////////////////////////
+//PUBLIC IP I
 resource publicIP 'Microsoft.Network/publicIPAddresses@2021-05-01' = {
   name: appGwPublicIpName
   location: location
@@ -93,18 +126,37 @@ resource publicIP 'Microsoft.Network/publicIPAddresses@2021-05-01' = {
   }
 }
 
+// //PUBLIC IP II
+// resource NATpublicIP 'Microsoft.Network/publicIPAddresses@2021-05-01' = {
+//   name: 'pipOutbound'
+//   location: location
+//   // zones: [
+//   //   '2'
+//   // ]
+//   sku: {
+//     name: 'Standard'
+//   }
+//   properties: {
+//     publicIPAddressVersion: 'IPv4'
+//     publicIPAllocationMethod: 'Static'
+//     idleTimeoutInMinutes: 4
+//   }
+// }
 
-////////////////////////__NETWORK SECURITY GROUP__////////////////////////////////
+//NETWORK SECURITY GROUP
 resource nsg2 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
   name: nsgName
   location: location
   dependsOn: [
     vnet2
+    VMss
+    applicationGateway
   ]
   properties: {
     securityRules: [
-        {
-        name: 'HTTP'
+      //INBOUND
+      {
+        name: 'HTTPin'
         properties: {
           description: 'HTTP-rule'
           protocol: 'Tcp'
@@ -113,12 +165,12 @@ resource nsg2 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
           sourceAddressPrefix: 'Internet'
           destinationAddressPrefix: '*'
           access: 'Allow'
-          priority: 700
+          priority: 100
           direction: 'Inbound'
         }
       }
       {
-        name: 'HTTPS'
+        name: 'HTTPSin'
         properties: {
           description: 'HTTPS-rule'
           protocol: 'Tcp'
@@ -127,35 +179,21 @@ resource nsg2 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
           sourceAddressPrefix: 'Internet'
           destinationAddressPrefix: '*'
           access: 'Allow'
-          priority: 500
+          priority: 120
           direction: 'Inbound'
         }
       }
       {
-        name: 'rdp'
-        properties: {
-          description: 'rdp-rule'
-          protocol: 'Tcp'
-          sourcePortRange: '*'
-          destinationPortRange: '3389'
-          sourceAddressPrefix: 'VirtualNetwork'
-          destinationAddressPrefix: '*'
-          access: 'Allow'
-          priority: 300
-          direction: 'Inbound'
-        }
-      }
-      {
-        name: 'ssh'
+        name: 'sshin'
         properties: {
           description: 'ssh-rule'
           protocol: 'Tcp'
           sourcePortRange: '*'
           destinationPortRange: '22'
-          sourceAddressPrefix: 'VirtualNetwork'
+          sourceAddressPrefix: sourceAddressPrefix
           destinationAddressPrefix: '*'
           access: 'Allow'
-          priority: 200
+          priority: 160
           direction: 'Inbound'
         }
       }
@@ -169,17 +207,66 @@ resource nsg2 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
           sourceAddressPrefix: '*'
           destinationAddressPrefix: '*'
           access: 'Allow'
-          priority: 100
+          priority: 180
           direction: 'Inbound'
+        }
+      }
+      //OUTBOUND
+      {
+        name: 'sshout'
+        properties: {
+          description: 'ssh-rule'
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          destinationPortRange: '22'
+          sourceAddressPrefix: sourceAddressPrefix
+          destinationAddressPrefix: '*'
+          access: 'Allow'
+          priority: 200
+          direction: 'Outbound'
+        }
+      }
+      {
+        name: 'HTTPSout'
+        properties: {
+          description: 'HTTPS-rule'
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          destinationPortRange: '443'
+          sourceAddressPrefix: 'Internet'
+          destinationAddressPrefix: '*'
+          access: 'Allow'
+          priority: 220
+          direction: 'Outbound'
         }
       }
     ]
   }
 }
 
+// resource natgw 'Microsoft.Network/natGateways@2021-05-01' = {
+//   dependsOn: [
+//     vnet2
+//     nsg2
+//     VMss
+//     AppGWsub
+//   ]
+//   name: 'NATgateway'
+//   location: location
+//   sku: {
+//     name: 'Standard'
+//   }
+//   properties: {
+//     idleTimeoutInMinutes: 4
+//     publicIpAddresses: [
+//       {
+//         id: NATpublicIP.id
+//       }
+//     ]
+//   }
+// }
 
-
-////////////////////////__SUBNET__///////////////////////////////////////////////
+//WEB SUBNET
 resource websub 'Microsoft.Network/virtualNetworks/subnets@2021-05-01' = {
   name: subnetName1
   properties: {
@@ -199,7 +286,7 @@ resource websub 'Microsoft.Network/virtualNetworks/subnets@2021-05-01' = {
   parent: vnet2
 }
 
-////////////////////////__SUBNET__///////////////////////////////////////////////
+//APPLICATION GATEWAY SUBNET
 resource AppGWsub 'Microsoft.Network/virtualNetworks/subnets@2021-05-01' = {
   name: subnetName2
   properties: {
@@ -220,30 +307,30 @@ resource AppGWsub 'Microsoft.Network/virtualNetworks/subnets@2021-05-01' = {
 }
 
 
-////////////////////////__NETWORK INTERFACE CONTROLLER__/////////////////////////
-resource webnic 'Microsoft.Network/networkInterfaces@2021-05-01' = {
-  name: 'webnic1'
-  location: location
-  properties: {
-    ipConfigurations: [
-      {
-        name: 'ipconfig2'
-        properties: {
-          subnet: {
-            id: websub.id
-          }
-          privateIPAllocationMethod: 'Dynamic'
-        }
-      }
-    ]
-    networkSecurityGroup: {
-      id: nsg2.id
-    }
-  }
-}
+//NETWORK INTERFACE CONTROLLER
+// resource webnic 'Microsoft.Network/networkInterfaces@2021-05-01' = {
+//   name: 'webnic1'
+//   location: location
+//   properties: {
+//     ipConfigurations: [
+//       {
+//         name: 'ipconfig2'
+//         properties: {
+//           subnet: {
+//             id: websub.id
+//           }
+//           privateIPAllocationMethod: 'Dynamic'
+//         }
+//       }
+//     ]
+//     networkSecurityGroup: {
+//       id: nsg2.id
+//     }
+//   }
+// }
 
 
-////////////////////////__APPLICATION GATEWAY__////////////////////////////////
+//APPLICATION GATEWAY
 resource applicationGateway 'Microsoft.Network/applicationGateways@2021-05-01' = {
   name: applicationGatewayName
   location: location
@@ -277,9 +364,9 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2021-05-01' =
           protocol:'Http'
           host: '127.0.0.1'
           path: '/'
-          interval: 30
-          timeout: 30
-          unhealthyThreshold: 3
+          interval: 60
+          timeout: 60
+          unhealthyThreshold: 5
         }
       }
       {
@@ -288,9 +375,9 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2021-05-01' =
           protocol:'Https'
           host: '127.0.0.1'
           path: '/'
-          interval: 30
-          timeout: 30
-          unhealthyThreshold: 3
+          interval: 60
+          timeout: 60
+          unhealthyThreshold: 5
         }
       }
     ]
@@ -298,8 +385,8 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2021-05-01' =
       {
         name: '${applicationGatewayName}SslCert'
         properties: {
-          data: loadFileAsBase64('../misc/cert_key/XYZcertwpw.pfx')
-          password: '123'
+          data: loadFileAsBase64('../misc/cert_key/ZentiaCert1.pfx')
+          password: 'Passw0rd!'
         }
       }
     ]
@@ -453,26 +540,9 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2021-05-01' =
 
 
 
-
-////////////////////////////////////////___VM SCALE SET___///////////////////////////////////////
-//PARAMS
-
-
-//VM
-param adminUsername2 string
-param adminPassword2 string
-
-//DISC ENCRYPTION
-param dskEncrKey string
-
-//NAMES
-var nicname = '${WebVMssName}nic'
-var ipConfigName = '${WebVMssName}ipconfig'
-param WebVMssName string = 'WebVMss'
-param computerNamePrefix string = 'WebVM'
-// param osDiskName string = '${WebVMssName}osDisk'
-
-////////////////////////////////////////___SCALE SET RESOURCE___//////////////////////////////////
+//VIRTUAL MACHINE SCALE SET WITH SSH 
+//HEALTH EXTENSION
+//WEBSCRIPT EXTENTION
 resource VMss 'Microsoft.Compute/virtualMachineScaleSets@2021-11-01' = {
   name: WebVMssName
   location: location
@@ -491,6 +561,12 @@ resource VMss 'Microsoft.Compute/virtualMachineScaleSets@2021-11-01' = {
     upgradePolicy: {
       mode: 'Automatic'
     }
+    orchestrationMode: 'Uniform'
+    scaleInPolicy: {
+    rules:[
+      'OldestVM'
+    ]
+  }
     virtualMachineProfile: {
       storageProfile: {
         osDisk: {
@@ -528,6 +604,23 @@ resource VMss 'Microsoft.Compute/virtualMachineScaleSets@2021-11-01' = {
               }
             }
           }
+          // {
+          //   name: 'WebPaginascript'
+          //   properties:{
+          //     publisher: 'Microsoft.Azure.Extensions'
+          //     type: 'CustomScript'
+          //     typeHandlerVersion: '2.1'
+          //     autoUpgradeMinorVersion: true
+          //     protectedSettings: {
+          //       managedIdentity:{
+          //         '${mngId.id}':{}
+          //       }
+          //       fileUris:[
+          //         'https://${stgName}.blob.${environment().suffixes.storage}/website/index.html'
+          //       ]
+          //     }
+          //   }
+          // }
         ]
       }
       osProfile: {
@@ -586,7 +679,7 @@ resource VMss 'Microsoft.Compute/virtualMachineScaleSets@2021-11-01' = {
 
 
 
-////////////////////////////////////////___SCALE SETTING___///////////////////////////////////////
+//AUTOSCALE SETTING
 resource autoScaleSettings 'microsoft.insights/autoscalesettings@2015-04-01' = {
   name: 'cpuautoscale'
   location: location
@@ -686,25 +779,3 @@ resource autoScaleSettings 'microsoft.insights/autoscalesettings@2015-04-01' = {
   }
 }
 
-
-
-// resource AppGWnic2 'Microsoft.Network/networkInterfaces@2020-06-01' = {
-//   name: 'AppGWnic1'
-//   location: location
-//   properties: {
-//     ipConfigurations: [
-//       {
-//         name: 'ipconfig3'
-//         properties: {
-//           subnet: {
-//             id: AppGWsub.id
-//           }
-//           privateIPAllocationMethod: 'Dynamic'
-//         }
-//       }
-//     ]
-//     networkSecurityGroup: {
-//       id: nsg2.id
-//     }
-//   }
-// }

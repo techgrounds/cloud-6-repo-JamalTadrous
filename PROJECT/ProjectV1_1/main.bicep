@@ -58,7 +58,7 @@ module stg './Modules/STORAGEACCOUNT.bicep' = {
 //ADMIN_VM(WINDOWS)
 
 //PARAMS
-param adminUsername1 string = 'jamaltadrous'
+param adminUsername1 string = 'jamaltadrous' 
 // @secure() 
 param adminPassword1 string = 'T3chgr0und$'
 
@@ -79,8 +79,6 @@ module ADMINSERVER './Modules/ADMINSERVER.bicep' = {
     location: location
   }
 }
-
-
 
 
 //////////////////////___WEBSERVER___///////////////////////

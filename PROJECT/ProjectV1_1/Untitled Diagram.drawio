@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-04-11T19:03:25.984Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.79 Safari/537.36" etag="2TOe0u2ndaJIgnu_sIv8" version="17.4.0" type="github">
+<mxfile host="app.diagrams.net" modified="2022-04-11T19:05:05.145Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.79 Safari/537.36" etag="Fdg-KiTGo39rnoR08Bud" version="17.4.0" type="github">
   <diagram id="0u1oMXUC31BcrS0hXZJ0" name="Page-1">
     <mxGraphModel dx="1803" dy="1091" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" background="#ffffff" math="0" shadow="0">
       <root>
@@ -334,7 +334,7 @@
         <mxCell id="B8iE8iphhaeYc5RQPvvE-124" value="&lt;font style=&quot;font-size: 14px&quot;&gt;NSG&lt;br&gt;(RDP enabled)&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;shadow=0;glass=0;dashed=1;fontFamily=Tahoma;fontColor=#000000;" vertex="1" parent="1">
           <mxGeometry x="689.5" y="559" width="100" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="B8iE8iphhaeYc5RQPvvE-125" value="&lt;font style=&quot;font-size: 14px&quot;&gt;Subnet:&lt;br&gt;10.10.10.0/27&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;shadow=0;glass=0;dashed=1;fontFamily=Tahoma;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="B8iE8iphhaeYc5RQPvvE-125" value="&lt;font style=&quot;font-size: 14px&quot;&gt;Subnet:&lt;br&gt;10.10.0.0/27&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;shadow=0;glass=0;dashed=1;fontFamily=Tahoma;fontColor=#000000;" vertex="1" parent="1">
           <mxGeometry x="828" y="320" width="106" height="29" as="geometry" />
         </mxCell>
         <mxCell id="B8iE8iphhaeYc5RQPvvE-149" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Tahoma;fontSize=14;fontColor=#000000;" edge="1" parent="1" source="B8iE8iphhaeYc5RQPvvE-128">

@@ -40,7 +40,7 @@ resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' exi
 
 //STORAGE ACCOUNT
 resource stg 'Microsoft.Storage/storageAccounts@2021-08-01' = {
-  name: 'jamalv2storageaccount'
+  name: 'zentiastoragev1'
   location: location
   sku: {
     name: 'Standard_LRS'

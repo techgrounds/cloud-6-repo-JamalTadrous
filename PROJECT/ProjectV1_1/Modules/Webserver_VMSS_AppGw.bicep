@@ -1,6 +1,8 @@
 //////////WEBSERVER MODULE
 
 
+targetScope = 'resourceGroup'
+
 ///////////////////////////////___PARAMETERS___///////////////////////////////////////////
 param location string = resourceGroup().location
 
@@ -36,17 +38,40 @@ param backendIPAddresses array = [
   }
 ]
 
-//PUBLIC IP
-var appGwPublicIpName = '${applicationGatewayName}-pip'
-
+///////////////////_ALLOWED IP(s) FOR ADMIN ACCESS_////////////////////////////////
 //ADMIN IP
 param sourceAddressPrefix string = '84.83.9.144' //(my wifi ip)
 
-//STORAGE ACCOUNT 
-param stgName string = 'jamalv2storageaccount'
+//HERE I HAVE AN OPTION FOR YOU TO PUT MULTIPLE IP ADDRESSES 
+//SO THEY CAN BE ALLOWED INTO THE WEBSERVER. 
+//TRY TO KEEP THIS AT A MAX OF 2 FOR SECURITY REASONS.
 
-//VM SCALE SET
-//VM CREDENTIALS
+// param sourceAddressPrefix array = [
+//   {
+//     IpAddress: 'adminhome.ip.address.here' <--
+//   }
+//   {
+//     IpAddress: 'office.ip.address.here'    <--
+//   }
+// ]
+
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^
+//FOR ADDING ONE IP ADDRESS:
+// JUST ADD THE ADDRESS WITHIN THE '..' AND UNCOMMENT THE PARAMETERS OF THE sourceAddressPrefix PARAMATER STRING.
+
+//FOR ADDING MULTIPLE ADDRESSES:
+// SELECT ALL OF THE CODE OF THE ARRAY AND PRESS CTRL+/. 
+// REMOVE OR COMMENT THE 'STRING sourceAddressPrefix PARAMTER' 
+
+
+//PUBLIC IP
+var appGwPublicIpName = '${applicationGatewayName}-pip'
+
+//STORAGE ACCOUNT 
+param stgName string = 'zentiastoragev1'
+
+// VM SCALE SET
+// VM CREDENTIALS
 param adminUsername2 string
 param adminPassword2 string
 
@@ -60,6 +85,8 @@ param WebVMssName string = 'WebVMss'
 param computerNamePrefix string = 'WebVM'
 // param osDiskName string = '${WebVMssName}osDisk' __OSDISK NAME WAS NOT ALLOWED
 
+//SSL CERTIFICATE
+param sslcert string = loadFileAsBase64('../misc/cert_key/ZentiaCert1.pfx')
 
 ///////////////////////////////___EXISTING RESOURCES___///////////////////////////////////////////
 
@@ -71,8 +98,6 @@ resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' exi
 resource stg 'Microsoft.Storage/storageAccounts@2021-08-01' existing = {
   name: stgName
 }
-
-
 
 
 ////////////////////////////////////////////////////////////////////
@@ -108,40 +133,46 @@ resource vnet2 'Microsoft.Network/virtualNetworks@2021-05-01' = {
   }
 }
 
-
-//PUBLIC IP I
-resource publicIP 'Microsoft.Network/publicIPAddresses@2021-05-01' = {
-  name: appGwPublicIpName
-  location: location
-  // zones: [
-  //   '2'
-  // ]
-  sku: {
-    name: 'Standard'
-  }
+//WEB SUBNET
+resource websub 'Microsoft.Network/virtualNetworks/subnets@2021-05-01' = {
+  name: subnetName1
   properties: {
-    publicIPAddressVersion: 'IPv4'
-    publicIPAllocationMethod: 'Static'
-    idleTimeoutInMinutes: 4
+    addressPrefix: subnetPrefix1
+    networkSecurityGroup: {
+      id: nsg2.id
+    }
+    serviceEndpoints: [
+      { 
+        service: 'Microsoft.KeyVault'
+      }
+      {  
+        service: 'Microsoft.Storage'
+      }
+    ]
   }
+  parent: vnet2
 }
 
-// //PUBLIC IP II
-// resource NATpublicIP 'Microsoft.Network/publicIPAddresses@2021-05-01' = {
-//   name: 'pipOutbound'
-//   location: location
-//   // zones: [
-//   //   '2'
-//   // ]
-//   sku: {
-//     name: 'Standard'
-//   }
-//   properties: {
-//     publicIPAddressVersion: 'IPv4'
-//     publicIPAllocationMethod: 'Static'
-//     idleTimeoutInMinutes: 4
-//   }
-// }
+//APPLICATION GATEWAY SUBNET
+resource AppGWsub 'Microsoft.Network/virtualNetworks/subnets@2021-05-01' = {
+  name: subnetName2
+  properties: {
+    addressPrefix: subnetPrefix2
+    networkSecurityGroup: {
+      id: nsg2.id
+    }
+    serviceEndpoints: [
+      { 
+        service: 'Microsoft.KeyVault'
+      }
+      {  
+        service: 'Microsoft.Storage'
+      }
+    ]
+  }
+  parent: vnet2
+}
+
 
 //NETWORK SECURITY GROUP
 resource nsg2 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
@@ -149,7 +180,7 @@ resource nsg2 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
   location: location
   dependsOn: [
     vnet2
-    VMss
+    // VMss
     applicationGateway
   ]
   properties: {
@@ -244,90 +275,23 @@ resource nsg2 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
   }
 }
 
-// resource natgw 'Microsoft.Network/natGateways@2021-05-01' = {
-//   dependsOn: [
-//     vnet2
-//     nsg2
-//     VMss
-//     AppGWsub
-//   ]
-//   name: 'NATgateway'
-//   location: location
-//   sku: {
-//     name: 'Standard'
-//   }
-//   properties: {
-//     idleTimeoutInMinutes: 4
-//     publicIpAddresses: [
-//       {
-//         id: NATpublicIP.id
-//       }
-//     ]
-//   }
-// }
-
-//WEB SUBNET
-resource websub 'Microsoft.Network/virtualNetworks/subnets@2021-05-01' = {
-  name: subnetName1
-  properties: {
-    addressPrefix: subnetPrefix1
-    networkSecurityGroup: {
-      id: nsg2.id
-    }
-    serviceEndpoints: [
-      { 
-        service: 'Microsoft.KeyVault'
-      }
-      {  
-        service: 'Microsoft.Storage'
-      }
-    ]
+//PUBLIC IP I
+resource publicIP 'Microsoft.Network/publicIPAddresses@2021-05-01' = {
+  name: appGwPublicIpName
+  location: location
+  zones: [
+    '2'
+  ]
+  sku: {
+    name: 'Standard'
   }
-  parent: vnet2
+  properties: {
+    publicIPAddressVersion: 'IPv4'
+    publicIPAllocationMethod: 'Static'
+    idleTimeoutInMinutes: 4
+  }
 }
 
-//APPLICATION GATEWAY SUBNET
-resource AppGWsub 'Microsoft.Network/virtualNetworks/subnets@2021-05-01' = {
-  name: subnetName2
-  properties: {
-    addressPrefix: subnetPrefix2
-    networkSecurityGroup: {
-      id: nsg2.id
-    }
-    serviceEndpoints: [
-      { 
-        service: 'Microsoft.KeyVault'
-      }
-      {  
-        service: 'Microsoft.Storage'
-      }
-    ]
-  }
-  parent: vnet2
-}
-
-
-//NETWORK INTERFACE CONTROLLER
-// resource webnic 'Microsoft.Network/networkInterfaces@2021-05-01' = {
-//   name: 'webnic1'
-//   location: location
-//   properties: {
-//     ipConfigurations: [
-//       {
-//         name: 'ipconfig2'
-//         properties: {
-//           subnet: {
-//             id: websub.id
-//           }
-//           privateIPAllocationMethod: 'Dynamic'
-//         }
-//       }
-//     ]
-//     networkSecurityGroup: {
-//       id: nsg2.id
-//     }
-//   }
-// }
 
 
 //APPLICATION GATEWAY
@@ -366,7 +330,7 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2021-05-01' =
           path: '/'
           interval: 60
           timeout: 60
-          unhealthyThreshold: 5
+          unhealthyThreshold: 10
         }
       }
       {
@@ -377,7 +341,7 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2021-05-01' =
           path: '/'
           interval: 60
           timeout: 60
-          unhealthyThreshold: 5
+          unhealthyThreshold: 10
         }
       }
     ]
@@ -385,7 +349,7 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2021-05-01' =
       {
         name: '${applicationGatewayName}SslCert'
         properties: {
-          data: loadFileAsBase64('../misc/cert_key/ZentiaCert1.pfx')
+          data: sslcert
           password: 'Passw0rd!'
         }
       }
@@ -394,9 +358,34 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2021-05-01' =
       policyType: 'Custom'
       minProtocolVersion:'TLSv1_2'
       cipherSuites: [
+        'TLS_DHE_DSS_WITH_3DES_EDE_CBC_SHA'
+        'TLS_DHE_DSS_WITH_AES_128_CBC_SHA'
+        'TLS_DHE_DSS_WITH_AES_128_CBC_SHA256'
+        'TLS_DHE_DSS_WITH_AES_256_CBC_SHA'
+        'TLS_DHE_DSS_WITH_AES_256_CBC_SHA256'
+        'TLS_DHE_RSA_WITH_AES_128_CBC_SHA'
+        'TLS_DHE_RSA_WITH_AES_128_GCM_SHA256'
+        'TLS_DHE_RSA_WITH_AES_256_CBC_SHA'
+        'TLS_DHE_RSA_WITH_AES_256_GCM_SHA384'
+        'TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA'
+        'TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256'
+        'TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256'
+        'TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA'
+        'TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384'
+        'TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384'
+        'TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA'
+        'TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256'
+        'TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256'
+        'TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA'
+        'TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384'
+        'TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384'
+        'TLS_RSA_WITH_3DES_EDE_CBC_SHA'
+        'TLS_RSA_WITH_AES_128_CBC_SHA'
         'TLS_RSA_WITH_AES_128_CBC_SHA256'
         'TLS_RSA_WITH_AES_128_GCM_SHA256'
+        'TLS_RSA_WITH_AES_256_CBC_SHA'
         'TLS_RSA_WITH_AES_256_CBC_SHA256'
+        'TLS_RSA_WITH_AES_256_GCM_SHA384'
       ]
     }
     frontendIPConfigurations: [
@@ -549,29 +538,35 @@ resource VMss 'Microsoft.Compute/virtualMachineScaleSets@2021-11-01' = {
   dependsOn: [
     applicationGateway
   ]
-  // zones: [
-  //   '2'
-  // ]
+  zones: [
+    '2'
+  ]
   sku: {
     name: 'Standard_B1s'
     tier: 'Standard'
   }
   properties: {
-    overprovision: true
-    upgradePolicy: {
-      mode: 'Automatic'
-    }
-    orchestrationMode: 'Uniform'
-    scaleInPolicy: {
-    rules:[
-      'OldestVM'
-    ]
-  }
-    virtualMachineProfile: {
+      virtualMachineProfile: {
+        osProfile: {
+          computerNamePrefix: computerNamePrefix
+          adminUsername: adminUsername2
+          adminPassword: adminPassword2
+          customData: loadFileAsBase64('../misc/webinstallscript.sh')
+          linuxConfiguration: {
+            disablePasswordAuthentication: true
+            ssh:{
+              publicKeys:[
+                {
+                  path: '/home/${adminUsername2}/.ssh/authorized_keys'
+                  keyData: loadTextContent('../misc/cert_key/zentiaprivpubk.pub')
+                }
+              ]
+            }
+          }
+        }
       storageProfile: {
+        
         osDisk: {
-          // name: 'webvmssstorage'
-          osType: 'Linux'
           createOption: 'FromImage'
           caching: 'ReadWrite'
           managedDisk: {
@@ -623,23 +618,7 @@ resource VMss 'Microsoft.Compute/virtualMachineScaleSets@2021-11-01' = {
           // }
         ]
       }
-      osProfile: {
-        computerNamePrefix: computerNamePrefix
-        adminUsername: adminUsername2
-        adminPassword: adminPassword2
-        customData: loadFileAsBase64('../misc/webinstallscript.sh')
-        linuxConfiguration: {
-          disablePasswordAuthentication: true
-          ssh:{
-            publicKeys:[
-              {
-                path: '/home/${adminUsername2}/.ssh/authorized_keys'
-                keyData: loadTextContent('../misc/cert_key/xyz_keyp.pub')
-              }
-            ]
-          }
-        }
-      }
+      
       networkProfile: {
         networkInterfaceConfigurations: [
           {
@@ -668,7 +647,16 @@ resource VMss 'Microsoft.Compute/virtualMachineScaleSets@2021-11-01' = {
         ]
       }
     }
-    
+    overprovision: true
+    upgradePolicy: {
+      mode: 'Automatic'
+    }
+    orchestrationMode: 'Uniform'
+    scaleInPolicy: {
+    rules:[
+      'OldestVM'
+    ]
+  }
   automaticRepairsPolicy: {
     enabled: true
     gracePeriod: 'PT10M'

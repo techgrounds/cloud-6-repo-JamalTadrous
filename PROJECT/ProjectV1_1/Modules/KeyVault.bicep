@@ -72,11 +72,6 @@ resource KEYVAULT 'Microsoft.KeyVault/vaults@2019-09-01' = {
     networkAcls: {
       defaultAction: 'Allow'
       bypass: 'AzureServices'
-      // virtualNetworkRules:[
-      //   {
-      //     id: sub1
-      //   }
-      // ]
     }
   }
 }
@@ -98,7 +93,7 @@ resource secret 'Microsoft.KeyVault/vaults/secrets@2021-10-01' = {
   parent: KEYVAULT
   name: 'ssh'
   properties: {
-    value: loadTextContent('../misc/cert_key/xyz_keyp.pub')
+    value: loadTextContent('../misc/cert_key/zentiaprivpubk.pub')
   }
   tags: {
     'ZenTIA': 'jamaltadrous'
@@ -111,7 +106,7 @@ resource RSAkey 'Microsoft.KeyVault/vaults/keys@2021-10-01' = {
   parent: KEYVAULT
   properties: {
     kty: 'RSA' // key type
-    keySize: 2048
+    keySize: 4096
     keyOps: [
       'unwrapKey'
       'wrapKey'

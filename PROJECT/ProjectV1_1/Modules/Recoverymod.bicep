@@ -68,7 +68,7 @@ resource backupPolicy 'Microsoft.RecoveryServices/vaults/backupPolicies@2016-06-
       retentionPolicyType: 'LongTermRetentionPolicy'
       dailySchedule: {
         retentionTimes: [
-          '2022-03-17T00:30:00.000Z'
+          '2022-04-13T00:30:00.000Z'
         ]
         retentionDuration: {
           count: 7

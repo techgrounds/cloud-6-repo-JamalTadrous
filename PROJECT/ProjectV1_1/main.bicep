@@ -35,7 +35,7 @@ module rg './Modules/RESOURCEGROUP.bicep' = {
 // DEPLOYMENT SCRIPT
 
 module stg './Modules/STORAGEACCOUNT.bicep' = {
-  name: 'jamalv2storageaccount'
+  name: 'zentiastoragev1'
   params: {
     location: location
     KeyVaultName: KEYVAULT.outputs.KEYVAULTName
@@ -118,6 +118,28 @@ module Webserver_VMSS_AppGw './Modules/Webserver_VMSS_AppGw.bicep' = {
 }
 
 
+/////////___VIRTUAL MACHINE SCALE SET & AUTOSCALING___///////////
+
+// module VMscaleset_autoscaling './Modules/VMscaleset.bicep' = {
+//   name: 'WEBvm_Scaleset_Autoscaling'
+//   scope: resourceGroup(resourceGroupName)
+//   dependsOn: [
+//     Webserver_VMSS_AppGw
+//     KEYVAULT
+//     stg
+//     rg
+//   ]
+//   params: {
+//     location: location
+    // adminUsername2: adminUsername2
+    // adminPassword2: adminPassword2
+    // dskEncrKey: KEYVAULT.outputs.dskEncrKey
+//   }
+// }
+
+
+
+
 /////////////////////___VNET PEERING___/////////////////////
 //VNET PEERING 1 & 2
 
@@ -164,7 +186,7 @@ module KEYVAULT './Modules/KeyVault.bicep' = {
 
 // module RECOVERY './Modules/Recoverymod.bicep' = {
 //   name: 'RecovServVault'
-//   scope: resourceGroup('Prov2')
+//   scope: resourceGroup(resourceGroupName)
 //   dependsOn: [
 //     rg
 //     KEYVAULT

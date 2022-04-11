@@ -1,7 +1,19 @@
-# Project XYZ Scope v1.0
+# Project Scope Zentia
 
-## Team
-- Als team willen wij duidelijk hebben wat de eisen zijn van de applicaties
+In dit document zal ik verduidelijken wat er wordt gevraagd van de eisen van de klant. Ik heb een overzicht gemaakt dat mijn team en ik ophaalden bij de opdrachtgever door middel van de documentatie van het project en een gesprek met de stakeholder.
+
+>In dit project moesten we een klant infrastructuur leveren via code. Het platform dat in mijn geval wordt gebruikt, is Microsoft's Azure, met zijn domeinspecifieke taal genaamd Bicep. De vereisten van v1.1 hebben enkele nieuwe implementaties met betrekking tot v1.0. De webserver moet autoscaling-mogelijkheden hebben. Dit was nodig om het verwachte verkeer op de website/applicatie die de klant wil kunnen laten draaien zonder complicaties en enige vertraging in de ervaring van de klant.
+
+Verder wil de opdrachtgever de volgende belangrijke features in de infrastructuur implementeren:
+
+- Een werkende applicatie die een veilig en beveiligd netwerk kan implementeren.
+- Een werkende applicatie die een werkende webserver kan implementeren.
+- Een werkende applicatie die een werkende Management-server kan implementeren.
+- Een werkende applicatie waarvan de gegevens zijn versleuteld.
+
+----------------------------------------------------------------
+
+**V1.0 vereisten:**
 
     - Alle VM disks moeten encrypted zijn.
     - De webserver moet dagelijks gebackupt worden. De backups moeten 7 dagen behouden worden.
@@ -13,28 +25,47 @@
     - SSH of RDP verbindingen met de webserver mogen alleen tot stand komen vanuit de admin server.
 
 
+----------------------------------------------------------------
+
+Het infrastructuur van v1.1 bestaat uit de volgende vereisten:
+
+- De webserver moet niet ‘naakt’ op internet kunnen staan. Dit betekent dat de server geen openbaar IP-adres mag hebben. De webserver moet ook een load balancer hebben.
+- Wanneer een gebruiker een verbinding maakt via HTTP met de load balancer (een Application Gateway in mijn geval), zou deze de verbinding automatisch moeten upgraden naar HTTPS.
+- De verbindingsbeveiligingsnorm heeft een minimumvereiste van TLS 1.2 of hoger.
+- De webserver moet een gereguleerde ‘health check’ hebben.
+- Als de webserver de gezondheidscontrole niet doorstaat, moet de server automatisch worden hersteld.
+- Wanneer de webserver een zware belasting van verkeer zou ondergaan, zou een extra exemplaar van de server moeten worden gemaakt om het gewicht van het verkeer te verdelen.
+- De opdrachtgever denkt dat maximaal 3 instances voldoende zijn voor het te verwachten aantal gebruikers.
+
+----------------------------------------------------------------
+
+Dingen om te leveren voor 1.1:
+
+Aangepaste webserver met daarin:
+    - Het openbare IP-adres is verwijderd uit v1.0's web server module, zodat het geen direct openbaar IP-adres heeft.
+    - Openbare IP moet worden toegewezen aan de Application Gateway.
+    - Implementatie van Application Gateway om het verkeer van HTTP naar een beveiligd verkeersprotocol HTTS te leiden en als load balancer fungeert.
+    - Creatie van de middelen voor veilig verkeer:
+        - Een zelfondertekend certificaat dat later aangepast kan worden met het geleverde certificaat van de klant.
+        - Aanwijzingen in de handleiding voor de opdrachtgever om het certificaat dat in het script gebruikt gaat worden, toe te kunnen voegen.
+    - Configureren van de netwerkbeveiligingsgroepen(NSG) om het juiste verkeer toe te staan ​​en te weigeren dat nodig is voor een veilig netwerk en het gebruik van de MVP.
+    - Bied mogelijkheden voor automatisch schalen aan de virtuele-machineschaalset.
+    - Healthprobes en -extensies voor Virtual Machine Scale-set, om de gezondheid te bewaken, de mogelijkheid te bieden om meerdere instanties te hebben om een ​​website uit te voeren en om de doorvoer van verkeer te kunnen verwerken.
+
+----------------------------------------------------------------
+
 - Als team willen wij een duidelijk overzicht van de aannames die wij gemaakt hebben en van de Cloud Infrastructuur die de applicatie nodig heeft.
 
-    - Gebruikte het bedrijf webserver publiek of intern?
     - Budget +/- €130 per maand
     - Keyvault nodig voor certificaten en keys/encryptie
     - 2 v-nets in 2 availibilty zones verbonden middels peering
     - subnet met NSG voor webserver
     - subnet met NSG voor adminserver
     - 1 vm webserver met SSH/RDP via adminserver
-    - 1 vm adminserver
+    - 1 vm adminserver met RDP (SSH optioneel) toegang.
     - storage account
     - 2 firewall(NSG) subnets
 
-## Klant
-- Als klant wil ik een werkende applicatie hebben waarmee ik een veilige netwerk kan deployen
-- Als klant wil ik een werkende applicatie hebben waarmee ik een werkende webserver kan deployen
-- Als klant wil ik een werkende applicatie hebben waarmee ik een werkende management server kan deployen
-- Als klant wil ik een opslagoplossing hebben waarin bootstrap/post-deployment script opgeslagen kunnen worden
-- Als klant wil ik dat al mijn data in de infrastructuur is versleuteld
-- Als klant wil ik iedere dag een backup hebben dat 7 dagen behouden wordt
-- Als klant wil ik weten hoe ik de applicatie kan gebruiken
-- Als klant wil ik een MVP kunnen deployen om te testen
 
 # Oplevering
 
@@ -77,11 +108,6 @@ Hou rekening met de volgende projectactiviteiten:
 
 - FizzBuzz: [link](https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition)
 
-![image](../00_includes/PRJ/Azure.png)
 
 
-Purge protection
-Use user managed identity, because Azure AD is not possible.
-user managed identity can access the key vault customer managed keys. User managed Object ID
-
-customer managed key with storage account 
+--------------------------------

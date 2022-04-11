@@ -27,21 +27,47 @@ param vnet1Name string = 'management-prd-vnet'
 
 //VNET ADDRESSPREFIX
 var vnet1Config = {
-  addressSpacePrefix: '10.10.0.0/16'
+  addressSpacePrefix: '10.10.0.0/24'
   subnetName: 'admsubnet'
-  subnetPrefix: '10.10.0.0/24'
+  subnetPrefix: '10.10.0.0/27'
 }
 
 // NETWORK INTERFACE CONTROLLER
 param nicName1 string = 'adminnic'
 
 //NETWORK SECURITY GROUP
-param sourceAddressPrefix string = '84.83.9.144' //(my wifi ip)
-// param sourceAddressPrefix string = '77.63.25.180' //(my mobile hotspot ip)
 var nsgName = 'adminNSG'
 
 //PUBLIC IP
 var publicIPAddressName = 'AdminPublicIP'
+
+
+///////////////////_ALLOWED IP(s) FOR ADMIN ACCESS_////////////////////////////////
+param sourceAddressPrefix string = '84.83.9.144' //(my wifi ip)
+// param sourceAddressPrefix string = '77.63.25.180' //(my mobile hotspot ip)
+
+//HERE I HAVE AN OPTION FOR YOU TO PUT MULTIPLE IP ADDRESSES 
+//SO THEY CAN BE ALLOWED INTO THE WEBSERVER. 
+//TRY TO KEEP THIS AT A MAX OF 2 FOR SECURITY REASONS.
+
+// param sourceAddressPrefix array = [
+//   {
+//     IpAddress: 'adminhome.ip.address.here' <--
+//   }
+//   {
+//     IpAddress: 'office.ip.address.here'    <--
+//   }
+// ]
+
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^
+//FOR ADDING/USING ONE IP ADDRESS:
+// JUST ADD THE ADDRESS WITHIN THE '..' AND MAKE SURE param sourceAddressPrefix string is uncommented.
+
+//FOR ADDING/USING MULTIPLE IP ADDRESSES:
+// SELECT ALL OF THE CODE OF THE sourceAddressPrefix ARRAY AND PRESS CTRL + / . 
+// REMOVE OR COMMENT THE 'param sourceAddressPrefix string' 
+
+
 
 /////////////////////__EXISTING RESOURCE__//////////////////////////
 
@@ -145,7 +171,6 @@ resource nsg1 'Microsoft.Network/networkSecurityGroups@2020-06-01' = {
           destinationAddressPrefix: '*'
           destinationPortRange: '22'
         }
-        
       }
       {
         name: 'RDP'

@@ -1,3 +1,15 @@
+
+
+
+
+
+
+
+
+
+
+
+
 # **Jamal Tadrous - Apprentice Cloud Engineer**  
   
 ## ***Introductie***

@@ -1,12 +1,21 @@
-
 Get-Date -Format 'yyyy-MM-dd'
 $templateFile = '.\main.bicep'
-$deploymentName = "XYZ-cloudkit"
+$deploymentName = "ZenTIAcloudkit"
 $Location = 'westeurope'
 
 New-AzSubscriptionDeployment `
--ResourceGroupName JamsProjexV2 `
+-ResourceGroupName Zentiav1 `
 -Name $deploymentName `
 -Location $Location `
 -TemplateFile $templateFile
 
+Get-Date -Format 'yyyy-MM-dd'
+$templateFile = 'main.bicep'
+$deploymentName = "Zentiacloudkit"
+$Location = 'westeurope'
+
+New-AzSubscriptionDeployment `
+-ResourceGroupName ZenTiav1 `
+-Name $deploymentName `
+-Location $Location `
+-TemplateFile $templateFile

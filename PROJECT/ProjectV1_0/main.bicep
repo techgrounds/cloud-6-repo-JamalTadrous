@@ -169,19 +169,19 @@ module KEYVAULT './Modules/KeyVault.bicep' = {
 //BACKUP_POLICY_WITH_SCHEDULE
 
 
-// module RECOVERY './Modules/Recoverymod.bicep' = {
-//   name: 'RecovServVault'
-//   scope: resourceGroup('XYZv1')
-//   dependsOn: [
-//     rg
-//     KEYVAULT
-//     ADMINSERVER
-//     WEBSERVER
-//   ]
-//   params: {
-//     location: location
-//   }
-// }
+module RECOVERY './Modules/Recoverymod.bicep' = {
+  name: 'RecovServVault'
+  scope: resourceGroup('XYZv1')
+  dependsOn: [
+    rg
+    KEYVAULT
+    ADMINSERVER
+    WEBSERVER
+  ]
+  params: {
+    location: location
+  }
+}
 //WARNING: C:\Users\Jamal\github-classroom\techgrounds\cloud-6-repo-JamalTadrous\PROJECT\ProjectV1_0\Modules\Recoverymod.bicep(67,5) : Warning BCP037: The property "instantRpRetentionRangeInDays" is not allowed on objects of type "AzureIaasVM". Permissible properties include "protectedItemsCount". If this is an inaccuracy in the documentation, please report it to the Bicep Team. [https://aka.ms/bicep-type-issues]
 //C:\Users\Jamal\github-classroom\techgrounds\cloud-6-repo-JamalTadrous\PROJECT\ProjectV1_0\Modules\Recoverymod.bicep(68,5) : Warning BCP037: The property "timeZone" is not allowed on objects of type "AzureIaasVM". Permissible properties include "protectedItemsCount". If this is an inaccuracy in the documentation, please report it to the Bicep Team. [https://aka.ms/bicep-type-issues]
 

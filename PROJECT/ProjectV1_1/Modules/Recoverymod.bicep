@@ -1,17 +1,34 @@
-//////////////////__RECOVERYMOD__//////////////////////
+//////////RECOVERY MODULE
 
-//PARAMETER
+///////////////////////___PARAMETERS__///////////////////////////
 param RecoveryVaultName string = 'RecoVault'
 param BackupPolicyName string = 'BackupPolicy'
 param location string = resourceGroup().location
 
+//VARIABLES
 var backupFabric = 'Azure'
 var protectionContainer = 'iaasvmcontainer;iaasvmcontainerv2;${resourceGroup().name};${admVm.name}'
 var protectedItem = 'vm;iaasvmcontainerv2;${resourceGroup().name};${admVm.name}'
-var protectionContainer2 = 'iaasvmcontainer;iaasvmcontainerv2;${resourceGroup().name};${webvmss.name}'
-var protectedItem2 = 'vm;iaasvmcontainerv2;${resourceGroup().name};${webvmss.name}'
+var protectionContainer2 = 'iaasvmcontainer;iaasvmcontainerv2;${resourceGroup().name};${WebVMss.name}'
+var protectedItem2 = 'vm;iaasvmcontainerv2;${resourceGroup().name};${WebVMss.name}'
 
-/////////////////////////___RESOURCES___////////////////////////////
+
+/////////////////////__EXISTING RESOURCE__//////////////////////////
+
+resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' existing = {
+  name:  'ZenTIAadmin'
+}
+
+resource admVm 'Microsoft.Compute/virtualMachines@2021-03-01' existing = {
+  name: 'adminserv'
+}
+resource WebVMss 'Microsoft.Compute/virtualMachineScaleSets@2021-11-01' existing = {
+  name: 'WebVMss'
+}
+
+////////////////////////////////////////////////////////////////////
+////////______________________RESOURCES_________________________////
+////////////////////////////////////////////////////////////////////
 
 //RECOVERYVAULT
 resource recoveryVault 'Microsoft.RecoveryServices/vaults@2020-10-01' = {
@@ -28,14 +45,9 @@ resource recoveryVault 'Microsoft.RecoveryServices/vaults@2020-10-01' = {
     }
   }
   tags: {
-    'projectv1': 'jamaltadrous'
+    'ZenTIA': 'jamaltadrous'
   }
 }
-
-resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' existing = {
-  name:  'projectadmin'
-}
-
 
 //BACKUP_POLICY
 resource backupPolicy 'Microsoft.RecoveryServices/vaults/backupPolicies@2016-06-01' = {
@@ -56,7 +68,7 @@ resource backupPolicy 'Microsoft.RecoveryServices/vaults/backupPolicies@2016-06-
       retentionPolicyType: 'LongTermRetentionPolicy'
       dailySchedule: {
         retentionTimes: [
-          '2022-03-17T00:30:00.000Z'
+          '2022-04-13T00:30:00.000Z'
         ]
         retentionDuration: {
           count: 7
@@ -64,26 +76,20 @@ resource backupPolicy 'Microsoft.RecoveryServices/vaults/backupPolicies@2016-06-
         }
       }
     }
-    instantRpRetentionRangeInDays: 3
-    timeZone: 'W. Europe Standard Time'
+    // instantRpRetentionRangeInDays: 3
+    // timeZone: 'W. Europe Standard Time'
   }
   // tags: {
   //   'projectv1': 'jamaltadrous'
   // }
 }
 
-resource admVm 'Microsoft.Compute/virtualMachines@2021-03-01' existing = {
-  name: 'adminserv'
-}
-resource webvmss 'Microsoft.Compute/virtualMachineScaleSets@2020-06-01' existing = {
-  name: 'WebVMss'
-}
 
-
+//BACKUP FOR ADMIN
 resource backupAdmin 'Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems@2021-12-01' = {
   name: '${recoveryVault.name}/${backupFabric}/${protectionContainer}/${protectedItem}'
   tags: {
-    'projectv1': 'jamaltadrous'
+    'ZenTIA': 'jamaltadrous'
   }
   properties: {
     protectedItemType: 'Microsoft.Compute/virtualMachines'
@@ -95,16 +101,16 @@ resource backupAdmin 'Microsoft.RecoveryServices/vaults/backupFabrics/protection
   ]
 } 
 
-
+//BACKUP FOR WEBSERVER
 resource backupWeb 'Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems@2021-12-01' = {
   name: '${RecoveryVaultName}/${backupFabric}/${protectionContainer2}/${protectedItem2}'
   tags: {
-    'projectv1': 'jamaltadrous'
+    'ZenTIA': 'jamaltadrous'
   }
   properties: {
     protectedItemType: 'Microsoft.Compute/virtualMachines'
     policyId: backupPolicy.id
-    sourceResourceId: webvmss.id
+    sourceResourceId: WebVMss.id
   }
 }
 

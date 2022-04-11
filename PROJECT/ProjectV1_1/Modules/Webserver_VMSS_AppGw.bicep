@@ -1,3 +1,9 @@
+//////////WEBSERVER MODULE
+
+
+targetScope = 'resourceGroup'
+
+///////////////////////////////___PARAMETERS___///////////////////////////////////////////
 param location string = resourceGroup().location
 
 //VNET
@@ -16,6 +22,7 @@ param nsgName string = 'webNSG'
 
 //APPGW
 param applicationGatewayName string = 'webAppGW'
+var appGwSize = 'Standard_v2'
 
 //AUTOSCALING
 param minCapacity int = 1
@@ -31,15 +38,66 @@ param backendIPAddresses array = [
   }
 ]
 
+///////////////////_ALLOWED IP(s) FOR ADMIN ACCESS_////////////////////////////////
+//ADMIN IP
+param sourceAddressPrefix string = '84.83.9.144' //(my wifi ip)
+
+//HERE I HAVE AN OPTION FOR YOU TO PUT MULTIPLE IP ADDRESSES 
+//SO THEY CAN BE ALLOWED INTO THE WEBSERVER. 
+//TRY TO KEEP THIS AT A MAX OF 2 FOR SECURITY REASONS.
+
+// param sourceAddressPrefix array = [
+//   {
+//     IpAddress: 'adminhome.ip.address.here' <--
+//   }
+//   {
+//     IpAddress: 'office.ip.address.here'    <--
+//   }
+// ]
+
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^
+//FOR ADDING ONE IP ADDRESS:
+// JUST ADD THE ADDRESS WITHIN THE '..' AND UNCOMMENT THE PARAMETERS OF THE sourceAddressPrefix PARAMATER STRING.
+
+//FOR ADDING MULTIPLE ADDRESSES:
+// SELECT ALL OF THE CODE OF THE ARRAY AND PRESS CTRL+/. 
+// REMOVE OR COMMENT THE 'STRING sourceAddressPrefix PARAMTER' 
+
+
 //PUBLIC IP
 var appGwPublicIpName = '${applicationGatewayName}-pip'
 
-//APPGW NAME/SIZE
-var appGwSize = 'Standard_v2'
+//STORAGE ACCOUNT 
+param stgName string = 'zentiastoragev1'
+
+// VM SCALE SET
+// VM CREDENTIALS
+param adminUsername2 string
+param adminPassword2 string
+
+//DISC ENCRYPTION
+param dskEncrKey string
+
+//NAMES
+var nicname = '${WebVMssName}nic'
+var ipConfigName = '${WebVMssName}ipconfig'
+param WebVMssName string = 'WebVMss'
+param computerNamePrefix string = 'WebVM'
+// param osDiskName string = '${WebVMssName}osDisk' __OSDISK NAME WAS NOT ALLOWED
+
+//SSL CERTIFICATE
+param sslcert string = loadFileAsBase64('../misc/cert_key/ZentiaCert1.pfx')
+
+///////////////////////////////___EXISTING RESOURCES___///////////////////////////////////////////
+
+resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' existing = {
+  name:  'ZenTIAadmin'
+}
 
 
-//APPGW
-
+resource stg 'Microsoft.Storage/storageAccounts@2021-08-01' existing = {
+  name: stgName
+}
 
 
 ////////////////////////////////////////////////////////////////////
@@ -48,7 +106,7 @@ var appGwSize = 'Standard_v2'
 
 
 
-////////////////////////__VNET__//////////////////////////////////////////////////
+//VNET
 resource vnet2 'Microsoft.Network/virtualNetworks@2021-05-01' = {
   name: virtualNetworkName
   location: location
@@ -75,111 +133,7 @@ resource vnet2 'Microsoft.Network/virtualNetworks@2021-05-01' = {
   }
 }
 
-
-////////////////////////__PUBLIC IP__/////////////////////////////////////////////
-resource publicIP 'Microsoft.Network/publicIPAddresses@2021-05-01' = {
-  name: appGwPublicIpName
-  location: location
-  // zones: [
-  //   '2'
-  // ]
-  sku: {
-    name: 'Standard'
-  }
-  properties: {
-    publicIPAddressVersion: 'IPv4'
-    publicIPAllocationMethod: 'Static'
-    idleTimeoutInMinutes: 4
-  }
-}
-
-
-////////////////////////__NETWORK SECURITY GROUP__////////////////////////////////
-resource nsg2 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
-  name: nsgName
-  location: location
-  dependsOn: [
-    vnet2
-  ]
-  properties: {
-    securityRules: [
-        {
-        name: 'HTTP'
-        properties: {
-          description: 'HTTP-rule'
-          protocol: 'Tcp'
-          sourcePortRange: '*'
-          destinationPortRange: '80'
-          sourceAddressPrefix: 'Internet'
-          destinationAddressPrefix: '*'
-          access: 'Allow'
-          priority: 700
-          direction: 'Inbound'
-        }
-      }
-      {
-        name: 'HTTPS'
-        properties: {
-          description: 'HTTPS-rule'
-          protocol: 'Tcp'
-          sourcePortRange: '*'
-          destinationPortRange: '443'
-          sourceAddressPrefix: 'Internet'
-          destinationAddressPrefix: '*'
-          access: 'Allow'
-          priority: 500
-          direction: 'Inbound'
-        }
-      }
-      {
-        name: 'rdp'
-        properties: {
-          description: 'rdp-rule'
-          protocol: 'Tcp'
-          sourcePortRange: '*'
-          destinationPortRange: '3389'
-          sourceAddressPrefix: 'VirtualNetwork'
-          destinationAddressPrefix: '*'
-          access: 'Allow'
-          priority: 300
-          direction: 'Inbound'
-        }
-      }
-      {
-        name: 'ssh'
-        properties: {
-          description: 'ssh-rule'
-          protocol: 'Tcp'
-          sourcePortRange: '*'
-          destinationPortRange: '22'
-          sourceAddressPrefix: 'VirtualNetwork'
-          destinationAddressPrefix: '*'
-          access: 'Allow'
-          priority: 200
-          direction: 'Inbound'
-        }
-      }
-      {
-        name: 'GatewayManager'
-        properties: {
-          description: 'GatewayManager'
-          protocol: 'Tcp'
-          sourcePortRange: '*'
-          destinationPortRange: '65200-65535'
-          sourceAddressPrefix: '*'
-          destinationAddressPrefix: '*'
-          access: 'Allow'
-          priority: 100
-          direction: 'Inbound'
-        }
-      }
-    ]
-  }
-}
-
-
-
-////////////////////////__SUBNET__///////////////////////////////////////////////
+//WEB SUBNET
 resource websub 'Microsoft.Network/virtualNetworks/subnets@2021-05-01' = {
   name: subnetName1
   properties: {
@@ -199,7 +153,7 @@ resource websub 'Microsoft.Network/virtualNetworks/subnets@2021-05-01' = {
   parent: vnet2
 }
 
-////////////////////////__SUBNET__///////////////////////////////////////////////
+//APPLICATION GATEWAY SUBNET
 resource AppGWsub 'Microsoft.Network/virtualNetworks/subnets@2021-05-01' = {
   name: subnetName2
   properties: {
@@ -220,30 +174,127 @@ resource AppGWsub 'Microsoft.Network/virtualNetworks/subnets@2021-05-01' = {
 }
 
 
-////////////////////////__NETWORK INTERFACE CONTROLLER__/////////////////////////
-resource webnic 'Microsoft.Network/networkInterfaces@2021-05-01' = {
-  name: 'webnic1'
+//NETWORK SECURITY GROUP
+resource nsg2 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
+  name: nsgName
   location: location
+  dependsOn: [
+    vnet2
+    // VMss
+    applicationGateway
+  ]
   properties: {
-    ipConfigurations: [
+    securityRules: [
+      //INBOUND
       {
-        name: 'ipconfig2'
+        name: 'HTTPin'
         properties: {
-          subnet: {
-            id: websub.id
-          }
-          privateIPAllocationMethod: 'Dynamic'
+          description: 'HTTP-rule'
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          destinationPortRange: '80'
+          sourceAddressPrefix: 'Internet'
+          destinationAddressPrefix: '*'
+          access: 'Allow'
+          priority: 100
+          direction: 'Inbound'
+        }
+      }
+      {
+        name: 'HTTPSin'
+        properties: {
+          description: 'HTTPS-rule'
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          destinationPortRange: '443'
+          sourceAddressPrefix: 'Internet'
+          destinationAddressPrefix: '*'
+          access: 'Allow'
+          priority: 120
+          direction: 'Inbound'
+        }
+      }
+      {
+        name: 'sshin'
+        properties: {
+          description: 'ssh-rule'
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          destinationPortRange: '22'
+          sourceAddressPrefix: sourceAddressPrefix
+          destinationAddressPrefix: '*'
+          access: 'Allow'
+          priority: 160
+          direction: 'Inbound'
+        }
+      }
+      {
+        name: 'GatewayManager'
+        properties: {
+          description: 'GatewayManager'
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          destinationPortRange: '65200-65535'
+          sourceAddressPrefix: '*'
+          destinationAddressPrefix: '*'
+          access: 'Allow'
+          priority: 180
+          direction: 'Inbound'
+        }
+      }
+      //OUTBOUND
+      {
+        name: 'sshout'
+        properties: {
+          description: 'ssh-rule'
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          destinationPortRange: '22'
+          sourceAddressPrefix: sourceAddressPrefix
+          destinationAddressPrefix: '*'
+          access: 'Allow'
+          priority: 200
+          direction: 'Outbound'
+        }
+      }
+      {
+        name: 'HTTPSout'
+        properties: {
+          description: 'HTTPS-rule'
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          destinationPortRange: '443'
+          sourceAddressPrefix: 'Internet'
+          destinationAddressPrefix: '*'
+          access: 'Allow'
+          priority: 220
+          direction: 'Outbound'
         }
       }
     ]
-    networkSecurityGroup: {
-      id: nsg2.id
-    }
+  }
+}
+
+//PUBLIC IP I
+resource publicIP 'Microsoft.Network/publicIPAddresses@2021-05-01' = {
+  name: appGwPublicIpName
+  location: location
+  zones: [
+    '2'
+  ]
+  sku: {
+    name: 'Standard'
+  }
+  properties: {
+    publicIPAddressVersion: 'IPv4'
+    publicIPAllocationMethod: 'Static'
+    idleTimeoutInMinutes: 4
   }
 }
 
 
-////////////////////////__APPLICATION GATEWAY__////////////////////////////////
+
+//APPLICATION GATEWAY
 resource applicationGateway 'Microsoft.Network/applicationGateways@2021-05-01' = {
   name: applicationGatewayName
   location: location
@@ -277,9 +328,9 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2021-05-01' =
           protocol:'Http'
           host: '127.0.0.1'
           path: '/'
-          interval: 30
-          timeout: 30
-          unhealthyThreshold: 3
+          interval: 60
+          timeout: 60
+          unhealthyThreshold: 10
         }
       }
       {
@@ -288,9 +339,9 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2021-05-01' =
           protocol:'Https'
           host: '127.0.0.1'
           path: '/'
-          interval: 30
-          timeout: 30
-          unhealthyThreshold: 3
+          interval: 60
+          timeout: 60
+          unhealthyThreshold: 10
         }
       }
     ]
@@ -298,8 +349,8 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2021-05-01' =
       {
         name: '${applicationGatewayName}SslCert'
         properties: {
-          data: loadFileAsBase64('../misc/cert_key/XYZcertwpw.pfx')
-          password: '123'
+          data: sslcert
+          password: 'Passw0rd!'
         }
       }
     ]
@@ -307,9 +358,34 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2021-05-01' =
       policyType: 'Custom'
       minProtocolVersion:'TLSv1_2'
       cipherSuites: [
+        'TLS_DHE_DSS_WITH_3DES_EDE_CBC_SHA'
+        'TLS_DHE_DSS_WITH_AES_128_CBC_SHA'
+        'TLS_DHE_DSS_WITH_AES_128_CBC_SHA256'
+        'TLS_DHE_DSS_WITH_AES_256_CBC_SHA'
+        'TLS_DHE_DSS_WITH_AES_256_CBC_SHA256'
+        'TLS_DHE_RSA_WITH_AES_128_CBC_SHA'
+        'TLS_DHE_RSA_WITH_AES_128_GCM_SHA256'
+        'TLS_DHE_RSA_WITH_AES_256_CBC_SHA'
+        'TLS_DHE_RSA_WITH_AES_256_GCM_SHA384'
+        'TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA'
+        'TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256'
+        'TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256'
+        'TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA'
+        'TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384'
+        'TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384'
+        'TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA'
+        'TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256'
+        'TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256'
+        'TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA'
+        'TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384'
+        'TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384'
+        'TLS_RSA_WITH_3DES_EDE_CBC_SHA'
+        'TLS_RSA_WITH_AES_128_CBC_SHA'
         'TLS_RSA_WITH_AES_128_CBC_SHA256'
         'TLS_RSA_WITH_AES_128_GCM_SHA256'
+        'TLS_RSA_WITH_AES_256_CBC_SHA'
         'TLS_RSA_WITH_AES_256_CBC_SHA256'
+        'TLS_RSA_WITH_AES_256_GCM_SHA384'
       ]
     }
     frontendIPConfigurations: [
@@ -453,49 +529,44 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2021-05-01' =
 
 
 
-
-////////////////////////////////////////___VM SCALE SET___///////////////////////////////////////
-//PARAMS
-
-
-//VM
-param adminUsername2 string
-param adminPassword2 string
-
-//DISC ENCRYPTION
-param dskEncrKey string
-
-//NAMES
-var nicname = '${WebVMssName}nic'
-var ipConfigName = '${WebVMssName}ipconfig'
-param WebVMssName string = 'WebVMss'
-param computerNamePrefix string = 'WebVM'
-// param osDiskName string = '${WebVMssName}osDisk'
-
-////////////////////////////////////////___SCALE SET RESOURCE___//////////////////////////////////
+//VIRTUAL MACHINE SCALE SET WITH SSH 
+//HEALTH EXTENSION
+//WEBSCRIPT EXTENTION
 resource VMss 'Microsoft.Compute/virtualMachineScaleSets@2021-11-01' = {
   name: WebVMssName
   location: location
   dependsOn: [
     applicationGateway
   ]
-  // zones: [
-  //   '2'
-  // ]
+  zones: [
+    '2'
+  ]
   sku: {
     name: 'Standard_B1s'
     tier: 'Standard'
   }
   properties: {
-    overprovision: true
-    upgradePolicy: {
-      mode: 'Automatic'
-    }
-    virtualMachineProfile: {
+      virtualMachineProfile: {
+        osProfile: {
+          computerNamePrefix: computerNamePrefix
+          adminUsername: adminUsername2
+          adminPassword: adminPassword2
+          customData: loadFileAsBase64('../misc/webinstallscript.sh')
+          linuxConfiguration: {
+            disablePasswordAuthentication: true
+            ssh:{
+              publicKeys:[
+                {
+                  path: '/home/${adminUsername2}/.ssh/authorized_keys'
+                  keyData: loadTextContent('../misc/cert_key/zentiaprivpubk.pub')
+                }
+              ]
+            }
+          }
+        }
       storageProfile: {
+        
         osDisk: {
-          // name: 'webvmssstorage'
-          osType: 'Linux'
           createOption: 'FromImage'
           caching: 'ReadWrite'
           managedDisk: {
@@ -528,25 +599,26 @@ resource VMss 'Microsoft.Compute/virtualMachineScaleSets@2021-11-01' = {
               }
             }
           }
+          // {
+          //   name: 'WebPaginascript'
+          //   properties:{
+          //     publisher: 'Microsoft.Azure.Extensions'
+          //     type: 'CustomScript'
+          //     typeHandlerVersion: '2.1'
+          //     autoUpgradeMinorVersion: true
+          //     protectedSettings: {
+          //       managedIdentity:{
+          //         '${mngId.id}':{}
+          //       }
+          //       fileUris:[
+          //         'https://${stgName}.blob.${environment().suffixes.storage}/website/index.html'
+          //       ]
+          //     }
+          //   }
+          // }
         ]
       }
-      osProfile: {
-        computerNamePrefix: computerNamePrefix
-        adminUsername: adminUsername2
-        adminPassword: adminPassword2
-        customData: loadFileAsBase64('../misc/webinstallscript.sh')
-        linuxConfiguration: {
-          disablePasswordAuthentication: true
-          ssh:{
-            publicKeys:[
-              {
-                path: '/home/${adminUsername2}/.ssh/authorized_keys'
-                keyData: loadTextContent('../misc/cert_key/xyz_keyp.pub')
-              }
-            ]
-          }
-        }
-      }
+      
       networkProfile: {
         networkInterfaceConfigurations: [
           {
@@ -575,7 +647,16 @@ resource VMss 'Microsoft.Compute/virtualMachineScaleSets@2021-11-01' = {
         ]
       }
     }
-    
+    overprovision: true
+    upgradePolicy: {
+      mode: 'Automatic'
+    }
+    orchestrationMode: 'Uniform'
+    scaleInPolicy: {
+    rules:[
+      'OldestVM'
+    ]
+  }
   automaticRepairsPolicy: {
     enabled: true
     gracePeriod: 'PT10M'
@@ -586,7 +667,7 @@ resource VMss 'Microsoft.Compute/virtualMachineScaleSets@2021-11-01' = {
 
 
 
-////////////////////////////////////////___SCALE SETTING___///////////////////////////////////////
+//AUTOSCALE SETTING
 resource autoScaleSettings 'microsoft.insights/autoscalesettings@2015-04-01' = {
   name: 'cpuautoscale'
   location: location
@@ -686,25 +767,3 @@ resource autoScaleSettings 'microsoft.insights/autoscalesettings@2015-04-01' = {
   }
 }
 
-
-
-// resource AppGWnic2 'Microsoft.Network/networkInterfaces@2020-06-01' = {
-//   name: 'AppGWnic1'
-//   location: location
-//   properties: {
-//     ipConfigurations: [
-//       {
-//         name: 'ipconfig3'
-//         properties: {
-//           subnet: {
-//             id: AppGWsub.id
-//           }
-//           privateIPAllocationMethod: 'Dynamic'
-//         }
-//       }
-//     ]
-//     networkSecurityGroup: {
-//       id: nsg2.id
-//     }
-//   }
-// }

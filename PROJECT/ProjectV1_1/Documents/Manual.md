@@ -131,15 +131,15 @@ Om het infrastructuur te creeren:
 Login Azure met de syntax: 
 az-login
 
-*Voeg de volgende syntax in de powershell Terminal: *
+**Voeg de volgende syntax in de powershell Terminal:**  
 
-Get-Date -Format 'yyyy-MM-dd'
-$templateFile = 'main.bicep'
-$deploymentName = "Zentiacloudkit"   <- Naam voor deployment is aanpasbaar.
-$Location = 'westeurope'
+    Get-Date -Format 'yyyy-MM-dd'  
+    $templateFile = 'main.bicep'  
+    $deploymentName = "Zentiacloudkit"   <- Naam voor deployment is aanpasbaar.  
+    $Location = 'westeurope'  
 
-New-AzSubscriptionDeployment `
--ResourceGroupName ZenTia `
--Name $deploymentName `
--Location $Location `
--TemplateFile $templateFile
+    New-AzSubscriptionDeployment `  
+    -ResourceGroupName ZenTia `  
+    -Name $deploymentName `  
+    -Location $Location `  
+    -TemplateFile $templateFile  

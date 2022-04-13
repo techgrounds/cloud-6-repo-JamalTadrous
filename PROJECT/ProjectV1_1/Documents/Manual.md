@@ -39,21 +39,8 @@ Het SSL certificaat staat in de Webserver Module's  parameters onder 'param sslc
 
 De web installatie script staat onder de miscellaneous map (misc) genaamd webinstallscript.sh. De content kan natuurlijk aangepast worden naar een uitgebreidere installatie voor de webserver.
 
-Params.json is te wijzigen naar eigen inzicht.
-
-- Wijzig 'privIp' voor het IP van de Admin Server's trusted location (momenteel ingesteld op 'internet')
-
-De IaC is agnostisch opgebouwd, wat betekent dat de deployment van elke locatie moet kunnen worden uitgevoerd. Dit betekent wel dat de website-bestanden vanaf een externe URI moeten worden ingelezen. 
-Wanneer de deployment geisoleerd dient te worden, is het mogelijk de paramter 'clientvar. deploy' inde json te wijzigen van 'dev' naar 'prd'.
-Voor de goede orde kunt u dan ook de tag is de json respectievelijk aanpassen.
-
-**Deploy het netwerk door 'DeployV1.ps1' uit te voeren**
-
-Het wachtwoord voor de Windows Admin-server wordt automatisch gegenereerd en direct in de Azure KeyVault geplaatst. Na de deployment wordt het wachtwoord in de powershell weergegeven. In de /etc map staat een script om de sleutel middels de Powershell op te halen wanneer het wachtwoord kwijt is. Ook is het wachtwoord middels de portal op te halen in de KeyVault.
-
-
-Middels RDP/SSH is het mogelijk in te loggen in de Windows VM.
-Hier kan met het gegenereerde wachtwoord worden ingelogt. 
+Met RDP/SSH is het mogelijk in te loggen in de Windows VM.
+U kunt de Gebruikers gegevens en paswoord aanpassen in de Main template.. 
 
 In de Windows omgeving mogelijk een CLI naar keuze te installeren/openen en via deze CLI in te loggen op de webserver via SSH/RDP.
 
@@ -135,3 +122,24 @@ Lijst van versies van SKU van offer
     -Offer $offerName 
     -Sku $skuName 
 
+
+## Deploying the infrastructure:
+
+Zorg dat u zich in de directory bevind in de terminal, waar het main.bicep bestand staat. 
+Om het infrastructuur te creeren: 
+
+Login Azure met de syntax: 
+az-login
+
+*Voeg de volgende syntax in de powershell Terminal: *
+
+Get-Date -Format 'yyyy-MM-dd'
+$templateFile = 'main.bicep'
+$deploymentName = "Zentiacloudkit"   <- Naam voor deployment is aanpasbaar.
+$Location = 'westeurope'
+
+New-AzSubscriptionDeployment `
+-ResourceGroupName ZenTia `
+-Name $deploymentName `
+-Location $Location `
+-TemplateFile $templateFile

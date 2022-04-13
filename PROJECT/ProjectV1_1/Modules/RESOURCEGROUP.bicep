@@ -4,7 +4,7 @@ targetScope = 'subscription'
 
 param location string = 'westeurope'
 
-var resourceGroupName = 'ZenTia'
+param resourceGroupName string
 
 resource resoGroup 'Microsoft.Resources/resourceGroups@2021-04-01'= {
   name: resourceGroupName

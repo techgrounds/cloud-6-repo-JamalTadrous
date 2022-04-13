@@ -526,9 +526,6 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2021-05-01' =
 }
 
 
-
-
-
 //VIRTUAL MACHINE SCALE SET WITH SSH 
 //HEALTH EXTENSION
 //WEBSCRIPT EXTENTION

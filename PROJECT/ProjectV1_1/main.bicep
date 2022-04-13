@@ -12,7 +12,6 @@ param resourceGroupName string = 'ZenTIA'
 
 
 
-
 ////////////////////////////////////////////////////////////////
 ////______________________RESOURCES_________________________////
 ////////////////////////////////////////////////////////////////
@@ -25,6 +24,7 @@ module rg './Modules/RESOURCEGROUP.bicep' = {
   name: resourceGroupName
   params: {
     location: location
+    resourceGroupName: resourceGroupName
   }
 }
 
@@ -118,28 +118,6 @@ module Webserver_VMSS_AppGw './Modules/Webserver_VMSS_AppGw.bicep' = {
 }
 
 
-/////////___VIRTUAL MACHINE SCALE SET & AUTOSCALING___///////////
-
-// module VMscaleset_autoscaling './Modules/VMscaleset.bicep' = {
-//   name: 'WEBvm_Scaleset_Autoscaling'
-//   scope: resourceGroup(resourceGroupName)
-//   dependsOn: [
-//     Webserver_VMSS_AppGw
-//     KEYVAULT
-//     stg
-//     rg
-//   ]
-//   params: {
-//     location: location
-    // adminUsername2: adminUsername2
-    // adminPassword2: adminPassword2
-    // dskEncrKey: KEYVAULT.outputs.dskEncrKey
-//   }
-// }
-
-
-
-
 /////////////////////___VNET PEERING___/////////////////////
 //VNET PEERING 1 & 2
 
@@ -184,19 +162,19 @@ module KEYVAULT './Modules/KeyVault.bicep' = {
 //BACKUP_POLICY_WITH_SCHEDULE
 
 
-// module RECOVERY './Modules/Recoverymod.bicep' = {
-//   name: 'RecovServVault'
-//   scope: resourceGroup(resourceGroupName)
-//   dependsOn: [
-//     rg
-//     KEYVAULT
-//     ADMINSERVER
-//     Webserver_VMSS_AppGw
-//   ]
-//   params: {
-//     location: location
-//   }
-// }
+module RECOVERY './Modules/Recoverymod.bicep' = {
+  name: 'RecovServVault'
+  scope: resourceGroup(resourceGroupName)
+  dependsOn: [
+    rg
+    KEYVAULT
+    ADMINSERVER
+    Webserver_VMSS_AppGw
+  ]
+  params: {
+    location: location
+  }
+}
 
 
 

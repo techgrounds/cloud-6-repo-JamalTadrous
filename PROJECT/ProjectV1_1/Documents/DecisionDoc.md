@@ -1,6 +1,6 @@
 # Design Doc.
 
-The reason i chose to use modules, is that by creating compartments of all the resources, you get a clearer overview over the resources and it makes the deploymentscript more deployable. Certain resources can be really big and need time to be deployed. When there is a lot in one script, in my experience, it will make the script harder to process and have a chance to fail more often. 
+The reason i chose to use modules, is that by creating compartments of all the resources, you get a clearer overview over the resources and it makes the deploymentscript more deployable. Certain resources can be really big and need time to be deployed. When there is a lot in one script, in my experience, it will make the script harder to process and has a chance to fail more often. 
 
 ## **Design Architecture:**
 #### 1: Written out requirements v1.1
